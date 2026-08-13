@@ -76,7 +76,7 @@ export default function MegaMenu({ open, onClose, activeSection = 'GROUP' }) {
         <div className="border-t border-white/10 pt-6 mt-auto">
           <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:justify-between text-sm uppercase tracking-[0.15em] text-white/60">
             <div className="flex flex-wrap gap-4">{footerItems.map((item) => <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>)}</div>
-            <div className="text-white/50">© 2026 DeLeon ENTERPRiSES Holdings</div>
+            <div className="text-white/50">© 2026 DELEON ENTERPRiSES Holdings</div>
           </div>
         </div>
       </motion.div>
