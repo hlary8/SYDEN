@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --holdings-bg: #0A0A0A;
+  --holdings-surface: #141414;
+  --holdings-text: #FFFFFF;
+  --holdings-text-muted: #888888;
+  --holdings-accent: #C9A96E;
+  --holdings-border: #2A2A2A;
+}
+
+* {
+  @apply transition-colors duration-300;
+}
+
+body {
+  background-color: var(--holdings-bg);
+  color: var(--holdings-text);
+  font-family: 'Inter', sans-serif;
+}
+
+main {
+  @apply min-h-screen;
+}
+
+@keyframes zoomSlow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A96E;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E3C77A;
+}

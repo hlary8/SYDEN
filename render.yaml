@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: DELEON ENTERPRiSES-api
+    env: docker
+    plan: starter
+    dockerfilePath: backend/Dockerfile
+    rootDir: backend
+    autoDeploy: true
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "5000"
+      - key: JWT_SECRET
+        generate: true
+      - key: JWT_REFRESH_SECRET
+        generate: true
+      - key: JWT_EXPIRE
+        value: 15m
+      - key: JWT_REFRESH_EXPIRE
+        value: 7d
+      - key: CLIENT_URL
+        value: https://DELEON ENTERPRiSES-web.onrender.com
+      - key: MONGODB_URI
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+  - type: web
+    name: DELEON ENTERPRiSES-web
+    env: docker
+    plan: starter
+    dockerfilePath: frontend/Dockerfile
+    rootDir: frontend
+    autoDeploy: true
+    envVars:
+      - key: VITE_API_URL
+        value: https://DELEON ENTERPRiSES-api.onrender.com/api/v1
