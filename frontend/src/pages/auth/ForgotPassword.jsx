@@ -9,7 +9,7 @@ export default function ForgotPassword() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('/api/v1/auth/forgot-password', { email });
+      await axios.post('/auth/forgot-password', { email });
       setSuccess('If that email exists, a reset link has been sent.');
     } catch (err) {
       setError('Unable to send reset link right now.');

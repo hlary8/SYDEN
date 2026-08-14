@@ -14,7 +14,7 @@ export function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get('/api/v1/admin/stats', {
+        const res = await axios.get('/admin/stats', {
           headers: { Authorization: `Bearer ${accessToken}` }
         });
         setStats(res.data.data);
@@ -29,7 +29,7 @@ export function AdminDashboard() {
 
   const fetchComments = async () => {
     try {
-      const res = await axios.get('/api/v1/admin/comments', {
+      const res = await axios.get('/admin/comments', {
         headers: { Authorization: `Bearer ${accessToken}` }
       });
       setComments(res.data.data);
@@ -119,7 +119,7 @@ export function AdminDashboard() {
                   variant="secondary"
                   className="text-xs px-3 py-1"
                   onClick={async () => {
-                    await axios.delete(`/api/v1/admin/comments/${comment._id}`, {
+                    await axios.delete(`/admin/comments/${comment._id}`, {
                       headers: { Authorization: `Bearer ${accessToken}` }
                     });
                     fetchComments();

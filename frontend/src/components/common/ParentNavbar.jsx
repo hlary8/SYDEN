@@ -17,11 +17,22 @@ export default function ParentNavbar() {
       <nav className="fixed inset-x-0 top-[36px] z-50 border-b border-[var(--holdings-border)] bg-[rgba(10,10,10,0.85)] backdrop-blur-xl">
         {/* Mobile layout */}
         <div className="md:hidden mx-auto flex max-w-7xl items-center justify-between px-4 py-4 text-[11px] uppercase tracking-[0.15em] text-[var(--holdings-text-muted)]">
-          <button onClick={() => openMegaMenu('GROUP')} className="hover:text-white transition-colors duration-300">GROUP</button>
+          <button
+            type="button"
+            aria-label="Open menu"
+            onClick={() => openMegaMenu('GROUP')}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors duration-300 hover:border-[var(--holdings-accent)] hover:text-white"
+          >
+            <span className="flex flex-col gap-1.5">
+              <span className="block h-0.5 w-5 rounded-full bg-current" />
+              <span className="block h-0.5 w-5 rounded-full bg-current" />
+              <span className="block h-0.5 w-5 rounded-full bg-current" />
+            </span>
+          </button>
           
-          <Link to="/" className="text-sm font-serif uppercase tracking-[0.4em] text-[var(--holdings-text)]">D E L E O N</Link>
+          <Link to="/" className="text-sm font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:tracking-[0.28em]">D E L E O N</Link>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-5">
             <Link to="/sustainability" className="hover:text-white transition-colors duration-300">SUSTAINABILITY</Link>
             {user ? (
               <button
@@ -46,15 +57,26 @@ export default function ParentNavbar() {
 
         {/* Desktop layout */}
         <div className="hidden md:flex mx-auto max-w-7xl items-center justify-between px-4 py-4 text-[11px] uppercase tracking-[0.15em] text-[var(--holdings-text-muted)]">
-          <div className="flex items-center gap-10">
-            <button onClick={() => openMegaMenu('GROUP')} className="hover:text-white transition-colors duration-300">GROUP</button>
+          <div className="flex items-center gap-8">
+            <button
+              type="button"
+              aria-label="Open menu"
+              onClick={() => openMegaMenu('GROUP')}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors duration-300 hover:border-[var(--holdings-accent)] hover:text-white"
+            >
+              <span className="flex flex-col gap-1.5">
+                <span className="block h-0.5 w-5 rounded-full bg-current" />
+                <span className="block h-0.5 w-5 rounded-full bg-current" />
+                <span className="block h-0.5 w-5 rounded-full bg-current" />
+              </span>
+            </button>
             <Link to="/houses" className="hover:text-white transition-colors duration-300">HOUSES</Link>
             <Link to="/talent" className="hover:text-white transition-colors duration-300">TALENT</Link>
           </div>
 
-          <Link to="/" className="text-sm font-serif uppercase tracking-[0.4em] text-[var(--holdings-text)]">D E L E O N</Link>
+          <Link to="/" className="text-xs font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:text-sm sm:tracking-[0.3em]">D E L E O N</Link>
 
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-8">
             <Link to="/sustainability" className="hover:text-white transition-colors duration-300">SUSTAINABILITY</Link>
             <Link to="/finance" className="hover:text-white transition-colors duration-300">FINANCE</Link>
             <Link to="/press" className="hover:text-white transition-colors duration-300">PRESS</Link>

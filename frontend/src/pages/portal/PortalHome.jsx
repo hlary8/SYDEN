@@ -25,15 +25,15 @@ export default function PortalHome() {
         </div>
         <div className="relative overflow-hidden bg-black">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(201,169,110,0.15),_transparent_35%)]" />
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center animate-[zoomSlow_20s_linear_infinite]" />
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center" />
         </div>
       </section>
 
-      <section className="border-t border-[var(--holdings-border)] px-8 py-24 lg:px-24">
+      <section className="border-t border-[var(--holdings-border)] px-8 py-20 lg:px-24 lg:py-24">
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="flex flex-col gap-4">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">DELEON ENTERPRiSES Holdings</div>
-            <div className="flex flex-wrap items-center gap-4 text-5xl font-serif uppercase tracking-[0.2em]">
+            <div className="flex flex-wrap items-center gap-3 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">
               <span className="font-light">DEL</span>
               <span className="font-bold">EON</span>
               <span className="font-light">HIGHLIGHTS</span>
@@ -73,12 +73,12 @@ export default function PortalHome() {
         </div>
       </section>
 
-      <section className="hidden lg:block bg-[var(--holdings-bg)] px-8 py-24 lg:px-24">
+      <section className="bg-[var(--holdings-bg)] px-8 py-16 lg:px-24 lg:py-24">
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">The Dream Machine</p>
-              <h2 className="mt-4 text-5xl font-serif uppercase tracking-[0.15em]">A cinematic journey through our houses</h2>
+              <h2 className="mt-4 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">A cinematic journey through our houses</h2>
             </div>
             <Link to="/dream-machine" className="inline-flex rounded-full border border-[var(--holdings-accent)] px-8 py-4 text-sm uppercase tracking-[0.18em] text-[var(--holdings-accent)] transition-colors duration-300 hover:bg-[var(--holdings-accent)] hover:text-black">
               Explore the story

@@ -17,13 +17,27 @@ export default function Press() {
   const load = async (p = 1, reset = false) => {
     const params = { page: p, limit: 12 };
     if (filter !== 'all') params.category = filter;
-    const { data } = await axios.get('/api/v1/news', { params });
-    if (reset) setArticles(data.articles);
-    else setArticles((s) => [...s, ...data.articles]);
-    setHasMore(p < data.totalPages);
-    if (!featuredArticle) {
-      const feat = data.articles.find(a => a.featured) || data.articles[0] || null;
-      setFeaturedArticle(feat);
+    try {
+      const { data } = await axios.get('/api/v1/news', { params });
+      const list = Array.isArray(data?.articles) ? data.articles : [];
+
+      if (reset) {
+        setArticles(list);
+      } else {
+        setArticles((s) => [...s, ...list]);
+      }
+
+      const nextFeatured = list.find(a => a.featured) || list[0] || null;
+      if (reset || !featuredArticle || !list.some(a => a._id === featuredArticle?._id)) {
+        setFeaturedArticle(nextFeatured);
+      }
+
+      setHasMore(typeof data?.totalPages === 'number' ? p < data.totalPages : list.length >= params.limit);
+    } catch (err) {
+      console.error('Failed to load articles', err);
+      if (reset) setArticles([]);
+      setFeaturedArticle(null);
+      setHasMore(false);
     }
   };
 

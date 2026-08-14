@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ImageUploader from '../common/ImageUploader';
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+// Use relative paths; axios baseURL is configured in src/main.jsx
 
 export default function NewsFormModal({ article, onClose, onSuccess }) {
   const [form, setForm] = useState({
@@ -129,12 +129,12 @@ export default function NewsFormModal({ article, onClose, onSuccess }) {
 
       if (article) {
         // Update
-        await axios.patch(`${API_BASE}/news/${article._id}`, payload, {
+        await axios.patch(`/news/${article._id}`, payload, {
           headers: { Authorization: token ? `Bearer ${token}` : undefined }
         });
       } else {
         // Create
-        await axios.post(`${API_BASE}/news`, payload, {
+        await axios.post('/news', payload, {
           headers: { Authorization: token ? `Bearer ${token}` : undefined }
         });
       }

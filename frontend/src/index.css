@@ -19,6 +19,23 @@ body {
   background-color: var(--holdings-bg);
   color: var(--holdings-text);
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
 }
 
 main {

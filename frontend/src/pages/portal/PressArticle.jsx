@@ -5,7 +5,7 @@ import { formatDate } from '../../utils/dateFormatter';
 import { shareOnLinkedIn, shareOnX, shareOnFacebook, copyLink } from '../../utils/share';
 import '../../styles/press.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+// Use relative paths; axios baseURL is configured in src/main.jsx
 
 export default function PressArticle() {
   const { slug } = useParams();
@@ -21,20 +21,20 @@ export default function PressArticle() {
       try {
         setLoading(true);
         setError(null);
-        const { data } = await axios.get(`${API_BASE}/news/${slug}`);
+        const { data } = await axios.get(`/api/v1/news/${slug}`);
         setArticle(data);
         
         // Load related articles
         if (data.category) {
-          try {
-            const rel = await axios.get(`${API_BASE}/news`, { 
+            try {
+            const rel = await axios.get('/api/v1/news', { 
               params: { category: data.category, limit: 3 } 
             });
-            if (rel.data.articles) {
-              setRelated(rel.data.articles.filter(a => a._id !== data._id).slice(0, 3));
-            }
+            const relatedArticles = Array.isArray(rel.data?.articles) ? rel.data.articles : [];
+            setRelated(relatedArticles.filter(a => a._id !== data._id).slice(0, 3));
           } catch (e) {
             console.error('Error loading related articles:', e);
+            setRelated([]);
           }
         }
       } catch (err) {

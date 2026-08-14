@@ -19,7 +19,7 @@ export default function DeLeonEnterprisesLandUpload() {
   useEffect(() => {
     const load = async () => {
       try {
-        const { data } = await axios.get('/api/v1/lands');
+        const { data } = await axios.get('/lands');
         setItems(Array.isArray(data.data) ? data.data : []);
       } catch (e) {
         console.error('Load error', e);
@@ -48,13 +48,13 @@ export default function DeLeonEnterprisesLandUpload() {
       const token = localStorage.getItem('accessToken');
       if (editingId) {
         // Update
-        const { data } = await axios.patch(`/api/v1/lands/${editingId}`, form, {
+        const { data } = await axios.patch(`/lands/${editingId}`, form, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setItems(items.map(i => i._id === editingId ? data.data : i));
       } else {
         // Create
-        const { data } = await axios.post('/api/v1/lands', form, {
+        const { data } = await axios.post('/lands', form, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setItems([data.data, ...items]);
@@ -80,7 +80,7 @@ export default function DeLeonEnterprisesLandUpload() {
     if (!confirm('Delete this land listing?')) return;
     try {
       const token = localStorage.getItem('accessToken');
-      await axios.delete(`/api/v1/lands/${id}`, {
+      await axios.delete(`/lands/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setItems(items.filter(i => i._id !== id));

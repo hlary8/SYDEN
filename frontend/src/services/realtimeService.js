@@ -6,8 +6,10 @@ let socket = null;
 export const initializeSocket = () => {
   if (socket) return socket;
   
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
-  socket = io(apiUrl, {
+  // If VITE_API_URL includes a path like '/api/v1', strip it for socket connection
+  const rawApi = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+  const socketUrl = rawApi.replace(/\/api\/v1\/?$/, '');
+  socket = io(socketUrl, {
     reconnection: true,
     reconnectionDelay: 1000,
     reconnectionDelayMax: 5000,

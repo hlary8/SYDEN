@@ -17,7 +17,7 @@ export default function ImageUploader({ onUpload, folder = 'general', multiple =
       const form = new FormData();
       files.forEach((f) => form.append('images', f));
       
-      const { data } = await axios.post('/api/v1/upload/images', form, {
+      const { data } = await axios.post('/upload/images', form, {
         headers: { 
           'Content-Type': 'multipart/form-data',
           'Authorization': token ? `Bearer ${token}` : undefined

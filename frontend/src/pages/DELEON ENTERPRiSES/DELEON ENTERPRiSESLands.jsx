@@ -16,9 +16,10 @@ export default function DeLeonEnterprisesLands() {
   useEffect(() => {
     const fetchLands = async () => {
       try {
-        const res = await axios.get('/api/v1/lands');
-        setLands(res.data.data || []);
-        setFilteredLands(res.data.data || []);
+        const res = await axios.get('/lands');
+        const list = Array.isArray(res.data?.data) ? res.data.data : [];
+        setLands(list);
+        setFilteredLands(list);
       } catch (err) {
         console.error('Error fetching lands:', err);
       } finally {

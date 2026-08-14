@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/press.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+// Use relative paths; axios baseURL is configured in src/main.jsx
 
 export default function AdminNewsDashboard() {
   const { user } = useAuth();
@@ -31,7 +31,7 @@ export default function AdminNewsDashboard() {
       setLoading(true);
       const token = localStorage.getItem('accessToken');
       // Use admin endpoint to get all articles including drafts
-      const { data } = await axios.get(`${API_BASE}/news/admin/all`, {
+      const { data } = await axios.get('/news/admin/all', {
         headers: { Authorization: token ? `Bearer ${token}` : undefined }
       });
       setArticles(Array.isArray(data) ? data : data.articles || []);
@@ -79,7 +79,7 @@ export default function AdminNewsDashboard() {
 
     try {
       const token = localStorage.getItem('accessToken');
-      await axios.delete(`${API_BASE}/news/${articleId}`, {
+      await axios.delete(`/news/${articleId}`, {
         headers: { Authorization: token ? `Bearer ${token}` : undefined }
       });
       setArticles(articles.filter(a => a._id !== articleId));
