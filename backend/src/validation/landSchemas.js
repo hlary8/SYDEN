@@ -6,7 +6,11 @@ const locationSchema = z.object({
   mapboxId: z.string().optional()
 });
 
-const imageSchema = z.object({ url: z.string().url().optional(), publicId: z.string().optional(), caption: z.string().optional() });
+const imageSchema = z.object({
+  url: z.string().url().optional(),
+  publicId: z.string().optional(),
+  caption: z.string().optional()
+});
 
 const landCreateSchema = z.object({
   title: z.string().min(1),
@@ -16,7 +20,8 @@ const landCreateSchema = z.object({
   sizeAcres: z.number().optional(),
   location: locationSchema.optional(),
   features: z.array(z.string()).optional(),
-  status: z.enum(['available','pending','sold']).optional()
+  status: z.enum(['available','pending','sold']).optional(),
+  images: z.array(imageSchema).optional()
 });
 
 const landUpdateSchema = landCreateSchema.partial();

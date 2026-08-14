@@ -179,7 +179,7 @@ export default function DeLeonEnterprisesLands() {
                 <h2 className="text-2xl font-semibold mb-2">{land.title}</h2>
                 <p className="text-sm text-gray-500 mb-2">{land.location?.address || (typeof land.location === 'string' ? land.location : '')}</p>
                 <p className="text-sm text-gray-500 mb-4">{(land.sizeAcres ?? land.size ?? '—')} acres</p>
-                <p className="text-xl font-bold mb-4">KES {land.price ? Number(land.price).toLocaleString() : '—'}</p>
+                <p className="text-xl font-bold mb-4">{land.price ? Number(land.price).toLocaleString() : '—'}</p>
                 <Link to={`/deleon/lands/${land.slug}`} className="inline-flex items-center gap-2 text-[var(--accent)] font-semibold hover:underline">
                   View details →
                 </Link>

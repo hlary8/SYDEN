@@ -14,7 +14,7 @@ export default function PortalHome() {
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link to="/houses" className="inline-flex items-center justify-center rounded-full border border-white px-10 py-4 text-sm uppercase tracking-[0.18em] transition-colors duration-300 hover:bg-white hover:text-black">
-                Discover our houses →
+                Discover our companies →
               </Link>
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function PortalHome() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">The Dream Machine</p>
-              <h2 className="mt-4 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">A cinematic journey through our houses</h2>
+              <h2 className="mt-4 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">A cinematic journey through our Companies</h2>
             </div>
             <Link to="/dream-machine" className="inline-flex rounded-full border border-[var(--holdings-accent)] px-8 py-4 text-sm uppercase tracking-[0.18em] text-[var(--holdings-accent)] transition-colors duration-300 hover:bg-[var(--holdings-accent)] hover:text-black">
               Explore the story
@@ -86,9 +86,14 @@ export default function PortalHome() {
           </div>
           <div className="grid gap-6 lg:grid-cols-3">
             {[
-              { brand: 'Syden', title: 'The Science of Healthy Livestock', desc: 'Veterinary excellence & pastoral heritage.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg' },
-              { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg' },
-              { brand: 'DELEON ENTERPRiSES', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg' }
+
+
+             { brand: 'DELEON ENTERPRiSES', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg' },
+              
+             { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg' },
+             
+             { brand: 'Syden', title: 'The Science of Healthy Livestock', desc: 'Veterinary excellence & pastoral heritage.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg' }
+
             ].map((item) => (
               <div key={item.brand} className="rounded-none bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-2 flex flex-col">
                 <div className="h-48 md:h-64 lg:h-96 rounded-none bg-black/10 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${item.image})` }} />

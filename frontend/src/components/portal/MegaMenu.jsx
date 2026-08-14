@@ -32,8 +32,8 @@ export default function MegaMenu({ open, onClose, activeSection = 'GROUP' }) {
         
         <div className="grid flex-1 gap-6 md:gap-10 py-10 lg:grid-cols-[1.2fr_1.8fr_1.5fr]">
           <div className="space-y-6 border-r border-white/10 pr-8">
-            {['HOUSES', 'JOIN US', 'DREAM MACHINE'].map((text) => (
-              <Link key={text} to={text === 'HOUSES' ? '/houses' : text === 'DREAM MACHINE' ? '/dream-machine' : text === 'JOIN US' ? '/auth/login' : `/${text.toLowerCase().replace(/ /g, '-')}`}
+            {['COMPANIES', 'JOIN US', 'DREAM MACHINE'].map((text) => (
+              <Link key={text} to={text === 'COMPANIES' ? '/houses' : text === 'DREAM MACHINE' ? '/dream-machine' : text === 'JOIN US' ? '/auth/login' : `/${text.toLowerCase().replace(/ /g, '-')}`}
                 className="block text-sm uppercase tracking-[0.2em] text-white/70 hover:text-white transition-colors"
                 onClick={onClose}
               >

@@ -13,7 +13,7 @@ export default function Houses() {
       <section className="relative h-[80vh] md:h-screen flex items-center justify-center" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 mx-auto max-w-4xl text-center px-4 md:px-6">
-          <h1 className="font-[Cormorant] text-white text-[clamp(2.5rem,8vw,4.5rem)] leading-tight">OUR HOUSES</h1>
+          <h1 className="font-[Cormorant] text-white text-[clamp(2.5rem,8vw,4.5rem)] leading-tight">OUR COMPANIES</h1>
           <p className="mt-6 text-white text-sm md:text-lg max-w-3xl mx-auto px-2">Three pillars. One vision. Cultivating excellence across land, livestock, and harvest.</p>
         </div>
         <div className="absolute bottom-8 md:bottom-12 w-full text-center text-white/80">
@@ -28,8 +28,8 @@ export default function Houses() {
             <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE HOUSE</p>
             <h2 className="mt-4 font-serif text-2xl md:text-4xl">DELEON</h2>
             <h3 className="mt-2 text-lg md:text-xl font-semibold">The Land Legacy</h3>
-            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">Founded on the principle that land is the foundation of all prosperity, DeLeon has spent over a decade curating premium agricultural and development parcels across East Africa. From the rolling highlands of Laikipia to the fertile plains of Meru, every acre is surveyed, fenced, and title-deed ready. We do not merely sell land — we deliver legacy. Each parcel comes with environmental assessments, infrastructure mapping, and a commitment to sustainable stewardship that spans generations.</p>
-            <Link to="/deleon" className="inline-block mt-6 underline text-[#D4AF37] hover:text-black text-sm md:text-base">Explore DeLeon →</Link>
+            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">Founded on the principle that land is the foundation of all prosperity, DELEON has spent over a decade curating premium agricultural and development parcels across East Africa. From the rolling highlands of Laikipia to the fertile plains of Meru, every acre is surveyed, fenced, and title-deed ready. We do not merely sell land — we deliver legacy. Each parcel comes with environmental assessments, infrastructure mapping, and a commitment to sustainable stewardship that spans generations.</p>
+            <Link to="/deleon" className="inline-block mt-6 underline text-[#D4AF37] hover:text-black text-sm md:text-base">Explore DELEON →</Link>
           </div>
           <div className="lg:w-1/2 w-full">
             <CinematicHero
@@ -44,6 +44,37 @@ export default function Houses() {
           </div>
         </div>
       </section>
+
+
+
+             {/* DeeFresh Section */}
+      <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5]">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+          <div className="lg:w-1/2">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE HOUSE</p>
+            <h2 className="mt-4 font-serif text-2xl md:text-4xl">DeeFresh</h2>
+            <h3 className="mt-2 text-lg md:text-xl font-semibold">The Harvest Dream</h3>
+            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">DeeFresh reimagines the farm-to-table journey as a seamless tapestry of partnership, precision, and purity. We engage small-scale and large-scale farmers through contractual farming agreements that guarantee fair prices and agronomical support. Our consultancy services span soil analysis, crop planning, and market sourcing — with a special focus on peas and high-value produce. From seed selection to supermarket shelf, DeeFresh ensures every harvest reaches its fullest potential.</p>
+            <Link to="/deefresh" className="inline-block mt-6 underline text-[#D4AF37] hover:text-black text-sm md:text-base">Explore DeeFresh →</Link>
+          </div>
+          <div className="lg:w-1/2 w-full">
+            <CinematicHero
+              mediaUrl={import.meta.env.VITE_DEEFRESH_HOUSE_MEDIA || deefreshImage}
+              posterUrl={import.meta.env.VITE_DEEFRESH_HOUSE_POSTER || (deefreshImage + '?w=200&blur=200')}
+              label="THE HARVEST DREAM"
+              headline="At DeeFresh, We Cultivate<br/>Abundance"
+              subheadline="Contractual farming, agronomical services, and the finest fresh produce from farm to table."
+              ctas={[{ label: 'Shop Produce →', to: '/deefresh/produce', variant: 'primary' }, { label: 'Farm With Us →', to: '/deefresh/contract-farming', variant: 'secondary' }]}
+            />
+            <p className="mt-3 text-xs md:text-sm text-gray-500">DeeFresh Partner Farm</p>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
 
       {/* Syden Section */}
       <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5] bg-white">
@@ -69,30 +100,7 @@ export default function Houses() {
         </div>
       </section>
 
-      {/* DeeFresh Section */}
-      <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5]">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12">
-          <div className="lg:w-1/2">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE HOUSE</p>
-            <h2 className="mt-4 font-serif text-2xl md:text-4xl">DeeFresh</h2>
-            <h3 className="mt-2 text-lg md:text-xl font-semibold">The Harvest Dream</h3>
-            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">DeeFresh reimagines the farm-to-table journey as a seamless tapestry of partnership, precision, and purity. We engage small-scale and large-scale farmers through contractual farming agreements that guarantee fair prices and agronomical support. Our consultancy services span soil analysis, crop planning, and market sourcing — with a special focus on peas and high-value produce. From seed selection to supermarket shelf, DeeFresh ensures every harvest reaches its fullest potential.</p>
-            <Link to="/deefresh" className="inline-block mt-6 underline text-[#D4AF37] hover:text-black text-sm md:text-base">Explore DeeFresh →</Link>
-          </div>
-          <div className="lg:w-1/2 w-full">
-            <CinematicHero
-              mediaUrl={import.meta.env.VITE_DEEFRESH_HOUSE_MEDIA || deefreshImage}
-              posterUrl={import.meta.env.VITE_DEEFRESH_HOUSE_POSTER || (deefreshImage + '?w=200&blur=200')}
-              label="THE HARVEST DREAM"
-              headline="At DeeFresh, We Cultivate<br/>Abundance"
-              subheadline="Contractual farming, agronomical services, and the finest fresh produce from farm to table."
-              ctas={[{ label: 'Shop Produce →', to: '/deefresh/produce', variant: 'primary' }, { label: 'Farm With Us →', to: '/deefresh/contract-farming', variant: 'secondary' }]}
-            />
-            <p className="mt-3 text-xs md:text-sm text-gray-500">DeeFresh Partner Farm</p>
-          </div>
-        </div>
-      </section>
-
+     
       {/* Footer handled by layout */}
     </div>
   );

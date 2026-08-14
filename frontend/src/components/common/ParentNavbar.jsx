@@ -70,7 +70,7 @@ export default function ParentNavbar() {
                 <span className="block h-0.5 w-5 rounded-full bg-current" />
               </span>
             </button>
-            <Link to="/houses" className="hover:text-white transition-colors duration-300">HOUSES</Link>
+            <Link to="/houses" className="hover:text-white transition-colors duration-300">COMPANIES</Link>
             <Link to="/talent" className="hover:text-white transition-colors duration-300">TALENT</Link>
           </div>
 
