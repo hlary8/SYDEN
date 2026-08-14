@@ -1,0 +1,84 @@
+/* === Scoped fixes for Press and Admin pages === */
+
+/* === PRESS PAGE — Force dark text over global white theme === */
+.press-page {
+  color: #0A0A0A !important;
+}
+.press-page * {
+  color: inherit;
+}
+.press-page .press-header h1,
+.press-page .featured-content h2,
+.press-page .article-title,
+.press-page .article-content,
+.press-page .article-content h2,
+.press-page .see-all-btn,
+.press-page .see-more,
+.press-page .press-filters button {
+  color: #0A0A0A !important;
+}
+.press-page .press-subtitle,
+.press-page .article-excerpt,
+.press-page .article-date,
+.press-page .article-meta-bar,
+.press-page .article-hero-image figcaption {
+  color: #666 !important;
+}
+.press-page .article-category,
+.press-page .featured-label {
+  color: #C9A96E !important;
+}
+.press-page .article-socials button {
+  color: #999 !important;
+}
+.press-page .article-socials button:hover {
+  color: #0A0A0A !important;
+}
+
+/* === ADMIN NEWS DASHBOARD — Force dark text & fix inputs === */
+.admin-news-page {
+  color: #0A0A0A !important;
+  background: #FFFFFF;
+}
+.admin-news-page * {
+  color: inherit;
+}
+.admin-news-page h1,
+.admin-news-page h2,
+.admin-news-page h3,
+.admin-news-page p,
+.admin-news-page span,
+.admin-news-page label,
+.admin-news-page td,
+.admin-news-page th {
+  color: #0A0A0A !important;
+}
+.admin-news-page input,
+.admin-news-page textarea,
+.admin-news-page select {
+  color: #0A0A0A !important;
+  background: #FFFFFF !important;
+  border: 1px solid #CCC !important;
+}
+.admin-news-page input::placeholder,
+.admin-news-page textarea::placeholder {
+  color: #888 !important;
+}
+.admin-news-page .admin-table th {
+  color: #888 !important;
+}
+.admin-news-page .admin-table td {
+  color: #333 !important;
+}
+.admin-news-page .badge {
+  color: #FFFFFF !important;
+}
+.admin-news-page .edit-btn,
+.admin-news-page .delete-btn,
+.admin-news-page .save-btn,
+.admin-news-page .cancel-btn,
+.admin-news-page .add-btn {
+  color: inherit !important;
+}
+
+/* Keep all rules strictly within wrappers above to avoid leaking into global theme */

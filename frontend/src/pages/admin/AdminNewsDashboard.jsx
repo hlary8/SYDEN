@@ -5,6 +5,7 @@ import NewsFormModal from '../../components/admin/NewsFormModal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/press.css';
+import '../../styles/press-fixes.css';
 
 // Use relative paths; axios baseURL is configured in src/main.jsx
 
@@ -113,7 +114,8 @@ export default function AdminNewsDashboard() {
   }
 
   return (
-    <div className="admin-news-container" style={{ padding: '40px', minHeight: '100vh', background: '#FAFAFA' }}>
+    <div className="admin-news-page">
+      <div className="admin-news-container" style={{ padding: '40px', minHeight: '100vh', background: '#FAFAFA' }}>
       <section className="admin-header" style={{ marginBottom: '40px', borderBottom: '1px solid #E5E5E5', paddingBottom: '24px' }}>
         <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '36px', color: '#0A0A0A', marginBottom: '8px' }}>News Management</h1>
         <p style={{ fontSize: '14px', color: '#333', marginBottom: '16px' }}>{articles.length} articles • {articles.filter(a => a.published).length} published</p>
@@ -250,6 +252,7 @@ export default function AdminNewsDashboard() {
           }}
         />
       )}
-    </div>
+        </div>
+      </div>
   );
 }

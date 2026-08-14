@@ -78,6 +78,17 @@ function App() {
               <Route path="admin/inquiries" element={<DeLeonEnterprisesInquiries />} />
             </Route>
 
+            <Route path="/DELEON ENTERPRiSES/*" element={<DeLeonEnterprisesLayout />}>
+              <Route index element={<DeLeonEnterprisesHome />} />
+              <Route path="lands" element={<DeLeonEnterprisesLands />} />
+              <Route path="lands/:slug" element={<DeLeonEnterprisesLandDetail />} />
+              <Route path="about" element={<DeLeonEnterprisesAbout />} />
+              <Route path="contact" element={<DeLeonEnterprisesContact />} />
+              <Route path="admin" element={<DeLeonEnterprisesAdminDashboard />} />
+              <Route path="admin/upload" element={<DeLeonEnterprisesLandUpload />} />
+              <Route path="admin/inquiries" element={<DeLeonEnterprisesInquiries />} />
+            </Route>
+
             <Route path="/syden/*" element={<SydenLayout />}>
               <Route index element={<SydenHome />} />
               <Route path="livestock" element={<SydenLivestock />} />

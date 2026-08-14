@@ -25,7 +25,7 @@ export default function PortalHome() {
         </div>
         <div className="relative overflow-hidden bg-black">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(201,169,110,0.15),_transparent_35%)]" />
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center" />
+          <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg')] bg-cover bg-center" />
         </div>
       </section>
 
@@ -43,12 +43,12 @@ export default function PortalHome() {
 
           <div className="grid gap-6 lg:grid-cols-3">
             {[
-              { title: '15,000+ Acres Under Management', label: 'LAND', href: '/deleon' },
-              { title: 'Sustainable Farming Since 2008', label: 'LEGACY', href: '/about' },
-              { title: 'From Farm to Global Markets', label: 'REACH', href: '/deefresh' }
+              { title: '15,000+ Acres Under Management', label: 'LAND', href: '/deleon', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg' },
+              { title: 'Sustainable Farming Since 2008', label: 'LEGACY', href: '/about', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg' },
+              { title: 'From Farm to Global Markets', label: 'REACH', href: '/deefresh', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698435/WhatsApp_Image_2026-08-14_at_11.25.35_2_fkx7yb.jpg' }
             ].map((card) => (
               <motion.div key={card.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }} className="overflow-hidden rounded-none bg-[var(--holdings-surface)] p-8">
-                <div className="h-56 rounded-none bg-black/20 mb-6" />
+                <div className="h-56 rounded-none bg-black/20 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${card.image})` }} />
                 <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">{card.label}</p>
                 <h2 className="mt-4 text-2xl font-semibold leading-tight">{card.title}</h2>
                 <Link to={card.href} className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-[var(--holdings-accent)]">
@@ -85,12 +85,16 @@ export default function PortalHome() {
             </Link>
           </div>
           <div className="grid gap-6 lg:grid-cols-3">
-            {['Syden', 'DeeFresh', 'DELEON ENTERPRiSES'].map((brand) => (
-              <div key={brand} className="rounded-none bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-2">
-                <div className="h-48 rounded-none bg-black/10 mb-6" />
-                <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">{brand}</p>
-                <h3 className="mt-4 text-2xl font-semibold">{brand === 'Syden' ? 'The Science of Healthy Livestock' : brand === 'DeeFresh' ? 'Nature’s Finest Harvest' : 'Premium Real Estate'}</h3>
-                <p className="mt-4 text-sm text-[var(--holdings-text-muted)]">{brand === 'Syden' ? 'Veterinary excellence & pastoral heritage.' : brand === 'DeeFresh' ? 'Farm-to-table freshness and premium seeds.' : 'Legacy land portfolios and curated estates.'}</p>
+            {[
+              { brand: 'Syden', title: 'The Science of Healthy Livestock', desc: 'Veterinary excellence & pastoral heritage.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg' },
+              { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg' },
+              { brand: 'DELEON ENTERPRiSES', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg' }
+            ].map((item) => (
+              <div key={item.brand} className="rounded-none bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-2 flex flex-col">
+                <div className="h-48 md:h-64 lg:h-96 rounded-none bg-black/10 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${item.image})` }} />
+                <p className="text-[11px] uppercase tracking-[0.2em] text-gray-500">{item.brand}</p>
+                <h3 className="mt-4 text-2xl font-semibold text-gray-900">{item.title}</h3>
+                <p className="mt-4 text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>

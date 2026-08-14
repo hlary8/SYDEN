@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { formatDate } from '../../utils/dateFormatter';
 import { LinkedInIcon, XIcon, FacebookIcon } from '../../components/common/Icons';
 import '../../styles/press.css';
+import '../../styles/press-fixes.css';
 
 export default function Press() {
   const { user } = useAuth();
@@ -46,7 +47,8 @@ export default function Press() {
   const loadMore = () => { const p = page + 1; setPage(p); load(p); };
 
   return (
-    <div className="min-h-screen bg-white text-black px-6 py-12">
+    <div className="press-page">
+      <div className="min-h-screen bg-white text-black px-6 py-12">
       <section className="press-header">
         <h1>News</h1>
         <p className="press-subtitle">Discover the latest from DeLeon Holdings.</p>
@@ -122,6 +124,7 @@ export default function Press() {
           </div>
         )}
       </main>
+      </div>
     </div>
   );
 }

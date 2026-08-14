@@ -32,8 +32,8 @@ export default function MegaMenu({ open, onClose, activeSection = 'GROUP' }) {
         
         <div className="grid flex-1 gap-6 md:gap-10 py-10 lg:grid-cols-[1.2fr_1.8fr_1.5fr]">
           <div className="space-y-6 border-r border-white/10 pr-8">
-            {['GROUP', 'COMMITMENTS', 'HOUSES', 'JOIN US', 'DREAM MACHINE'].map((text) => (
-              <Link key={text} to={text === 'HOUSES' ? '/houses' : text === 'DREAM MACHINE' ? '/dream-machine' : `/${text.toLowerCase().replace(/ /g, '-')}`}
+            {['HOUSES', 'JOIN US', 'DREAM MACHINE'].map((text) => (
+              <Link key={text} to={text === 'HOUSES' ? '/houses' : text === 'DREAM MACHINE' ? '/dream-machine' : text === 'JOIN US' ? '/auth/login' : `/${text.toLowerCase().replace(/ /g, '-')}`}
                 className="block text-sm uppercase tracking-[0.2em] text-white/70 hover:text-white transition-colors"
                 onClick={onClose}
               >
@@ -41,7 +41,7 @@ export default function MegaMenu({ open, onClose, activeSection = 'GROUP' }) {
               </Link>
             ))}
             <div className="border-t border-white/10 pt-6">
-              {['INVESTORS', 'PRESS', 'SUPPLIERS', 'CANDIDATE PORTAL'].map((text) => (
+              {[ 'PRESS',].map((text) => (
                 <Link key={text} to={`/${text.toLowerCase().replace(/ /g, '-')}`} className="block text-sm uppercase tracking-[0.15em] text-white/50 hover:text-white transition-colors" onClick={onClose}>
                   {text}
                 </Link>
@@ -51,7 +51,7 @@ export default function MegaMenu({ open, onClose, activeSection = 'GROUP' }) {
 
           <div className="space-y-6">
             <div className="text-sm uppercase tracking-[0.2em] text-white/70">{activeSection === 'HOUSES' ? 'HOUSES' : 'GROUP'}</div>
-            {(activeSection === 'HOUSES' ? ['OUR COMMITMENT IN ACTION', 'OUR ETHICS & COMPLIANCE APPROACH', 'FOR PEOPLE', 'FOR THE ENVIRONMENT', 'FOR PHILANTHROPY', 'ALL OUR ACTIONS'] : ['LEADERSHIP', 'GOVERNANCE', 'HISTORY', 'GLOBAL PRESENCE']).map((item) => (
+            {(activeSection === 'HOUSES' ? ['OUR COMMITMENT IN ACTION', 'OUR ETHICS & COMPLIANCE APPROACH', 'FOR PEOPLE', 'FOR THE ENVIRONMENT', 'FOR PHILANTHROPY', 'ALL OUR ACTIONS'] : [ 'HISTORY', 'GLOBAL PRESENCE']).map((item) => (
               <Link key={item} to="#" className="block text-lg md:text-2xl font-light uppercase tracking-[0.15em] text-white/90 hover:text-[var(--holdings-accent)] transition-colors" onClick={(e) => e.preventDefault()}>
                 {item}
               </Link>

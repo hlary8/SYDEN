@@ -3,9 +3,9 @@ import CinematicHero from '../../components/common/CinematicHero';
 
 export default function Houses() {
   const heroImage = import.meta.env.VITE_HERO_IMAGE_URL || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=80';
-  const deleonImage = import.meta.env.VITE_DELEON_HOUSE_IMAGE || 'https://res.cloudinary.com/demo/image/upload/v1610000000/deleon/laikipia.jpg';
-  const sydenImage = import.meta.env.VITE_SYDEN_HOUSE_IMAGE || 'https://res.cloudinary.com/demo/image/upload/v1610000000/syden/livestock.jpg';
-  const deefreshImage = import.meta.env.VITE_DEEFRESH_HOUSE_IMAGE || 'https://res.cloudinary.com/demo/image/upload/v1610000000/deefresh/produce.jpg';
+  const deleonImage = import.meta.env.VITE_DELEON_HOUSE_IMAGE || 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg';
+  const sydenImage = import.meta.env.VITE_SYDEN_HOUSE_IMAGE || 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg';
+  const deefreshImage = import.meta.env.VITE_DEEFRESH_HOUSE_IMAGE || 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg';
 
   return (
     <div className="min-h-screen bg-white text-black">

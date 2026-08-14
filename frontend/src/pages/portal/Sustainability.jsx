@@ -22,7 +22,7 @@ export default function Sustainability() {
 
   return (
     <div className="min-h-screen bg-[var(--holdings-bg)] text-[var(--holdings-text)]">
-      <section className="relative h-[50vh] bg-[url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center md:h-[60vh]">
+      <section className="relative h-[50vh] bg-[url('https://res.cloudinary.com/tmcloud1/image/upload/v1786704155/Screenshot_from_2026-08-14_13-31-57_crb5xo.png')] bg-cover bg-center md:h-[60vh]">
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 mx-auto max-w-4xl px-4 pt-12 text-center md:pt-24">
           <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-accent)]">Cultivating a better future</p>
@@ -35,7 +35,7 @@ export default function Sustainability() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="rounded-none border border-[var(--holdings-border)] bg-[var(--holdings-surface)] p-6">
             <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--holdings-accent)] md:text-base">FOR THE LAND</h3>
-            <p className="mt-2 text-xs text-[var(--holdings-text-muted)] md:text-sm">DeLeon land conservation, Laikipia & Meru stewardship</p>
+            <p className="mt-2 text-xs text-[var(--holdings-text-muted)] md:text-sm">DELEON land conservation, Laikipia & Meru stewardship</p>
           </div>
           <div className="rounded-none border border-[var(--holdings-border)] bg-[var(--holdings-surface)] p-6">
             <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--holdings-accent)] md:text-base">FOR THE ANIMALS</h3>

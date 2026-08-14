@@ -78,7 +78,7 @@ export default function ParentNavbar() {
 
           <div className="flex items-center gap-8">
             <Link to="/sustainability" className="hover:text-white transition-colors duration-300">SUSTAINABILITY</Link>
-            <Link to="/finance" className="hover:text-white transition-colors duration-300">FINANCE</Link>
+            
             <Link to="/press" className="hover:text-white transition-colors duration-300">PRESS</Link>
             {user ? (
               <button

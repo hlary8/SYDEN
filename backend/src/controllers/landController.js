@@ -6,6 +6,20 @@ const { nanoid } = require('nanoid');
 const fs = require('fs');
 const path = require('path');
 
+function normalizeImages(value) {
+  if (Array.isArray(value)) return value;
+  if (!value) return [];
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  return [];
+}
+
 /**
  * GET /api/v1/lands
  */
@@ -49,7 +63,7 @@ async function getBySlug(req, res, next) {
  */
 async function create(req, res, next) {
   try {
-    const body = req.body;
+    const body = req.body || {};
     const images = [];
     if (req.files && req.files.length) {
       const virusScanner = require('../services/virusScanner');
@@ -64,8 +78,12 @@ async function create(req, res, next) {
         try { fs.unlinkSync(f.path); } catch (e) { /* ignore */ }
       }
     }
+    const normalizedBodyImages = normalizeImages(body.images);
+    const finalImages = images.length > 0 ? images : normalizedBodyImages;
+    const normalizedPrice = Number(body.price) > 0 ? Number(body.price) : 0;
+
     const slug = (body.title || 'land').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-' + nanoid(6);
-    const doc = await Land.create({ ...body, images, slug, createdBy: req.user ? req.user._id : null });
+    const doc = await Land.create({ ...body, price: normalizedPrice, images: finalImages, slug, createdBy: req.user ? req.user._id : null });
     res.status(201).json({ data: doc });
   } catch (err) { next(err); }
 }
@@ -88,6 +106,11 @@ async function update(req, res, next) {
         try { fs.unlinkSync(f.path); } catch (e) { }
       }
       updates.images = images;
+    } else if (updates.images) {
+      updates.images = normalizeImages(updates.images);
+    }
+    if (updates.price !== undefined) {
+      updates.price = Number(updates.price) > 0 ? Number(updates.price) : 0;
     }
     updates.updatedAt = new Date();
     const doc = await Land.findByIdAndUpdate(id, updates, { new: true });

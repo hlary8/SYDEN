@@ -10,7 +10,7 @@ const LandSchema = new mongoose.Schema({
   slug: { type: String, unique: true, index: true },
   description: String,
   narrative: { type: String, maxlength: 500 },
-  price: { type: Number, required: true },
+  price: { type: Number, default: 0 },
   sizeAcres: Number,
   location: {
     address: String,
