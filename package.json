@@ -1,0 +1,16 @@
+{
+  "name": "syden-ecosystem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DELEON ENTERPRiSES Ecosystem - Frontend and Backend",
+  "scripts": {
+    "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && npm run dev",
+    "dev": "npm install && cd backend && npm install && cd ../frontend && npm install && cd .. && concurrently \"npm run backend\" \"npm run frontend\"",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}

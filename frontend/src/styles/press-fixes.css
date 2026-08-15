@@ -1,0 +1,91 @@
+/* === Scoped fixes for Press and Admin pages === */
+
+/* === PRESS PAGE — Force dark text over global white theme === */
+.press-page {
+  color: #0A0A0A !important;
+}
+.press-page * {
+  color: inherit;
+}
+.press-page .press-header h1,
+.press-page .featured-content h2,
+.press-page .article-title,
+.press-page .article-content,
+.press-page .article-content h2,
+.press-page .see-all-btn,
+.press-page .see-more,
+.press-page .press-filters button {
+  color: #0A0A0A !important;
+}
+.press-page .press-subtitle,
+.press-page .article-excerpt,
+.press-page .article-date,
+.press-page .article-meta-bar,
+.press-page .article-hero-image figcaption {
+  color: #666 !important;
+}
+.press-page .article-category,
+.press-page .featured-label {
+  color: #C9A96E !important;
+}
+.press-page .article-socials button {
+  color: #999 !important;
+}
+.press-page .article-socials button:hover {
+  color: #0A0A0A !important;
+}
+
+/* === ADMIN NEWS DASHBOARD — Enhanced Styling & Fixes === */
+.admin-news-page {
+  background: #FFFFFF !important;
+  color: #0A0A0A !important;
+}
+
+.admin-news-page *,
+.admin-news-page *::before,
+.admin-news-page *::after {
+  box-sizing: border-box;
+}
+
+.admin-news-page h1,
+.admin-news-page h2,
+.admin-news-page h3,
+.admin-news-page p,
+.admin-news-page span,
+.admin-news-page label,
+.admin-news-page td,
+.admin-news-page th,
+.admin-news-page div {
+  color: #0A0A0A !important;
+}
+
+.admin-news-page input,
+.admin-news-page textarea,
+.admin-news-page select {
+  color: #0A0A0A !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E5E5E5 !important;
+}
+
+.admin-news-page input:focus,
+.admin-news-page textarea:focus,
+.admin-news-page select:focus {
+  outline: none;
+  border-color: #0A0A0A !important;
+  box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.1) !important;
+}
+
+.admin-news-page input::placeholder,
+.admin-news-page textarea::placeholder {
+  color: #999 !important;
+}
+
+.admin-news-page .badge {
+  color: #FFFFFF !important;
+}
+
+.admin-news-page button {
+  font-family: inherit;
+}
+
+/* Keep all rules strictly within wrapper to avoid leaking into global theme */

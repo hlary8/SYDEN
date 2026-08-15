@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --holdings-bg: #0A0A0A;
+  --holdings-surface: #141414;
+  --holdings-text: #FFFFFF;
+  --holdings-text-muted: #888888;
+  --holdings-accent: #C9A96E;
+  --holdings-border: #2A2A2A;
+}
+
+* {
+  @apply transition-colors duration-300;
+}
+
+body {
+  background-color: var(--holdings-bg);
+  color: var(--holdings-text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+main {
+  @apply min-h-screen;
+}
+
+@keyframes zoomSlow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A96E;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E3C77A;
+}
+
+.house-scroll-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  position: relative;
+  padding: 0.5rem 0 1rem;
+}
+
+.house-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.house-scroll-card {
+  scroll-snap-align: start;
+  flex: 0 0 85vw;
+  max-width: 85vw;
+}
+
+@media (min-width: 768px) {
+  .house-scroll-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .house-scroll-card {
+    flex: none;
+    max-width: none;
+    width: auto;
+  }
+}
+
