@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 
 export default function DeLeonEnterprisesFooter() {
+
+     const year = new Date().getFullYear();
   return (
     <footer className="bg-[var(--primary)] text-[var(--bg)] py-12">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
         <div>
-          <h3 className="text-lg font-bold mb-3">DELEON ENTERPRiSES</h3>
+          <h3 className="text-lg font-bold mb-3">DELEON ENTERPRISES</h3>
           <p className="text-sm text-[var(--bg)]/80">Premium land acquisitions with architectural luxury and investment-grade service.</p>
         </div>
         <div>
@@ -18,8 +20,10 @@ export default function DeLeonEnterprisesFooter() {
         </div>
         <div>
           <h3 className="text-lg font-bold mb-3">Contact</h3>
-          <p className="text-sm text-[var(--bg)]/80">inquiries@DELEON ENTERPRiSES.co.ke</p>
+          <p className="text-sm text-[var(--bg)]/80">inquiries@DELEON ENTERPRISES.co.ke</p>
           <p className="text-sm text-[var(--bg)]/80">+254 700 110 220</p>
+          © {year} DELEON ENTERPRISES. All rights reserved.
+
         </div>
       </div>
     </footer>

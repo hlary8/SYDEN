@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 
 export default function SydenFooter() {
+
+        const year = new Date().getFullYear();
   return (
     <footer className="bg-[#2F4F4F] text-[#FFFDD0] py-12">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
@@ -20,6 +22,7 @@ export default function SydenFooter() {
           <h3 className="text-lg font-bold mb-3">Contact</h3>
           <p className="text-sm text-[#FFFDD0]/80">support@syden.ag</p>
           <p className="text-sm text-[#FFFDD0]/80">+254 700 220 330</p>
+            © {year} Syden. All rights reserved.
         </div>
       </div>
     </footer>

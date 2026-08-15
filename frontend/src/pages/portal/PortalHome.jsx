@@ -10,7 +10,7 @@ export default function PortalHome() {
             <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-accent)]">Cultivating Excellence</div>
             <div className="space-y-6">
               <h1 className="max-w-3xl text-[clamp(3rem,6vw,6rem)] font-serif uppercase tracking-[0.15em] leading-[0.9]">THE ART OF<br />GROWING DREAMS</h1>
-              <p className="max-w-xl text-base leading-8 text-[var(--holdings-text-muted)]">From fertile soil to flourishing enterprises, DELEON ENTERPRiSES Holdings crafts legacies across land, livestock, and harvest.</p>
+              <p className="max-w-xl text-base leading-8 text-[var(--holdings-text-muted)]">From fertile soil to flourishing enterprises, DELEON ENTERPRISES crafts legacies across land, livestock, and harvest.</p>
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link to="/houses" className="inline-flex items-center justify-center rounded-full border border-white px-10 py-4 text-sm uppercase tracking-[0.18em] transition-colors duration-300 hover:bg-white hover:text-black">
@@ -32,7 +32,7 @@ export default function PortalHome() {
       <section className="border-t border-[var(--holdings-border)] px-8 py-20 lg:px-24 lg:py-24">
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="flex flex-col gap-4">
-            <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">DELEON ENTERPRiSES Holdings</div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">DELEON ENTERPRISES</div>
             <div className="flex flex-wrap items-center gap-3 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">
               <span className="font-light">DEL</span>
               <span className="font-bold">EON</span>
