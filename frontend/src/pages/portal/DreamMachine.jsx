@@ -44,7 +44,7 @@ export default function DreamMachine() {
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
 
   return (
-    <div className="min-h-screen bg-[#F2F0EB] text-[#111111] overflow-hidden">
+    <div className="min-h-screen overflow-hidden bg-[#F2F0EB] text-[#111111]">
       <div className="fixed inset-x-0 top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 text-sm uppercase tracking-[0.15em]">
           <div className="font-semibold">DELEON ENTERPRiSES Dream Machine</div>
@@ -52,32 +52,49 @@ export default function DreamMachine() {
           <Link to="/" className="font-semibold">Close ×</Link>
         </div>
       </div>
+
       <div className="flex min-h-screen items-center justify-center px-6 pt-24">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={slide.id}
-            initial={{ opacity: 0, x: 28 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -28 }}
-            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative mx-auto flex max-w-[900px] lg:max-w-[1400px] lg:h-[80vh] flex-col overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+        <div className="relative w-full max-w-[900px] lg:max-w-[1400px] lg:h-[80vh]">
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="Previous slide"
+            className="absolute left-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#C9A96E] bg-transparent text-xl text-white transition-all duration-300 hover:scale-110 hover:bg-[rgba(201,169,110,0.1)]"
           >
-            <div className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out" style={{ backgroundImage: `url(${slide.image})` }} />
-            <div className="absolute inset-0 bg-black/40" />
-            <div className="relative z-10 p-10 lg:p-20 text-center text-white flex flex-col justify-center">
-              <div className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/80">Episode {index + 1}</div>
-              <h1 className="mt-10 text-5xl lg:text-7xl font-serif uppercase tracking-[0.15em] leading-tight">{slide.title}</h1>
-              <p className="mx-auto mt-6 max-w-xl lg:max-w-2xl text-base lg:text-lg leading-8 text-white/80">{slide.subtitle}</p>
-              <Link to={slide.link} className="mt-10 inline-flex rounded-full border border-white px-8 py-4 text-sm uppercase tracking-[0.18em] text-white transition-colors hover:bg-white hover:text-black">
-                {slide.cta}
-              </Link>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      <div className="fixed bottom-10 left-1/2 z-40 flex -translate-x-1/2 items-center gap-4">
-        <button onClick={prev} className="rounded-full border border-black/20 bg-white/90 px-6 py-3 text-sm uppercase tracking-[0.12em] shadow-lg">Previous</button>
-        <button onClick={next} className="rounded-full border border-black/20 bg-white/90 px-6 py-3 text-sm uppercase tracking-[0.12em] shadow-lg">Next</button>
+            ←
+          </button>
+
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Next slide"
+            className="absolute right-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#C9A96E] bg-transparent text-xl text-white transition-all duration-300 hover:scale-110 hover:bg-[rgba(201,169,110,0.1)]"
+          >
+            →
+          </button>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={slide.id}
+              initial={{ opacity: 0, x: 28 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -28 }}
+              transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative mx-auto flex h-full w-full flex-col overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+            >
+              <div className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out" style={{ backgroundImage: `url(${slide.image})` }} />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative z-10 flex flex-col justify-center p-10 text-center text-white lg:p-20">
+                <div className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/80">Episode {index + 1}</div>
+                <h1 className="mt-10 text-5xl font-serif uppercase tracking-[0.15em] leading-tight lg:text-7xl">{slide.title}</h1>
+                <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-white/80 lg:max-w-2xl lg:text-lg">{slide.subtitle}</p>
+                <Link to={slide.link} className="mt-10 inline-flex rounded-full border border-white px-8 py-4 text-sm uppercase tracking-[0.18em] text-white transition-colors hover:bg-white hover:text-black">
+                  {slide.cta}
+                </Link>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

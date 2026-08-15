@@ -11,6 +11,7 @@ import PortalContact from './pages/portal/PortalContact';
 import DreamMachine from './pages/portal/DreamMachine';
 import Houses from './pages/portal/Houses';
 import Sustainability from './pages/portal/Sustainability';
+import HistoryPage from './pages/portal/HistoryPage';
 import Press from './pages/portal/Press';
 import PressArticle from './pages/portal/PressArticle';
 import Talent from './pages/portal/Talent';
@@ -58,6 +59,8 @@ function App() {
             <Route path="/" element={<ParentLayout />}>
               <Route index element={<PortalHome />} />
               <Route path="about" element={<PortalAbout />} />
+              <Route path="history" element={<HistoryPage />} />
+              <Route path="about/our-story" element={<HistoryPage />} />
               <Route path="contact" element={<PortalContact />} />
               <Route path="dream-machine" element={<DreamMachine />} />
               <Route path="houses" element={<Houses />} />

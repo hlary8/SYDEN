@@ -8,20 +8,15 @@ const REFRESH_SECRET = (process.env.JWT_REFRESH_SECRET && process.env.JWT_REFRES
   ? process.env.JWT_REFRESH_SECRET
   : 'dev-refresh-secret-change-me-in-production';
 
-/**
- * Generate an access token (short-lived).
- * @param {Object} payload - Claims payload
- */
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
+// ADDED: production-safe 30-day token lifecycle for Render and local session continuity.
 function generateAccessToken(payload) {
-  return jwt.sign(payload, ACCESS_SECRET, { expiresIn: '15m' });
+  return jwt.sign(payload, ACCESS_SECRET, { expiresIn: '30d' });
 }
 
-/**
- * Generate a refresh token (longer-lived).
- * @param {Object} payload
- */
 function generateRefreshToken(payload) {
-  return jwt.sign(payload, REFRESH_SECRET, { expiresIn: '7d' });
+  return jwt.sign(payload, REFRESH_SECRET, { expiresIn: '30d' });
 }
 
-module.exports = { generateAccessToken, generateRefreshToken };
+module.exports = { generateAccessToken, generateRefreshToken, THIRTY_DAYS_MS };

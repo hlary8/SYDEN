@@ -30,10 +30,9 @@ export default function ParentNavbar() {
             </span>
           </button>
           
-          <Link to="/" className="text-sm font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:tracking-[0.28em]">D E L E O N</Link>
+          <Link to="/" className="text-sm font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:tracking-[0.28em]">DeLeon</Link>
 
-          <div className="flex items-center gap-5">
-            <Link to="/sustainability" className="hover:text-white transition-colors duration-300">SUSTAINABILITY</Link>
+          <div className="flex items-center gap-3">
             {user ? (
               <button
                 onClick={async () => {
@@ -50,7 +49,7 @@ export default function ParentNavbar() {
                 {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
               </button>
             ) : (
-              <Link to="/auth/login" className="hover:text-white transition-colors duration-300">JOIN US</Link>
+              <Link to="/auth/login" className="hover:text-white transition-colors duration-300">Join Us</Link>
             )}
           </div>
         </div>

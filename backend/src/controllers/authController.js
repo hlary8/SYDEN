@@ -3,7 +3,7 @@ const createError = require('http-errors');
 const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/User');
 const { z } = require('zod');
-const { generateAccessToken, generateRefreshToken } = require('../utils/jwt');
+const { generateAccessToken, generateRefreshToken, THIRTY_DAYS_MS } = require('../utils/jwt');
 
 const registerSchema = z.object({
   username: z.string().min(3),
@@ -11,6 +11,19 @@ const registerSchema = z.object({
   password: z.string().min(8),
   role: z.enum(['user', 'farmer']).optional()
 });
+
+const getCookieSettings = () => ({
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production' || process.env.COOKIE_SECURE === 'true',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: THIRTY_DAYS_MS
+});
+
+// ADDED: production cookie compatibility for Render deployment and 30-day session persistence.
+function setAuthCookies(res, accessToken, refreshToken) {
+  res.cookie('token', accessToken, getCookieSettings());
+  res.cookie('refreshToken', refreshToken, getCookieSettings());
+}
 
 /**
  * Register new user
@@ -30,19 +43,12 @@ async function register(req, res, next) {
     }
     const saltRounds = 12;
     const passwordHash = await bcrypt.hash(parsed.password, saltRounds);
-    // Only allow 'user' or 'farmer' via public registration. Default to 'user'.
     const role = parsed.role && ['user', 'farmer'].includes(parsed.role) ? parsed.role : 'user';
     const user = await User.create({ username: parsed.username, email: parsed.email, passwordHash, role });
     const payload = { userId: user._id, role: user.role };
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.COOKIE_SECURE === 'true',
-      sameSite: 'Strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    };
-    res.cookie('refreshToken', refreshToken, cookieOptions);
+    setAuthCookies(res, accessToken, refreshToken);
     res.status(201).json({ 
       user: { 
         id: user._id, 
@@ -54,7 +60,6 @@ async function register(req, res, next) {
       accessToken 
     });
   } catch (err) {
-    // Mongo duplicate key error
     if (err && err.code === 11000) {
       const fields = err.keyValue ? Object.keys(err.keyValue).join(', ') : 'field';
       return next(createError(409, `${fields} already exists`));
@@ -78,13 +83,7 @@ async function login(req, res, next) {
     const payload = { userId: user._id, role: user.role };
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.COOKIE_SECURE === 'true',
-      sameSite: 'Strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    };
-    res.cookie('refreshToken', refreshToken, cookieOptions);
+    setAuthCookies(res, accessToken, refreshToken);
     res.json({ 
       user: { 
         id: user._id, 
@@ -105,14 +104,14 @@ async function login(req, res, next) {
  */
 async function refresh(req, res, next) {
   try {
-    const token = req.cookies.refreshToken;
+    const token = req.cookies.refreshToken || req.cookies.token;
     if (!token) return next(createError(401, 'No refresh token'));
-    const payload = jsonwebtoken.verify(token, process.env.JWT_REFRESH_SECRET);
+    const payload = jsonwebtoken.verify(token, process.env.JWT_REFRESH_SECRET || 'dev-refresh-secret-change-me-in-production');
     const user = await User.findById(payload.userId);
     if (!user) return next(createError(401, 'User not found'));
     const newAccess = generateAccessToken({ userId: payload.userId, role: payload.role });
     const newRefresh = generateRefreshToken({ userId: payload.userId, role: payload.role });
-    res.cookie('refreshToken', newRefresh, { httpOnly: true, secure: process.env.COOKIE_SECURE === 'true', sameSite: 'Strict', maxAge: 7 * 24 * 60 * 60 * 1000 });
+    setAuthCookies(res, newAccess, newRefresh);
     res.json({ accessToken: newAccess });
   } catch (err) {
     next(err);
@@ -123,7 +122,8 @@ async function refresh(req, res, next) {
  * Logout - clear cookie
  */
 async function logout(req, res) {
-  res.clearCookie('refreshToken');
+  res.clearCookie('token', getCookieSettings());
+  res.clearCookie('refreshToken', getCookieSettings());
   res.json({ ok: true });
 }
 
@@ -133,9 +133,10 @@ async function logout(req, res) {
 async function getMe(req, res, next) {
   try {
     const auth = req.headers.authorization;
-    if (!auth) return res.status(200).json({ user: null });
-    const token = auth.split(' ')[1];
-    const payload = jsonwebtoken.verify(token, process.env.JWT_ACCESS_SECRET);
+    const tokenFromCookie = req.cookies && (req.cookies.token || req.cookies.refreshToken);
+    const token = auth ? auth.split(' ')[1] : tokenFromCookie;
+    if (!token) return res.status(200).json({ user: null });
+    const payload = jsonwebtoken.verify(token, process.env.JWT_ACCESS_SECRET || 'dev-access-secret-change-me-in-production');
     const user = await User.findById(payload.userId).select('-passwordHash');
     if (!user) return res.status(200).json({ user: null });
     res.json({ user: { id: user._id, username: user.username, email: user.email, role: user.role, avatar: user.avatar } });
@@ -152,7 +153,7 @@ async function updateProfile(req, res, next) {
     const auth = req.headers.authorization;
     if (!auth) return next(createError(401, 'Unauthorized'));
     const token = auth.split(' ')[1];
-    const payload = jsonwebtoken.verify(token, process.env.JWT_ACCESS_SECRET);
+    const payload = jsonwebtoken.verify(token, process.env.JWT_ACCESS_SECRET || 'dev-access-secret-change-me-in-production');
     const updates = {};
     if (req.body.username) updates.username = req.body.username;
     if (req.file) updates.avatar = req.file.path || req.file.url;

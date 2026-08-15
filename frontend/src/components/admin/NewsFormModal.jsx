@@ -250,7 +250,7 @@ export default function NewsFormModal({ article, onClose, onSuccess }) {
                   cursor: 'pointer'
                 }}
               >
-                <option value="holdings">DELEON Holdings</option>
+                <option value="holdings">DELEON</option>
                 <option value="deleon">DELEON</option>
                 <option value="syden">Syden</option>
                 <option value="deefresh">DeeFresh</option>

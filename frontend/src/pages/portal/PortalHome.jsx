@@ -1,7 +1,40 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+const mobileSlides = [
+  {
+    id: 'deleon',
+    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg',
+    title: 'DeLeon',
+    subtitle: 'Premium land stewardship' 
+  },
+  {
+    id: 'syden',
+    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg',
+    title: 'Syden',
+    subtitle: 'Livestock excellence' 
+  },
+  {
+    id: 'deefresh',
+    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
+    title: 'DeeFresh',
+    subtitle: 'Harvest to table' 
+  }
+];
 
 export default function PortalHome() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    // 3s slide interval for a lively, slow-animated carousel on mobile
+    const timer = window.setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % mobileSlides.length);
+    }, 9000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[var(--holdings-bg)] text-[var(--holdings-text)]">
       <section className="grid min-h-screen grid-cols-1 xl:grid-cols-[1.1fr_1fr]">
@@ -23,9 +56,37 @@ export default function PortalHome() {
             <span className="text-sm uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">Scroll</span>
           </div>
         </div>
+
         <div className="relative overflow-hidden bg-black">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(201,169,110,0.15),_transparent_35%)]" />
-          <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg')] bg-cover bg-center" />
+          <div className="hidden md:block absolute inset-0 bg-[url('https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg')] bg-cover bg-center" />
+
+          <div className="relative block h-[420px] overflow-hidden md:hidden">
+            {mobileSlides.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={`hero-slide absolute inset-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105 translate-y-2'}`}
+                style={{ backgroundImage: `url(${slide.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/10" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-[var(--holdings-accent)]">{slide.title}</p>
+                  <p className="mt-2 text-sm text-white/80">{slide.subtitle}</p>
+                </div>
+              </div>
+            ))}
+            <div className="absolute inset-x-0 bottom-4 z-20 flex justify-center gap-2">
+              {mobileSlides.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  type="button"
+                  aria-label={`Show slide ${index + 1}`}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-2.5 w-2.5 rounded-full ${index === currentSlide ? 'bg-[var(--holdings-accent)]' : 'bg-white/40'}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -34,8 +95,8 @@ export default function PortalHome() {
           <div className="flex flex-col gap-4">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">DELEON ENTERPRISES</div>
             <div className="flex flex-wrap items-center gap-3 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">
-              <span className="font-light">DEL</span>
-              <span className="font-bold">EON</span>
+              
+              <span className="font-bold">DELEON</span>
               <span className="font-light">HIGHLIGHTS</span>
             </div>
             <div className="h-1 w-20 bg-[var(--holdings-accent)]"></div>
@@ -73,7 +134,7 @@ export default function PortalHome() {
         </div>
       </section>
 
-      <section className="bg-[var(--holdings-bg)] px-8 py-16 lg:px-24 lg:py-24">
+      <section className="bg-[var(--holdings-bg)] px-4 py-16 sm:px-6 lg:px-24 lg:py-24">
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -84,27 +145,51 @@ export default function PortalHome() {
               Explore the story
             </Link>
           </div>
-          <div className="grid gap-6 lg:grid-cols-3">
+
+          <div className="house-scroll-container md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:[&>*]:max-w-none md:[&>*]:flex-none"> 
             {[
-
-
-             { brand: 'DELEON ENTERPRiSES', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg' },
-              
-             { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg' },
-             
-             { brand: 'Syden', title: 'The Science of Healthy Livestock', desc: 'Veterinary excellence & pastoral heritage.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg' }
-
+              { brand: 'DeLeon Holdings', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg', href: '/history' },
+              { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg', href: '/history' },
+              { brand: 'Syden', title: 'The Science of Healthy Livestock', desc: 'Veterinary excellence & pastoral heritage.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg', href: '/history' }
             ].map((item) => (
-              <div key={item.brand} className="rounded-none bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-2 flex flex-col">
-                <div className="h-48 md:h-64 lg:h-96 rounded-none bg-black/10 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${item.image})` }} />
+              <Link key={item.brand} to={item.href} className="house-scroll-card rounded-none bg-white p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-2 md:p-8 md:shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+                <div className="h-52 md:h-64 lg:h-96 rounded-none bg-black/10 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${item.image})` }} />
                 <p className="text-[11px] uppercase tracking-[0.2em] text-gray-500">{item.brand}</p>
                 <h3 className="mt-4 text-2xl font-semibold text-gray-900">{item.title}</h3>
                 <p className="mt-4 text-sm text-gray-600">{item.desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
+
+      <section className="relative overflow-hidden border-t border-[var(--holdings-border)] bg-[#0d0d0d] px-4 py-20 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(201,169,110,0.08),_transparent_55%)]" />
+        <div className="relative mx-auto max-w-5xl text-center">
+          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--holdings-accent)]">The DeLeon Story</p>
+          <h2 className="mt-5 font-serif text-4xl text-white md:text-6xl">The DeLeon Story</h2>
+          <div className="mt-10 overflow-hidden rounded-none border border-[#C9A96E] bg-black/30 shadow-[0_25px_80px_rgba(0,0,0,0.3)]">
+            <div className="aspect-video relative">
+              <video className="h-full w-full object-cover" controls poster="/assets/video-poster.jpg">
+                <source src="PASTE_VIDEO_URL_HERE" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#C9A96E] bg-black/20 transition-transform duration-300 hover:scale-110">
+                  <div className="ml-1 h-0 w-0 border-y-[10px] border-l-[18px] border-y-transparent border-l-[#C9A96E]" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="mt-7 text-sm italic text-white/75">Where land, life, and legacy converge.</p>
+        </div>
+      </section>
+
+      <div className="flex justify-center px-4 pb-20 pt-12 sm:px-6">
+        <Link to="/sustainability" className="inline-flex items-center justify-center rounded-full border border-[#C9A96E] px-8 py-3 text-[11px] uppercase tracking-[0.2em] text-[#C9A96E] transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[#C9A96E] hover:text-[#0A0A0A] sm:px-12 sm:py-4">
+          SUSTAINABILITY
+        </Link>
+      </div>
     </div>
   );
 }

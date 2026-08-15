@@ -64,3 +64,42 @@ main {
 ::-webkit-scrollbar-thumb:hover {
   background: #E3C77A;
 }
+
+.house-scroll-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  position: relative;
+  padding: 0.5rem 0 1rem;
+}
+
+.house-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.house-scroll-card {
+  scroll-snap-align: start;
+  flex: 0 0 85vw;
+  max-width: 85vw;
+}
+
+@media (min-width: 768px) {
+  .house-scroll-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .house-scroll-card {
+    flex: none;
+    max-width: none;
+    width: auto;
+  }
+}
+
