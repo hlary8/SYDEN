@@ -1,7 +1,49 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import HeroSlideshow from '../../components/common/HeroSlideshow';
+
+const VideoShowcase = () => {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const togglePlay = () => {
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  return (
+    <div className="video-showcase-container">
+      <video
+        ref={videoRef}
+        className="deleon-story-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        onClick={togglePlay}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      >
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+      </video>
+
+      <button
+        className={`video-play-overlay ${!isPlaying ? 'visible' : ''}`}
+        onClick={togglePlay}
+        aria-label={isPlaying ? 'Pause' : 'Play'}
+        type="button"
+      >
+        <span className="play-icon">{isPlaying ? '❚❚' : '▶'}</span>
+      </button>
+    </div>
+  );
+};
 
 const mobileSlides = [
   {
@@ -148,7 +190,7 @@ export default function PortalHome() {
                   <span className="highlight-category">{item.category}</span>
                   <h3 className="highlight-title">{item.title}</h3>
                   <Link to={item.link} className="highlight-readmore" onClick={(event) => event.stopPropagation()}>
-                    EXPLORE →
+                    READ MORE →
                   </Link>
                 </div>
               </div>
@@ -185,37 +227,6 @@ export default function PortalHome() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-[var(--holdings-border)] px-8 py-20 lg:px-24 lg:py-24">
-        <div className="max-w-7xl mx-auto space-y-10">
-          <div className="flex flex-col gap-4">
-            <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">DELEON ENTERPRISES</div>
-            <div className="flex flex-wrap items-center gap-3 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">
-              
-              <span className="font-bold">DELEON</span>
-              <span className="font-light">HIGHLIGHTS</span>
-            </div>
-            <div className="h-1 w-20 bg-[var(--holdings-accent)]"></div>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {[
-              { title: '15,000+ Acres Under Management', label: 'LAND', href: '/deleon', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg' },
-              { title: 'Sustainable Farming Since 2008', label: 'LEGACY', href: '/about', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg' },
-              { title: 'From Farm to Global Markets', label: 'REACH', href: '/deefresh', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698435/WhatsApp_Image_2026-08-14_at_11.25.35_2_fkx7yb.jpg' }
-            ].map((card) => (
-              <motion.div key={card.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }} className="overflow-hidden rounded-none bg-[var(--holdings-surface)] p-8">
-                <div className="h-56 rounded-none bg-black/20 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${card.image})` }} />
-                <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">{card.label}</p>
-                <h2 className="mt-4 text-2xl font-semibold leading-tight">{card.title}</h2>
-                <Link to={card.href} className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-[var(--holdings-accent)]">
-                   
-                </Link>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
@@ -268,17 +279,7 @@ export default function PortalHome() {
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--holdings-accent)]">The DeLeon Story</p>
           <h2 className="mt-5 font-serif text-4xl text-white md:text-6xl">The DELEON Story</h2>
           <div className="mt-10 overflow-hidden rounded-none border border-[#C9A96E] bg-black/30 shadow-[0_25px_80px_rgba(0,0,0,0.3)]">
-            <div className="aspect-video relative">
-              <video className="h-full w-full object-cover" controls playsInline muted preload="metadata" autoPlay loop poster="/assets/video-poster.jpg">
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#C9A96E] bg-black/20 transition-transform duration-300 hover:scale-110">
-                  <div className="ml-1 h-0 w-0 border-y-[10px] border-l-[18px] border-y-transparent border-l-[#C9A96E]" />
-                </div>
-              </div>
-            </div>
+            <VideoShowcase />
           </div>
           <p className="mt-7 text-sm italic text-white/75">Where land, life, and legacy converge.</p>
         </div>

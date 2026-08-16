@@ -33,6 +33,13 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('passwordHash') || !this.passwordHash) return next();
+
+  // passwordHash may already be bcrypt-hashed when created from authController.
+  // Skip rehashing already-salted hashes to avoid invalid logins.
+  if (typeof this.passwordHash === 'string' && this.passwordHash.startsWith('$2')) {
+    return next();
+  }
+
   this.passwordHash = await bcrypt.hash(this.passwordHash, 12);
   next();
 });
