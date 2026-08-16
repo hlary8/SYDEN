@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import HeroSlideshow from '../../components/common/HeroSlideshow';
 
 const mobileSlides = [
   {
@@ -37,7 +38,7 @@ export default function PortalHome() {
 
   return (
     <div className="min-h-screen bg-[var(--holdings-bg)] text-[var(--holdings-text)]">
-      <section className="grid min-h-screen grid-cols-1 xl:grid-cols-[1.1fr_1fr]">
+      <section className="portal-hero-section grid min-h-screen grid-cols-1 xl:grid-cols-[1.1fr_1fr]">
         <div className="relative flex flex-col justify-between px-8 py-24 lg:px-24">
           <div className="space-y-8">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-accent)]">Cultivating Excellence</div>
@@ -59,34 +60,8 @@ export default function PortalHome() {
 
         <div className="relative overflow-hidden bg-black">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(201,169,110,0.15),_transparent_35%)]" />
-          <div className="hidden md:block absolute inset-0 bg-[url('https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg')] bg-cover bg-center" />
-
-          <div className="relative block h-[420px] overflow-hidden md:hidden">
-            {mobileSlides.map((slide, index) => (
-              <div
-                key={slide.id}
-                className={`hero-slide absolute inset-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105 translate-y-2'}`}
-                style={{ backgroundImage: `url(${slide.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/10" />
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <p className="text-[10px] uppercase tracking-[0.25em] text-[var(--holdings-accent)]">{slide.title}</p>
-                  <p className="mt-2 text-sm text-white/80">{slide.subtitle}</p>
-                </div>
-              </div>
-            ))}
-            <div className="absolute inset-x-0 bottom-4 z-20 flex justify-center gap-2">
-              {mobileSlides.map((slide, index) => (
-                <button
-                  key={slide.id}
-                  type="button"
-                  aria-label={`Show slide ${index + 1}`}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`h-2.5 w-2.5 rounded-full ${index === currentSlide ? 'bg-[var(--holdings-accent)]' : 'bg-white/40'}`}
-                />
-              ))}
-            </div>
-          </div>
+          {/* Slideshow (mobile full-screen, desktop aspect) */}
+          <HeroSlideshow />
         </div>
       </section>
 
