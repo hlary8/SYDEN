@@ -31,10 +31,13 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
+    const url = error?.config?.url || '';
+    const isAuthRequest = /\/auth\//.test(url) || window.location.pathname.includes('/auth/');
+
+    if (error.response && error.response.status === 401 && !isAuthRequest) {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('user');
-      window.location.href = '/auth/login';
+      window.location.replace('/auth/login');
     }
     return Promise.reject(error);
   }

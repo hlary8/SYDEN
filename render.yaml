@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: DELEON ENTERPRiSES-api
+    name: deleon-enterprises-api
     env: docker
     plan: starter
     dockerfilePath: backend/Dockerfile
@@ -14,6 +14,8 @@ services:
         value: "5000"
       - key: JWT_SECRET
         generate: true
+      - key: JWT_ACCESS_SECRET
+        generate: true
       - key: JWT_REFRESH_SECRET
         generate: true
       - key: JWT_EXPIRE
@@ -21,7 +23,9 @@ services:
       - key: JWT_REFRESH_EXPIRE
         value: 7d
       - key: CLIENT_URL
-        value: https://DELEON ENTERPRiSES-web.onrender.com
+        value: https://deleon-enterprises-web.onrender.com
+      - key: CORS_ORIGIN
+        value: https://deleon-enterprises-web.onrender.com
       - key: MONGODB_URI
         sync: false
       - key: CLOUDINARY_CLOUD_NAME
@@ -32,7 +36,7 @@ services:
         sync: false
 
   - type: web
-    name: DELEON ENTERPRiSES-web
+    name: deleon-enterprises-web
     env: docker
     plan: starter
     dockerfilePath: frontend/Dockerfile
@@ -40,4 +44,4 @@ services:
     autoDeploy: true
     envVars:
       - key: VITE_API_URL
-        value: https://DELEON ENTERPRiSES-api.onrender.com/api/v1
+        value: https://deleon-enterprises-api.onrender.com/api/v1

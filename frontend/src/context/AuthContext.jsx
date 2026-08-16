@@ -70,7 +70,8 @@ export function AuthProvider({ children }) {
       (res) => res,
       async (err) => {
         const original = err.config;
-        if (err.response?.status === 401 && !original._retry) {
+        const isAuthEndpoint = /\/auth\//.test(original?.url || '') || window.location.pathname.includes('/auth/');
+        if (err.response?.status === 401 && !original._retry && !isAuthEndpoint) {
           original._retry = true;
           try {
             const { data } = await axios.post('/auth/refresh', {}, { withCredentials: true });
@@ -84,8 +85,8 @@ export function AuthProvider({ children }) {
             updateAccessTokenHeader(null);
             setAccessToken(null);
             setUser(null);
-            if (!window.location.pathname.includes('/auth/login')) {
-              window.location.href = '/auth/login';
+            if (!window.location.pathname.includes('/auth/')) {
+              window.location.replace('/auth/login');
             }
           }
         }

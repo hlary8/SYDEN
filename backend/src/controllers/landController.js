@@ -49,7 +49,8 @@ async function getBySlug(req, res, next) {
     if (auth) {
       try {
         const token = auth.split(' ')[1];
-        const payload = require('jsonwebtoken').verify(token, process.env.JWT_ACCESS_SECRET);
+        const secret = process.env.JWT_ACCESS_SECRET || process.env.JWT_SECRET || 'dev-access-secret-change-me-in-production';
+        const payload = require('jsonwebtoken').verify(token, secret);
         await LandView.create({ land: land._id, user: payload.userId });
       } catch (e) { /* ignore auth errors on view tracking */ }
     }

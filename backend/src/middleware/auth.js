@@ -20,7 +20,8 @@ async function requireAuth(req, res, next) {
     
     if (!token) return next(createError(401, 'Unauthorized'));
     
-    const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+    const secret = process.env.JWT_ACCESS_SECRET || process.env.JWT_SECRET || 'dev-access-secret-change-me-in-production';
+    const payload = jwt.verify(token, secret);
     const user = await User.findById(payload.userId);
     if (!user) return next(createError(401, 'Unauthorized'));
     req.user = user;
