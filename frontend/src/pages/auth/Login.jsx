@@ -8,14 +8,19 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    setError('');
     try {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setError('Unable to login. Check your credentials.');
+      setError(err.response?.data?.message || 'Unable to login. Check your credentials.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,7 +38,9 @@ export default function Login() {
             Password
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="mt-2 w-full rounded-2xl border border-white/10 bg-[#0D0D0D] p-3 text-white" />
           </label>
-          <button type="submit" className="w-full rounded-full bg-yellow-300 py-3 text-black font-semibold hover:bg-yellow-400">Sign in</button>
+          <button type="submit" disabled={loading} className="auth-submit-btn w-full rounded-full bg-yellow-300 py-3 text-black font-semibold hover:bg-yellow-400">
+            {loading ? <span className="btn-loader" aria-label="Loading" /> : 'Sign in'}
+          </button>
         </form>
         <p className="mt-6 text-sm text-gray-400">
           Don&apos;t have an account? <Link to="/auth/register" className="text-yellow-300 hover:text-yellow-400">Register</Link>

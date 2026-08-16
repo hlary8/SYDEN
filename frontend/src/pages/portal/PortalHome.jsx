@@ -24,17 +24,63 @@ const mobileSlides = [
   }
 ];
 
+const highlights = [
+  {
+    id: 1,
+    category: 'LAND',
+    title: '15,000+ Acres Under Management',
+    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg',
+    link: '/deleon'
+  },
+  {
+    id: 2,
+    category: 'LEGACY',
+    title: 'Sustainable Farming Since 2008',
+    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
+    link: '/sustainability'
+  },
+  {
+    id: 3,
+    category: 'REACH',
+    title: 'From Farm to Global Markets',
+    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698435/WhatsApp_Image_2026-08-14_at_11.25.35_2_fkx7yb.jpg',
+    link: '/deefresh'
+  }
+];
+
+const storyGrid = [
+  { id: 1, image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg', alt: 'Harvest' },
+  { id: 2, image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg', alt: 'Livestock' },
+  { id: 3, image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg', alt: 'Produce' },
+  { id: 4, image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg', alt: 'Community' },
+  { id: 5, image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg', alt: 'Fields' },
+  { id: 6, image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698435/WhatsApp_Image_2026-08-14_at_11.25.35_2_fkx7yb.jpg', alt: 'Processing' }
+];
+
 export default function PortalHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    // 3s slide interval for a lively, slow-animated carousel on mobile
     const timer = window.setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % mobileSlides.length);
-    }, 9000);
+      setCurrentSlide((prev) => (prev + 1) % highlights.length);
+    }, 5000);
 
     return () => window.clearInterval(timer);
   }, []);
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + highlights.length) % highlights.length);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % highlights.length);
+  };
+
+  const handleMobileTap = () => {
+    if (window.innerWidth < 768) {
+      window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[var(--holdings-bg)] text-[var(--holdings-text)]">
@@ -60,8 +106,86 @@ export default function PortalHome() {
 
         <div className="relative overflow-hidden bg-black">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(201,169,110,0.15),_transparent_35%)]" />
-          {/* Slideshow (mobile full-screen, desktop aspect) */}
           <HeroSlideshow />
+          <div className="hero-video-cta">
+            <div className="hero-video-preview" aria-hidden="true">
+              <video className="hero-video-preview-video" muted playsInline loop autoPlay preload="metadata">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+              </video>
+              <div className="hero-video-play" />
+            </div>
+            <Link to="/about" className="hero-video-link">WATCH OUR STORY</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="deleon-highlights-section">
+        <div className="highlights-container">
+          <div
+            className="highlights-slideshow"
+            onClick={handleMobileTap}
+            onMouseEnter={() => {
+              if (window.innerWidth >= 1024) {
+                window.clearInterval(window.__highlightsTimer);
+              }
+            }}
+            onMouseLeave={() => {
+              if (window.innerWidth >= 1024) {
+                window.__highlightsTimer = window.setInterval(() => {
+                  setCurrentSlide((prev) => (prev + 1) % highlights.length);
+                }, 5000);
+              }
+            }}
+          >
+            {highlights.map((item, index) => (
+              <div
+                key={item.id}
+                className={`highlight-slide ${index === currentSlide ? 'active' : ''}`}
+                style={{ backgroundImage: `url(${item.image})` }}
+              >
+                <div className="highlight-slide-overlay" />
+                <div className="highlight-slide-content">
+                  <span className="highlight-category">{item.category}</span>
+                  <h3 className="highlight-title">{item.title}</h3>
+                  <Link to={item.link} className="highlight-readmore" onClick={(event) => event.stopPropagation()}>
+                    EXPLORE →
+                  </Link>
+                </div>
+              </div>
+            ))}
+
+            <button type="button" className="highlight-arrow highlight-arrow-left" onClick={(event) => { event.stopPropagation(); prevSlide(); }} aria-label="Previous highlight">←</button>
+            <button type="button" className="highlight-arrow highlight-arrow-right" onClick={(event) => { event.stopPropagation(); nextSlide(); }} aria-label="Next highlight">→</button>
+
+            <div className="highlight-dots" aria-label="Highlight slides">
+              {highlights.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={index === currentSlide ? 'active' : ''}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setCurrentSlide(index);
+                  }}
+                  aria-label={`Show slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="highlights-story-grid">
+            <div className="story-grid-header">
+              <span className="story-grid-label">LATEST STORIES</span>
+              <Link to="/press" className="story-grid-link">VIEW ALL →</Link>
+            </div>
+            <div className="story-grid-photos">
+              {storyGrid.map((story) => (
+                <div key={story.id} className="story-grid-item">
+                  <img src={story.image} alt={story.alt} loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -88,7 +212,7 @@ export default function PortalHome() {
                 <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">{card.label}</p>
                 <h2 className="mt-4 text-2xl font-semibold leading-tight">{card.title}</h2>
                 <Link to={card.href} className="mt-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-[var(--holdings-accent)]">
-                  Read more →
+                   
                 </Link>
               </motion.div>
             ))}
@@ -145,8 +269,8 @@ export default function PortalHome() {
           <h2 className="mt-5 font-serif text-4xl text-white md:text-6xl">The DELEON Story</h2>
           <div className="mt-10 overflow-hidden rounded-none border border-[#C9A96E] bg-black/30 shadow-[0_25px_80px_rgba(0,0,0,0.3)]">
             <div className="aspect-video relative">
-              <video className="h-full w-full object-cover" controls poster="/assets/video-poster.jpg">
-                <source src="PASTE_VIDEO_URL_HERE" type="video/mp4" />
+              <video className="h-full w-full object-cover" controls playsInline muted preload="metadata" autoPlay loop poster="/assets/video-poster.jpg">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">

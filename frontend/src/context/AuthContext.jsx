@@ -3,6 +3,19 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
+const getStoredToken = () => localStorage.getItem('token') || localStorage.getItem('accessToken');
+
+const setStoredToken = (token) => {
+  if (token) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('accessToken', token);
+  } else {
+    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+  }
+};
+
 const decodeJwt = (token) => {
   try {
     const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
@@ -28,10 +41,10 @@ const isTokenExpired = (token) => {
 const updateAccessTokenHeader = (token) => {
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    localStorage.setItem('accessToken', token);
+    setStoredToken(token);
   } else {
     delete axios.defaults.headers.common.Authorization;
-    localStorage.removeItem('accessToken');
+    setStoredToken(null);
   }
 };
 
@@ -39,14 +52,14 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [accessToken, setAccessToken] = useState(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = getStoredToken();
     return token && !isTokenExpired(token) ? token : null;
   });
 
   useEffect(() => {
     const requestInterceptor = axios.interceptors.request.use((config) => {
       if (!config.headers) config.headers = {};
-      const token = localStorage.getItem('accessToken');
+      const token = getStoredToken();
       if (token && !isTokenExpired(token)) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -61,7 +74,8 @@ export function AuthProvider({ children }) {
           original._retry = true;
           try {
             const { data } = await axios.post('/auth/refresh', {}, { withCredentials: true });
-            const nextToken = data.accessToken;
+            const nextToken = data.token || data.accessToken;
+            if (!nextToken) throw new Error('No token received');
             updateAccessTokenHeader(nextToken);
             setAccessToken(nextToken);
             original.headers.Authorization = `Bearer ${nextToken}`;
@@ -70,10 +84,9 @@ export function AuthProvider({ children }) {
             updateAccessTokenHeader(null);
             setAccessToken(null);
             setUser(null);
-            window.dispatchEvent(new CustomEvent('app-toast', {
-              detail: { message: 'Your session has expired. Please log in again.' }
-            }));
-            window.location.href = '/auth/login';
+            if (!window.location.pathname.includes('/auth/login')) {
+              window.location.href = '/auth/login';
+            }
           }
         }
         return Promise.reject(err);
@@ -87,17 +100,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = getStoredToken();
     if (!token || isTokenExpired(token)) {
       updateAccessTokenHeader(null);
       setAccessToken(null);
       setUser(null);
-      if (token) {
-        window.dispatchEvent(new CustomEvent('app-toast', {
-          detail: { message: 'Your session has expired. Please log in again.' }
-        }));
-        window.location.href = '/auth/login';
-      }
       setLoading(false);
       return;
     }
@@ -107,7 +114,8 @@ export function AuthProvider({ children }) {
         const res = await axios.get('/auth/me', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setUser(res.data.user);
+        const userData = res.data?.user || JSON.parse(localStorage.getItem('user') || 'null');
+        if (userData) setUser(userData);
       } catch (err) {
         console.error('Auth check failed', err);
         updateAccessTokenHeader(null);
@@ -117,25 +125,38 @@ export function AuthProvider({ children }) {
         setLoading(false);
       }
     };
+
     checkAuth();
   }, [accessToken]);
 
   const login = async (email, password) => {
     const res = await axios.post('/auth/login', { email, password }, { withCredentials: true });
-    const token = res.data.accessToken;
-    updateAccessTokenHeader(token);
-    setAccessToken(token);
-    setUser(res.data.user);
-    return res.data.user;
+    const token = res.data.token || res.data.accessToken;
+    const userData = res.data.user;
+    if (token) {
+      updateAccessTokenHeader(token);
+      setAccessToken(token);
+    }
+    if (userData) {
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+    }
+    return userData;
   };
 
   const register = async (username, email, password, role = 'user') => {
     const res = await axios.post('/auth/register', { username, email, password, role }, { withCredentials: true });
-    const token = res.data.accessToken;
-    updateAccessTokenHeader(token);
-    setAccessToken(token);
-    setUser(res.data.user);
-    return res.data.user;
+    const token = res.data.token || res.data.accessToken;
+    const userData = res.data.user;
+    if (token) {
+      updateAccessTokenHeader(token);
+      setAccessToken(token);
+    }
+    if (userData) {
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+    }
+    return userData;
   };
 
   const logout = async () => {

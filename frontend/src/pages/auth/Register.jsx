@@ -9,15 +9,20 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('user');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    setError('');
     try {
       await register(username, email, password, role);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Unable to register. Please check your inputs.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,7 +45,6 @@ export default function Register() {
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="mt-2 w-full rounded-2xl border border-white/10 bg-[#0D0D0D] p-3 text-white" />
           </label>
 
-          {/* Role selection cards (append before submit) */}
           <div className="role-selection mt-2">
             <label className="role-label block text-sm font-semibold mb-2 text-gray-300">I am joining as:</label>
             <div className="role-cards flex gap-4">
@@ -65,7 +69,9 @@ export default function Register() {
             </div>
           </div>
 
-          <button type="submit" className="w-full rounded-full bg-yellow-300 py-3 text-black font-semibold hover:bg-yellow-400">Create account</button>
+          <button type="submit" disabled={loading} className="auth-submit-btn w-full rounded-full bg-yellow-300 py-3 text-black font-semibold hover:bg-yellow-400">
+            {loading ? <span className="btn-loader" aria-label="Loading" /> : 'Create account'}
+          </button>
         </form>
         <p className="mt-6 text-sm text-gray-400">
           Already have an account? <Link to="/auth/login" className="text-yellow-300 hover:text-yellow-400">Login</Link>

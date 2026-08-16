@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 /**
  * User schema for DELEON ENTERPRiSES ecosystem.
@@ -24,6 +25,16 @@ const userSchema = new mongoose.Schema({
   lastLogin: Date,
   failedLoginAttempts: { type: Number, default: 0 },
   lockedUntil: Date
+});
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.passwordHash || this.password);
+};
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('passwordHash') || !this.passwordHash) return next();
+  this.passwordHash = await bcrypt.hash(this.passwordHash, 12);
+  next();
 });
 
 module.exports = mongoose.model('User', userSchema);
