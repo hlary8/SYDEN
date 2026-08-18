@@ -30,7 +30,7 @@ const VideoShowcase = () => {
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       >
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4" type="video/mp4" type="video/mp4" />
       </video>
 
       <button
@@ -152,7 +152,7 @@ export default function PortalHome() {
           <div className="hero-video-cta">
             <div className="hero-video-preview" aria-hidden="true">
               <video className="hero-video-preview-video" muted playsInline loop autoPlay preload="metadata">
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                <source src="https://res.cloudinary.com/tmcloud1/video/upload/v1787084125/WhatsApp_Video_2026-08-18_at_22.51.13_nyl6pp.mp4" type="video/mp4" />
               </video>
               <div className="hero-video-play" />
             </div>
@@ -190,7 +190,7 @@ export default function PortalHome() {
                   <span className="highlight-category">{item.category}</span>
                   <h3 className="highlight-title">{item.title}</h3>
                   <Link to={item.link} className="highlight-readmore" onClick={(event) => event.stopPropagation()}>
-                    READ MORE →
+                    EXPLORE →
                   </Link>
                 </div>
               </div>
