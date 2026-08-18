@@ -133,7 +133,7 @@ export default function Press() {
         <h1>News</h1>
         <p className="press-subtitle">Discover the latest from DeLeon Holdings.</p>
         <div className="press-header-actions">
-          <Link to="/admin/news" className="see-all-btn">SEE ALL PRESS RELEASES</Link>
+          <Link to="/press" className="see-all-btn">SEE ALL NEWS</Link>
           {user?.role === 'admin' && (
             <Link to="/admin/news" className="admin-btn">+ NEW ARTICLE</Link>
           )}
@@ -162,7 +162,7 @@ export default function Press() {
           <button className={filter === 'deleon' ? 'active' : ''} onClick={() => setFilter('deleon')}>DeLeon</button>
           <button className={filter === 'syden' ? 'active' : ''} onClick={() => setFilter('syden')}>Syden</button>
           <button className={filter === 'deefresh' ? 'active' : ''} onClick={() => setFilter('deefresh')}>DeeFresh</button>
-          <button className={filter === 'sustainability' ? 'active' : ''} onClick={() => setFilter('sustainability')}>Sustainability</button>
+         {/* Your comment here  <button className={filter === 'sustainability' ? 'active' : ''} onClick={() => setFilter('sustainability')}>Sustainability</button> */}
         </div>
 
         <div className="press-grid">
