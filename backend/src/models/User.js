@@ -17,9 +17,13 @@ const userSchema = new mongoose.Schema({
     farmName: String,
     farmLocation: String,
     farmDescription: String,
+    story: String,
+    activities: [String],
+    gallery: [{ url: String, publicId: String }],
     farmPhoto: { url: String, publicId: String },
     contactPhone: String,
-    isApproved: { type: Boolean, default: false }
+    isApproved: { type: Boolean, default: false },
+    isSuspended: { type: Boolean, default: true }
   },
   createdAt: { type: Date, default: Date.now },
   lastLogin: Date,

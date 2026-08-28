@@ -184,7 +184,7 @@ export default function GlobalPresence() {
             color: '#555',
             textAlign: 'left'
           }}>
-            DeLeon Holdings is growing its international operations across key markets. Through our subsidiaries—DeLeon Enterprises (real estate & land management), Syden (livestock & veterinary services), and DeeFresh (agricultural produce & seeds)—we're establishing a robust global network.
+            DELEON is growing its international operations across key markets. Through our subsidiaries—DeLeon Enterprises (real estate & land management), Syden (livestock & veterinary services), and DeeFresh (agricultural produce & seeds)—we're establishing a robust global network.
           </p>
           <p style={{
             fontSize: '16px',

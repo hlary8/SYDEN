@@ -10,13 +10,13 @@ export default function Houses() {
   return (
     <div className="min-h-screen bg-white text-black">
       {/* Hero */}
-      <section className="relative h-[80vh] md:h-screen flex items-center justify-center" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <section className="relative mx-auto my-6 flex max-w-7xl items-center justify-center overflow-hidden rounded-[28px] border border-[#E5E5E5] bg-black md:my-8" style={{ height: '52vh', minHeight: '420px', maxHeight: '560px', backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 mx-auto max-w-4xl text-center px-4 md:px-6">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center md:px-6">
           <h1 className="font-[Cormorant] text-white text-[clamp(2.5rem,8vw,4.5rem)] leading-tight">OUR COMPANIES</h1>
-          <p className="mt-6 text-white text-sm md:text-lg max-w-3xl mx-auto px-2">Three pillars. One vision. Cultivating excellence across land, livestock, and harvest.</p>
+          <p className="mt-6 mx-auto max-w-3xl px-2 text-sm text-white/90 md:text-lg">Three pillars. One vision. Cultivating excellence across land, livestock, and harvest.</p>
         </div>
-        <div className="absolute bottom-8 md:bottom-12 w-full text-center text-white/80">
+        <div className="absolute bottom-8 w-full text-center text-white/80 md:bottom-12">
           <div className="animate-bounce text-xs md:text-base">⌄ SCROLL TO DISCOVER</div>
         </div>
       </section>
@@ -25,7 +25,7 @@ export default function Houses() {
       <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5]">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12">
           <div className="lg:w-1/2">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE HOUSE</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE COMPANY</p>
             <h2 className="mt-4 font-serif text-2xl md:text-4xl">DELEON</h2>
             <h3 className="mt-2 text-lg md:text-xl font-semibold">The Land Legacy</h3>
             <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">Founded on the principle that land is the foundation of all prosperity, DELEON has spent over a decade curating premium agricultural and development parcels across East Africa. From the rolling highlands of Laikipia to the fertile plains of Meru, every acre is surveyed, fenced, and title-deed ready. We do not merely sell land — we deliver legacy. Each parcel comes with environmental assessments, infrastructure mapping, and a commitment to sustainable stewardship that spans generations.</p>
@@ -51,10 +51,10 @@ export default function Houses() {
       <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5]">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12">
           <div className="lg:w-1/2">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE HOUSE</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE COMPANY</p>
             <h2 className="mt-4 font-serif text-2xl md:text-4xl">DeeFresh</h2>
             <h3 className="mt-2 text-lg md:text-xl font-semibold">The Harvest Dream</h3>
-            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">DeeFresh reimagines the farm-to-table journey as a seamless tapestry of partnership, precision, and purity. We engage small-scale and large-scale farmers through contractual farming agreements that guarantee fair prices and agronomical support. Our consultancy services span soil analysis, crop planning, and market sourcing — with a special focus on peas and high-value produce. From seed selection to supermarket shelf, DeeFresh ensures every harvest reaches its fullest potential.</p>
+            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">DeeFresh reimagines the farm-to-markets journey as a seamless tapestry of partnership, precision, and purity. We engage small-scale and large-scale farmers through contractual farming agreements that guarantee fair prices and agronomical support. Our consultancy services span soil analysis, crop planning, and market sourcing — with a special focus on peas and high-value produce. From seed selection to supermarket shelf, DeeFresh ensures every harvest reaches its fullest potential.</p>
             <Link to="/deefresh" className="inline-block mt-6 underline text-[#D4AF37] hover:text-black text-sm md:text-base">Explore DeeFresh →</Link>
           </div>
           <div className="lg:w-1/2 w-full">
@@ -63,7 +63,7 @@ export default function Houses() {
               posterUrl={import.meta.env.VITE_DEEFRESH_HOUSE_POSTER || (deefreshImage + '?w=200&blur=200')}
               label="THE HARVEST DREAM"
               headline="At DeeFresh, We Cultivate<br/>Abundance"
-              subheadline="Contractual farming, agronomical services, and the finest fresh produce from farm to table."
+              subheadline="Contractual farming, agronomical services, and the finest fresh produce from farm to global market supply."
               ctas={[{ label: 'Shop Produce →', to: '/deefresh/produce', variant: 'primary' }, { label: 'Farm With Us →', to: '/deefresh/contract-farming', variant: 'secondary' }]}
             />
             <p className="mt-3 text-xs md:text-sm text-gray-500">DeeFresh Partner Farm</p>
@@ -80,7 +80,7 @@ export default function Houses() {
       <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5] bg-white">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row-reverse items-center gap-8 md:gap-12">
           <div className="lg:w-1/2">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[#6B7280]">THE HOUSE</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#6B7280]">THE COMPANY</p>
             <h2 className="mt-4 font-serif text-2xl md:text-4xl">Syden</h2>
             <h3 className="mt-2 text-lg md:text-xl font-semibold">The Pastoral Art</h3>
             <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">Where veterinary science meets generations of husbandry, Syden stands as the region's premier livestock and agricultural services house. Our herd management programs combine cutting-edge veterinary care with time-honored pastoral traditions. Beyond livestock, Syden supplies F1 potato seeds to farmers seeking certified, high-yield varieties. From vaccination protocols to breeding programs, from seed certification to farm advisory — Syden nurtures life at every stage.</p>

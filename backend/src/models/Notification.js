@@ -6,14 +6,18 @@ const mongoose = require('mongoose');
  */
 const NotificationSchema = new mongoose.Schema({
   recipient: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  type: { type: String, enum: ['farmer_approval', 'farmer_rejection', 'farmer_expiry', 'admin_alert'], default: 'admin_alert' },
+  type: {
+    type: String,
+    enum: ['farmer_approval', 'farmer_rejection', 'farmer_edited', 'farmer_expiry', 'admin_alert', 'new_application', 'new_produce', 'new_seed'],
+    default: 'admin_alert'
+  },
   title: String,
   message: String,
-  link: String, // URL to navigate to when clicked
+  link: String,
   read: { type: Boolean, default: false },
-  data: mongoose.Schema.Types.Mixed, // Extra data (e.g., farmerId, requirestId)
+  data: mongoose.Schema.Types.Mixed,
   createdAt: { type: Date, default: Date.now },
-  expiresAt: { type: Date, default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) } // Auto-delete after 30 days
+  expiresAt: { type: Date, default: () => new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
 });
 
 module.exports = mongoose.model('Notification', NotificationSchema);

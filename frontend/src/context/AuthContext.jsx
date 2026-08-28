@@ -100,25 +100,30 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
+  // Only run once on mount to prevent infinite loops
   useEffect(() => {
-    const token = getStoredToken();
-    if (!token || isTokenExpired(token)) {
-      updateAccessTokenHeader(null);
-      setAccessToken(null);
-      setUser(null);
-      setLoading(false);
-      return;
-    }
-
-    const checkAuth = async () => {
+    const initAuth = async () => {
       try {
+        const token = getStoredToken();
+        if (!token || isTokenExpired(token)) {
+          updateAccessTokenHeader(null);
+          setAccessToken(null);
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+
+        // Verify token with backend
         const res = await axios.get('/auth/me', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        const userData = res.data?.user || JSON.parse(localStorage.getItem('user') || 'null');
-        if (userData) setUser(userData);
+        
+        if (res.data?.user) {
+          setUser(res.data.user);
+          setAccessToken(token);
+        }
       } catch (err) {
-        console.error('Auth check failed', err);
+        console.error('Auth initialization failed', err.message);
         updateAccessTokenHeader(null);
         setAccessToken(null);
         setUser(null);
@@ -127,8 +132,8 @@ export function AuthProvider({ children }) {
       }
     };
 
-    checkAuth();
-  }, [accessToken]);
+    initAuth();
+  }, []); // Empty dependency array - run only once on mount
 
   const login = async (email, password) => {
     const res = await axios.post('/auth/login', { email, password }, { withCredentials: true });

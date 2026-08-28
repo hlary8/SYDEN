@@ -18,7 +18,7 @@ export default function DeeFreshNavbar() {
             <Link to="/deefresh/admin" className="px-4 py-2 rounded-full bg-[#FFD700] text-[#673147] font-semibold hover:bg-opacity-90 transition-colors">Admin</Link>
           )}
           <Link to="/deefresh/contact" className="px-4 py-2 rounded-full bg-[#FFD700] text-[#673147] font-semibold hover:bg-opacity-90 transition-colors">Contact</Link>
-          <Link to="/" className="text-sm text-[#673147]/80 hover:text-[#673147] transition-colors">Back to Holdings</Link>
+          <Link to="/" className="text-sm text-[#673147]/80 hover:text-[#673147] transition-colors">Back to DELEON</Link>
         </div>
       </div>
     </nav>

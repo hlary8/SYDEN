@@ -69,9 +69,11 @@ main {
   display: flex;
   gap: 1rem;
   overflow-x: auto;
+  overflow-y: visible;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  overscroll-behavior-x: contain;
   touch-action: pan-x;
   position: relative;
   padding: 0.5rem 0 1rem;
@@ -692,5 +694,20 @@ main {
 
 .play-icon {
   margin-left: 2px;
+}
+
+.portal-hero-section {
+  max-width: 1500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 32px;
+  border: 1px solid rgba(201, 169, 110, 0.18);
+  box-shadow: 0 25px 80px rgba(0,0,0,0.08);
+}
+
+@media (min-width: 1024px) {
+  .portal-hero-section {
+    margin-top: 1rem;
+  }
 }
 

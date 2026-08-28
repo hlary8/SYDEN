@@ -30,7 +30,7 @@ const VideoShowcase = () => {
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       >
-        <source src="https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4" type="video/mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4" type="video/mp4" />
       </video>
 
       <button
@@ -62,7 +62,7 @@ const mobileSlides = [
     id: 'deefresh',
     image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
     title: 'DeeFresh',
-    subtitle: 'Harvest to table' 
+    subtitle: 'Harvest to Markets' 
   }
 ];
 
@@ -148,7 +148,9 @@ export default function PortalHome() {
 
         <div className="relative overflow-hidden bg-black">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(201,169,110,0.15),_transparent_35%)]" />
-          <HeroSlideshow />
+          <div className="relative mx-auto my-4 h-[calc(100%-2rem)] max-h-[92vh] w-[calc(100%-2rem)] overflow-hidden rounded-[30px] border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.35)] xl:my-6 xl:max-h-[90vh]">
+            <HeroSlideshow />
+          </div>
           <div className="hero-video-cta">
             <div className="hero-video-preview" aria-hidden="true">
               <video className="hero-video-preview-video" muted playsInline loop autoPlay preload="metadata">
@@ -164,7 +166,7 @@ export default function PortalHome() {
       <section className="deleon-highlights-section">
         <div className="highlights-container">
           <div
-            className="highlights-slideshow"
+            className="highlights-slideshow touch-pan-x overflow-x-auto snap-x snap-mandatory md:overflow-visible"
             onClick={handleMobileTap}
             onMouseEnter={() => {
               if (window.innerWidth >= 1024) {
@@ -182,7 +184,7 @@ export default function PortalHome() {
             {highlights.map((item, index) => (
               <div
                 key={item.id}
-                className={`highlight-slide ${index === currentSlide ? 'active' : ''}`}
+                className={`highlight-slide ${index === currentSlide ? 'active' : ''} snap-start min-w-[85vw] md:min-w-0`}
                 style={{ backgroundImage: `url(${item.image})` }}
               >
                 <div className="highlight-slide-overlay" />
@@ -256,14 +258,14 @@ export default function PortalHome() {
             </Link>
           </div>
 
-          <div className="house-scroll-container md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:[&>*]:max-w-none md:[&>*]:flex-none"> 
+          <div className="house-scroll-container md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:[&>*]:max-w-none md:[&>*]:flex-none overflow-x-auto snap-x snap-mandatory touch-pan-x">
             {[
               { brand: 'DELEON', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg', href: '/history' },
               { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg', href: '/history' },
               { brand: 'Syden', title: 'The Science of Healthy Livestock', desc: 'Veterinary excellence & pastoral heritage.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg', href: '/history' }
             ].map((item) => (
-              <Link key={item.brand} to={item.href} className="house-scroll-card rounded-none bg-white p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-2 md:p-8 md:shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-                <div className="h-52 md:h-64 lg:h-96 rounded-none bg-black/10 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${item.image})` }} />
+              <Link key={item.brand} to={item.href} className="house-scroll-card min-w-[280px] snap-start rounded-none bg-white p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-2 md:min-w-0 md:p-8 md:shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+                <div className="h-52 md:h-64 lg:h-72 rounded-none bg-black/10 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${item.image})` }} />
                 <p className="text-[11px] uppercase tracking-[0.2em] text-gray-500">{item.brand}</p>
                 <h3 className="mt-4 text-2xl font-semibold text-gray-900">{item.title}</h3>
                 <p className="mt-4 text-sm text-gray-600">{item.desc}</p>

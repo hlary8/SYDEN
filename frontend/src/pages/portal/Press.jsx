@@ -120,7 +120,7 @@ export default function Press() {
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', marginBottom: '12px' }}>
             No Articles Published Yet
           </h2>
-          <p style={{ color: '#666' }}>Check back later for the latest news from DeLeon Holdings.</p>
+          <p style={{ color: '#666' }}>Check back later for the latest news from DELEON.</p>
         </div>
       </div>
     );
@@ -131,7 +131,7 @@ export default function Press() {
       <div className="px-6 py-12 lg:px-24">
       <section className="press-header">
         <h1>News</h1>
-        <p className="press-subtitle">Discover the latest from DeLeon Holdings.</p>
+        <p className="press-subtitle">Discover the latest from DELEON.</p>
         <div className="press-header-actions">
           <Link to="/press" className="see-all-btn">SEE ALL NEWS</Link>
           {user?.role === 'admin' && (

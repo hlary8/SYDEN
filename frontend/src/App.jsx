@@ -35,6 +35,7 @@ import SydenContact from './pages/syden/SydenContact';
 import SydenAdminDashboard from './pages/syden/admin/SydenAdminDashboard';
 import SydenLivestockUpload from './pages/syden/admin/SydenLivestockUpload';
 import SydenCommentModeration from './pages/syden/admin/SydenCommentModeration';
+import SydenFarmActivitiesAdmin from './pages/syden/admin/SydenFarmActivitiesAdmin';
 import DeeFreshHome from './pages/deefresh/DeeFreshHome';
 import DeeFreshProduce from './pages/deefresh/DeeFreshProduce';
 import DeeFreshProduceDetail from './pages/deefresh/DeeFreshProduceDetail';
@@ -45,6 +46,8 @@ import DeeFreshContact from './pages/deefresh/DeeFreshContact';
 import DeeFreshAdminDashboard from './pages/deefresh/admin/DeeFreshAdminDashboard';
 import DeeFreshProduceUpload from './pages/deefresh/admin/DeeFreshProduceUpload';
 import DeeFreshFarmerApplications from './pages/deefresh/admin/DeeFreshFarmerApplications';
+import DeeFreshSeedsAdmin from './pages/deefresh/admin/DeeFreshSeedsAdmin';
+import DeeFreshFarmersAdmin from './pages/deefresh/admin/DeeFreshFarmersAdmin';
 import LoginPage from './pages/auth/Login';
 import RegisterPage from './pages/auth/Register';
 import ForgotPasswordPage from './pages/auth/ForgotPassword';
@@ -122,6 +125,7 @@ function App() {
               <Route path="admin" element={<SydenAdminDashboard />} />
               <Route path="admin/livestock-upload" element={<SydenLivestockUpload />} />
               <Route path="admin/comment-moderation" element={<SydenCommentModeration />} />
+              <Route path="admin/farm-activities" element={<SydenFarmActivitiesAdmin />} />
             </Route>
 
             <Route path="/deefresh/*" element={<DeeFreshLayout />}>
@@ -135,6 +139,8 @@ function App() {
               <Route path="admin" element={<DeeFreshAdminDashboard />} />
               <Route path="admin/produce-upload" element={<DeeFreshProduceUpload />} />
               <Route path="admin/farmer-applications" element={<DeeFreshFarmerApplications />} />
+              <Route path="admin/farmers" element={<DeeFreshFarmersAdmin />} />
+              <Route path="admin/seeds" element={<DeeFreshSeedsAdmin />} />
             </Route>
 
             <Route path="/auth/login" element={<LoginPage />} />

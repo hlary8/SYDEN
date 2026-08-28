@@ -1,19 +1,80 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 export default function SydenFarmActivities() {
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadActivities = async () => {
+      try {
+        const { data } = await axios.get('/api/v1/livestock');
+        const items = Array.isArray(data?.data) ? data.data : [];
+
+        const flattened = items
+          .flatMap((animal) =>
+            (animal.accordionSections || []).map((section) => ({
+              ...section,
+              animalName: animal.name,
+              animalCategory: animal.category,
+              animalPhoto: animal.coverImage?.url || null,
+            }))
+          )
+          .filter((item) => item.title || item.content || item.photo?.url);
+
+        setActivities(flattened);
+      } catch (error) {
+        console.error('Error fetching farm activities:', error);
+        setActivities([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadActivities();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="bg-[var(--bg)] min-h-screen px-4 py-12 text-[var(--text)] flex items-center justify-center">
+        <p>Loading farm activities...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[var(--bg)] min-h-screen px-4 py-12 text-[var(--text)]">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-6">Farm Activities</h1>
-        <div className="space-y-6">
-          {['Milking', 'Shearing', 'Feeding', 'Herding'].map((activity) => (
-            <div key={activity} className="rounded-3xl bg-white p-8 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-semibold">{activity}</h2>
-                <span className="text-sm text-gray-500">March 2026</span>
+        {activities.length === 0 ? (
+          <div className="rounded-3xl bg-white p-8 shadow-lg text-gray-600">
+            No farm activities have been added yet.
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {activities.map((activity, index) => (
+              <div key={`${activity.animalName}-${activity.title || index}`} className="rounded-3xl bg-white p-8 shadow-lg">
+                <div className="flex items-center justify-between mb-4 gap-4 flex-wrap">
+                  <div>
+                    <h2 className="text-2xl font-semibold">{activity.title || 'Farm Activity'}</h2>
+                    <p className="text-sm text-gray-500">{activity.animalName} • {activity.animalCategory}</p>
+                  </div>
+                  <span className="text-sm text-gray-500">Live record</span>
+                </div>
+
+                {activity.photo?.url && (
+                  <img
+                    src={activity.photo.url}
+                    alt={activity.title || activity.animalName}
+                    className="w-full h-56 object-cover rounded-2xl mb-4"
+                  />
+                )}
+
+                <p className="text-gray-600 whitespace-pre-line">{activity.content || 'No description provided for this activity.'}</p>
               </div>
-              <p className="text-gray-600">A detailed summary of the farm practice, the team involved, and the impact on livestock wellness.</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -29,4 +29,13 @@ router.patch('/admin/reject/:requestId', requireAuth, requireAdmin, farmerContro
 // Admin: Delete a farmer request
 router.delete('/admin/:requestId', requireAuth, requireAdmin, farmerController.deleteFarmerRequest);
 
+// Admin: Create approved farmer directly
+router.post('/admin/create', requireAuth, requireAdmin, farmerController.createApprovedFarmer);
+
+// Admin: Update farmer profile details
+router.patch('/admin/:id', requireAuth, requireAdmin, farmerController.updateFarmerProfile);
+
+// Farmer/self: Update own profile details
+router.patch('/:id', requireAuth, farmerController.updateFarmerProfile);
+
 module.exports = router;

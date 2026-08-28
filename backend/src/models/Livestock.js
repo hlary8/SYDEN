@@ -6,14 +6,15 @@ const mongoose = require('mongoose');
  */
 const VeterinaryHistorySchema = new mongoose.Schema({ date: Date, procedure: String, vetName: String, notes: String }, { _id: false });
 
+const ImageSchema = new mongoose.Schema({ url: String, publicId: String }, { _id: false });
+
 // ADDED: Accordion sections with content and photos
 const AccordionSectionSchema = new mongoose.Schema({
   title: String, // e.g., "Health & Veterinary Care", "Farm Life & Activities", "Pedigree & Lineage"
   content: String, // Rich text or plain text
-  photo: { url: String, publicId: String } // Optional photo for the section
+  photo: { url: String, publicId: String }, // Optional photo for the section
+  gallery: [ImageSchema] // Gallery photos for the section
 }, { _id: false });
-
-const ImageSchema = new mongoose.Schema({ url: String, publicId: String }, { _id: false });
 
 const LivestockSchema = new mongoose.Schema({
   name: { type: String, required: true }, // ADDED: NEVER show MongoDB _id on frontend

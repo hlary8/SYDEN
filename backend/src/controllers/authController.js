@@ -12,11 +12,14 @@ const registerSchema = z.object({
   role: z.enum(['user', 'farmer', 'admin']).optional()
 });
 
+// FIXED for Render: 30-day session, secure in production, lax in dev
 const getCookieSettings = () => ({
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production' || process.env.COOKIE_SECURE === 'true',
-  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-  maxAge: THIRTY_DAYS_MS
+  secure: process.env.NODE_ENV === 'production',  // Only HTTPS in production (Render has HTTPS)
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' for cross-site on Render
+  maxAge: THIRTY_DAYS_MS, // 30 days in milliseconds
+  rolling: true // Reset expiry on each request
+  // NOTE: Do NOT set domain - let browser handle it
 });
 
 function setAuthCookies(res, accessToken, refreshToken) {

@@ -142,21 +142,24 @@ export default function SydenLivestock() {
           </div>
         ) : (
           <div className="grid gap-6 lg:grid-cols-3">
-            {filteredLivestock.map((item) => (
-              <div key={item._id} className="rounded-3xl bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow">
-                <div className="h-44 rounded-3xl bg-[var(--surface)] mb-4 overflow-hidden">
-                  {item.images?.[0]?.url && (
-                    <img src={item.images[0].url} alt={item.name} className="w-full h-full object-cover" />
-                  )}
+            {filteredLivestock.map((item) => {
+              const primaryImage = item.coverImage?.url || item.gallery?.[0]?.url || item.images?.[0]?.url;
+              return (
+                <div key={item._id} className="rounded-3xl bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow">
+                  <div className="h-44 rounded-3xl bg-[var(--surface)] mb-4 overflow-hidden">
+                    {primaryImage && (
+                      <img src={primaryImage} alt={item.name} className="w-full h-full object-cover" />
+                    )}
+                  </div>
+                  <h2 className="text-2xl font-semibold mb-2">{item.name}</h2>
+                  <p className="text-sm text-gray-500 mb-2">{item.breed}</p>
+                  <p className="text-sm text-gray-500 mb-4">Category: {item.category}</p>
+                  <Link to={`/syden/livestock/${item._id}`} className="inline-flex items-center gap-2 text-[var(--accent)] font-semibold hover:underline">
+                    View profile →
+                  </Link>
                 </div>
-                <h2 className="text-2xl font-semibold mb-2">{item.name}</h2>
-                <p className="text-sm text-gray-500 mb-2">{item.breed}</p>
-                <p className="text-sm text-gray-500 mb-4">Category: {item.category}</p>
-                <Link to={`/syden/livestock/${item._id}`} className="inline-flex items-center gap-2 text-[var(--accent)] font-semibold hover:underline">
-                  View profile →
-                </Link>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

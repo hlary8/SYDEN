@@ -17,7 +17,7 @@ export default function DeLeonEnterprisesNavbar() {
           {user?.role === 'admin' && (
             <Link to="/deleon/admin" className="px-4 py-2 rounded-full bg-yellow-300 text-black font-semibold hover:bg-yellow-400 transition-colors">Admin</Link>
           )}
-          <Link to="/" className="text-sm text-gray-200 hover:text-white transition-colors">Back to Holdings</Link>
+          <Link to="/" className="text-sm text-gray-200 hover:text-white transition-colors">Back to DELEON</Link>
         </div>
       </div>
     </nav>

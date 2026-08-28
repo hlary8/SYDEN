@@ -19,24 +19,7 @@ const brandContent = {
       { src: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=900&q=80', caption: 'Future-ready land planning' }
     ]
   },
-  syden: {
-    name: 'Syden',
-    hero: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1600&q=80',
-    summary: 'Syden blends veterinary heritage with progressive herd management, producing healthy livestock and trusted farm systems rooted in care, science and craft.',
-    story: [
-      'Syden was built around a simple principle: healthy animals create stronger farms, communities and food systems.',
-      'From vaccination programs and breeding strategy to pasture planning and farm management, our approach merges veterinary precision with generations of husbandry wisdom.',
-      'Our vision is to make excellence in livestock health and welfare a daily standard across every farm we serve.'
-    ],
-    gallery: [
-      { src: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80', caption: 'Healthy livestock management' },
-      { src: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80', caption: 'Daily farm life' },
-      { src: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80', caption: 'Veterinary care and wellness' },
-      { src: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=900&q=80', caption: 'Pasture-based nutrition' },
-      { src: 'https://images.unsplash.com/photo-1570042225831-d98fa7577c1a?auto=format&fit=crop&w=900&q=80', caption: 'Farm operations at scale' },
-      { src: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80', caption: 'Healthy herd culture' }
-    ]
-  },
+  
   deefresh: {
     name: 'DeeFresh',
     hero: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc4a5?auto=format&fit=crop&w=1600&q=80',
@@ -54,10 +37,28 @@ const brandContent = {
       { src: 'https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?auto=format&fit=crop&w=900&q=80', caption: 'Quality assurance' },
       { src: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=900&q=80', caption: 'Harvest to market' }
     ]
+  },
+   syden: {
+    name: 'Syden',
+    hero: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1600&q=80',
+    summary: 'Syden blends veterinary heritage with progressive herd management, producing healthy livestock and trusted farm systems rooted in care, science and craft.',
+    story: [
+      'Syden was built around a simple principle: healthy animals create stronger farms, communities and food systems.',
+      'From vaccination programs and breeding strategy to pasture planning and farm management, our approach merges veterinary precision with generations of husbandry wisdom.',
+      'Our vision is to make excellence in livestock health and welfare a daily standard across every farm we serve.'
+    ],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80', caption: 'Healthy livestock management' },
+      { src: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80', caption: 'Daily farm life' },
+      { src: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80', caption: 'Veterinary care and wellness' },
+      { src: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=900&q=80', caption: 'Pasture-based nutrition' },
+      { src: 'https://images.unsplash.com/photo-1570042225831-d98fa7577c1a?auto=format&fit=crop&w=900&q=80', caption: 'Farm operations at scale' },
+      { src: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80', caption: 'Healthy herd culture' }
+    ]
   }
 };
 
-const tabs = ['deleon', 'syden', 'deefresh'];
+const tabs = ['deleon','deefresh','syden',];
 
 export default function HistoryPage() {
   const [activeTab, setActiveTab] = useState('deleon');
@@ -77,7 +78,7 @@ export default function HistoryPage() {
       if (!parsed.updatedAt || Date.now() - parsed.updatedAt > oneDay) {
         const next = (parsed.index + 1) % tabs.length;
         setHighlightIndex(next);
-        localStorage.setItem('deLeonFeaturedCompany', JSON.stringify({ index: next, updatedAt: Date.now() }));
+        localStorage.setItem('DELeonFeaturedCompany', JSON.stringify({ index: next, updatedAt: Date.now() }));
         return;
       }
       setHighlightIndex(parsed.index || 0);
