@@ -235,7 +235,7 @@ export default function PortalHome() {
 
       <section className="bg-[#F5F0E8] px-8 py-16 lg:py-24 lg:px-24">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-[#6B5F49]">OUR HOUSES</p>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-[#6B5F49]">OUR COMPANIES</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 lg:gap-10">
             {['DeLeon', 'Syden', 'DeeFresh'].map((name) => (
               <Link key={name} to={name === 'DeLeon' ? '/deleon' : name === 'Syden' ? '/syden' : '/deefresh'} className="flex h-24 w-24 items-center justify-center rounded-full border border-[#DDD] bg-white text-sm font-semibold uppercase tracking-[0.18em] text-[#111] transition duration-300 hover:scale-110 hover:shadow-2xl">
