@@ -17,7 +17,7 @@ const ArrowRight = () => (
 const companySlides = [
   {
     id: 'deleon',
-    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788105550/IMG-20260814-WA0052.jpg',
     title: 'DELEON Land',
     subtitle: 'Premium Land Stewardship'
   },

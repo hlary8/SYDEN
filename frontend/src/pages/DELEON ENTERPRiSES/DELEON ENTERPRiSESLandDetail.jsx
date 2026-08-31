@@ -14,6 +14,9 @@ export default function DeLeonEnterprisesLandDetail() {
   const [land, setLand] = useState(null);
   const [images, setImages] = useState(defaultImages);
   const [index, setIndex] = useState(0);
+  const [showConsult, setShowConsult] = useState(false);
+  const [submitState, setSubmitState] = useState({ ok: false, message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', contactMethod: 'Email', message: '' });
   const timerRef = useRef(null);
   const touchStartX = useRef(null);
 
@@ -61,6 +64,29 @@ export default function DeLeonEnterprisesLandDetail() {
     touchStartX.current = null;
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('/contact-enquiries', {
+        type: 'land_enquiry',
+        landId: land?._id || '',
+        landName: land?.title || title,
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        contactMethod: form.contactMethod,
+        message: form.message || `I am interested in ${title}. Please contact me.`
+      }, { withCredentials: true });
+
+      setSubmitState({ ok: true, message: 'Your enquiry was sent to the DeLeon admin team.' });
+      setForm({ name: '', email: '', phone: '', contactMethod: 'Email', message: '' });
+      setShowConsult(false);
+    } catch (err) {
+      console.error('Land enquiry failed', err);
+      setSubmitState({ ok: false, message: err.response?.data?.message || 'Unable to send enquiry right now.' });
+    }
+  };
+
   const title = land?.title || (slug ? slug.replace(/-/g, ' ') : 'Land Detail');
   const price = land?.price && land.price > 0 ? Number(land.price).toLocaleString() : null;
   const size = land?.sizeAcres ?? land?.size ?? '6.5';
@@ -76,7 +102,7 @@ export default function DeLeonEnterprisesLandDetail() {
         <div className="relative overflow-hidden rounded-2xl">
           <div className="relative">
             <div
-              className="w-full h-72 lg:h-[520px] bg-black/5 flex items-center justify-center touch-pan-y"
+              className="w-full h-72 lg:h-[520px] bg-black/5 flex items-center justify-center touch-auto"
               onTouchStart={onTouchStart}
               onTouchEnd={onTouchEnd}
             >
@@ -135,6 +161,84 @@ export default function DeLeonEnterprisesLandDetail() {
                 <p>{description}</p>
               </div>
             </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <a href={`mailto:visits@deleon.com?subject=Farm%20Visit%20Booking%20-%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+              <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Visit</div>
+              <h3 className="text-xl font-semibold mb-2">Book a Farm Visit</h3>
+              <p className="text-sm text-gray-600">Experience the land first-hand.</p>
+            </a>
+            <a href={`mailto:enquiries@deleon.com?subject=Enquiry%20about%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+              <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Questions</div>
+              <h3 className="text-xl font-semibold mb-2">Make an Enquiry</h3>
+              <p className="text-sm text-gray-600">Talk to our team directly.</p>
+            </a>
+            <a href={`mailto:sales@deleon.com?subject=Purchase%20Interest%20-%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+              <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Ownership</div>
+              <h3 className="text-xl font-semibold mb-2">Purchase This Farm</h3>
+              <p className="text-sm text-gray-600">Start your ownership journey.</p>
+            </a>
+            <a href="tel:+254700000000" className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+              <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Advisor</div>
+              <h3 className="text-xl font-semibold mb-2">Consultancy</h3>
+              <p className="text-sm text-gray-600">Call our consultants today.</p>
+            </a>
+          </div>
+
+          <div className="mt-10 rounded-[28px] border border-[#D9A441]/40 bg-[#F9F5EE] p-6">
+            <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-[#7A5A12] mb-1">Consultation</p>
+                <h2 className="text-2xl font-bold">Need help choosing the right property?</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowConsult(!showConsult)}
+                className="rounded-full bg-[#D9A441] px-5 py-3 text-sm font-semibold text-black"
+              >
+                {showConsult ? 'Hide form' : 'Consult about this land'}
+              </button>
+            </div>
+
+            {showConsult && (
+              <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Name
+                  <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-2 w-full rounded-2xl border border-gray-200 bg-white p-3" />
+                </label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Email
+                  <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="mt-2 w-full rounded-2xl border border-gray-200 bg-white p-3" />
+                </label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Phone
+                  <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="mt-2 w-full rounded-2xl border border-gray-200 bg-white p-3" />
+                </label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Preferred contact
+                  <select value={form.contactMethod} onChange={(e) => setForm({ ...form, contactMethod: e.target.value })} className="mt-2 w-full rounded-2xl border border-gray-200 bg-white p-3">
+                    <option>Email</option>
+                    <option>Call</option>
+                    <option>WhatsApp</option>
+                  </select>
+                </label>
+                <label className="block text-sm font-medium text-gray-700 md:col-span-2">
+                  Message
+                  <textarea rows={4} required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="mt-2 w-full rounded-2xl border border-gray-200 bg-white p-3" placeholder={`Tell us what you’d like to know about ${title}`} />
+                </label>
+                <div className="md:col-span-2 flex items-center justify-between gap-4 flex-wrap">
+                  <button type="submit" className="rounded-full bg-black px-6 py-3 text-sm font-semibold text-white">Send to admin</button>
+                  <a href="mailto:admin@syden.com?subject=Land%20Consultation%20-%20DeLeon" className="text-sm font-medium text-[#7A5A12] underline">or email admin directly</a>
+                </div>
+              </form>
+            )}
+
+            {submitState.message && (
+              <div className={`mt-4 rounded-2xl px-4 py-3 text-sm ${submitState.ok ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                {submitState.message}
+              </div>
+            )}
           </div>
         </div>
       </div>

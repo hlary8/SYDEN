@@ -256,6 +256,7 @@ export default function DeeFreshSeedsAdmin() {
                       <option value="herb">Herb</option>
                       <option value="grain">Grain</option>
                       <option value="legume">Legume</option>
+                      <option value="legume">Tuber</option>
                       <option value="other">Other</option>
                     </select>
                   </div>

@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const createError = require('http-errors');
 const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/User');
+const FarmerRequest = require('../models/FarmerRequest');
+const Notification = require('../models/Notification');
 const { z } = require('zod');
 const { generateAccessToken, generateRefreshToken, THIRTY_DAYS_MS } = require('../utils/jwt');
 
@@ -62,9 +64,33 @@ async function register(req, res, next) {
       return next(createError(409, `${conflictField} already exists`));
     }
 
-    const role = parsed.role && ['user', 'farmer', 'admin'].includes(parsed.role) ? parsed.role : 'user';
+    // If user applied as farmer, keep their role as 'user' (Explorer) until admin approval
+    // but record a farmer application in farmerProfile with status Pending.
+    const wantsFarmer = parsed.role === 'farmer';
+    const role = wantsFarmer ? 'user' : (parsed.role && ['user', 'farmer', 'admin'].includes(parsed.role) ? parsed.role : 'user');
     const passwordHash = await bcrypt.hash(parsed.password, 12);
-    const user = await User.create({ username: parsed.username, email, passwordHash, role });
+    const createPayload = { username: parsed.username, email, passwordHash, role };
+    if (wantsFarmer) {
+      createPayload.farmerProfile = { status: 'Pending', appliedAt: new Date() };
+    }
+    const user = await User.create(createPayload);
+
+    if (wantsFarmer) {
+      // create a FarmerRequest so admin panels that rely on requests see this
+      await FarmerRequest.create({ user: user._id, status: 'pending', requestedAt: new Date() });
+      // notify admins about new application
+      const admins = await User.find({ role: 'admin' });
+      for (const admin of admins) {
+        const notif = await Notification.create({
+          recipient: admin._id,
+          type: 'new_application',
+          title: 'New Farmer Application',
+          message: `${user.username} registered and applied to become a farmer.`,
+          link: '/admin/farmers'
+        });
+        try { require('../utils/notificationEmitter').emitNotification(req.app, admin._id.toString(), notif); } catch (e) {}
+      }
+    }
 
     const accessToken = generateAccessToken({ userId: user._id, role: user.role });
     const refreshToken = generateRefreshToken({ userId: user._id, role: user.role });

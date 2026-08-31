@@ -1,6 +1,5 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import HeroSlideshow from '../../components/common/HeroSlideshow';
 
 const VideoShowcase = () => {
@@ -30,7 +29,7 @@ const VideoShowcase = () => {
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       >
-        <source src="https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/gcne2xno/image/upload/v1788102143/IMG-20260814-WA0082.jpg" type="video/mp4" />
       </video>
 
       <button
@@ -70,16 +69,16 @@ const highlights = [
   {
     id: 1,
     category: 'LAND',
-    title: '15,000+ Acres Under Management',
-    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg',
+    title: '1,000+ Acres Under Management',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102131/IMG-20260814-WA0066.jpg',
     link: '/deleon'
   },
   {
     id: 2,
     category: 'LEGACY',
-    title: 'Sustainable Farming Since 2008',
-    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
-    link: '/sustainability'
+    title: 'High-breed Farming & Livestock',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102143/IMG-20260814-WA0082.jpg',
+    link: '/syden'
   },
   {
     id: 3,
@@ -154,7 +153,7 @@ export default function PortalHome() {
           <div className="hero-video-cta">
             <div className="hero-video-preview" aria-hidden="true">
               <video className="hero-video-preview-video" muted playsInline loop autoPlay preload="metadata">
-                <source src="https://res.cloudinary.com/tmcloud1/video/upload/v1787084125/WhatsApp_Video_2026-08-18_at_22.51.13_nyl6pp.mp4" type="video/mp4" />
+                <source src="https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4" type="video/mp4" />
               </video>
               <div className="hero-video-play" />
             </div>

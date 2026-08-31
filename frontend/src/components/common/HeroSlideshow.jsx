@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 const slides = [
   {
-    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788105550/IMG-20260814-WA0052.jpg',
     alt: 'DeLeon Land'
   },
   {
@@ -10,7 +10,7 @@ const slides = [
     alt: 'Syden Livestock'
   },
   {
-    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788105550/IMG-20260814-WA0026.jpg',
     alt: 'DeeFresh Produce'
   },
   {
@@ -36,21 +36,13 @@ export default function HeroSlideshow() {
   }, [next]);
 
   const handleScrollDown = () => {
+    if (window.innerWidth <= 768) return;
     window.scrollBy({ top: window.innerHeight * 0.85, behavior: 'smooth' });
   };
 
   return (
     <div
       className="hero-slideshow"
-      onClick={handleScrollDown}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          handleScrollDown();
-        }
-      }}
-      role="button"
-      tabIndex={0}
       aria-label="Scroll to the next section"
     >
       {slides.map((slide, index) => (

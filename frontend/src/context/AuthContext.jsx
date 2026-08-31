@@ -104,23 +104,42 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const initAuth = async () => {
       try {
+        // First try cookie/session-based verification (supports Render cookies)
+        try {
+          const res = await axios.get('/auth/me', { withCredentials: true });
+          if (res.data?.user) {
+            const serverToken = res.data.token || res.data.accessToken;
+            if (serverToken) {
+              updateAccessTokenHeader(serverToken);
+              setAccessToken(serverToken);
+            }
+            setUser(res.data.user);
+            return;
+          }
+        } catch (cookieErr) {
+          // ignore and fall back to local token
+        }
+
+        // Fallback: check token stored in localStorage
         const token = getStoredToken();
-        if (!token || isTokenExpired(token)) {
+        if (token && !isTokenExpired(token)) {
+          try {
+            const res2 = await axios.get('/auth/me', { headers: { Authorization: `Bearer ${token}` } });
+            if (res2.data?.user) {
+              setUser(res2.data.user);
+              setAccessToken(token);
+              updateAccessTokenHeader(token);
+            }
+          } catch (err2) {
+            // invalid token
+            updateAccessTokenHeader(null);
+            setAccessToken(null);
+            setUser(null);
+          }
+        } else {
           updateAccessTokenHeader(null);
           setAccessToken(null);
           setUser(null);
-          setLoading(false);
-          return;
-        }
-
-        // Verify token with backend
-        const res = await axios.get('/auth/me', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        
-        if (res.data?.user) {
-          setUser(res.data.user);
-          setAccessToken(token);
         }
       } catch (err) {
         console.error('Auth initialization failed', err.message);

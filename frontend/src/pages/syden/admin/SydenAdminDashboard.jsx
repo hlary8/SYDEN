@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
+import VetRecordModal from '../../../components/syden/VetRecordModal';
 
 const healthOptions = ['excellent', 'good', 'fair', 'under-treatment'];
 const categoryOptions = ['cattle', 'poultry', 'goats', 'sheep', 'pigs', 'equine'];
 
 export default function SydenAdminDashboard() {
   const [animals, setAnimals] = useState([]);
+  const [vetModal, setVetModal] = useState({ open: false, animalId: null, editing: null });
+  const [vetRecordsMaster, setVetRecordsMaster] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [healthFilter, setHealthFilter] = useState('all');
@@ -25,7 +28,18 @@ export default function SydenAdminDashboard() {
     };
 
     loadAnimals();
+    loadVetRecords();
   }, []);
+
+  async function loadVetRecords() {
+    try {
+      const { data } = await axios.get('/api/v1/vets', { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+      setVetRecordsMaster(Array.isArray(data.data) ? data.data : []);
+    } catch (err) {
+      console.error('Error loading vet records', err);
+      setVetRecordsMaster([]);
+    }
+  }
 
   const filteredAnimals = useMemo(() => {
     return animals.filter((animal) => {
@@ -50,16 +64,13 @@ export default function SydenAdminDashboard() {
   };
 
   const vetRecords = useMemo(() => {
-    return animals.flatMap((animal) =>
-      (animal.veterinaryHistory || []).map((entry) => ({
-        ...entry,
-        animalName: animal.name,
-        animalId: animal._id,
-        category: animal.category,
-        healthStatus: animal.healthStatus
-      }))
-    );
-  }, [animals]);
+    return vetRecordsMaster.map((r) => ({
+      ...r,
+      animalName: (animals.find(a => a._id === r.animal) || {}).name || 'Unknown',
+      category: (animals.find(a => a._id === r.animal) || {}).category || '',
+      healthStatus: (animals.find(a => a._id === r.animal) || {}).healthStatus || ''
+    }));
+  }, [animals, vetRecordsMaster]);
 
   const stats = [
     { label: 'Total animals', value: animals.length },
@@ -71,7 +82,17 @@ export default function SydenAdminDashboard() {
     <div className="bg-[var(--bg)] min-h-screen px-4 py-12 text-[var(--text)]">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Syden Admin Dashboard</h1>
-
+        <div className="mb-8 flex items-center gap-6">
+          {[
+            { name: 'DeLeon', href: '/deleon', img: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg' },
+            { name: 'Syden', href: '/syden', img: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg' },
+            { name: 'DeeFresh', href: '/deefresh', img: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg' }
+          ].map((c) => (
+            <a key={c.name} href={c.href} className="inline-flex items-center justify-center h-16 w-16 rounded-full border border-neutral-200 overflow-hidden" title={c.name}>
+              <img src={c.img} alt={c.name} className="h-full w-full object-cover" />
+            </a>
+          ))}
+        </div>
         <div className="grid gap-6 md:grid-cols-3 mb-10">
           {stats.map((stat) => (
             <div key={stat.label} className="rounded-3xl bg-white p-6 shadow-lg text-center">
@@ -154,6 +175,10 @@ export default function SydenAdminDashboard() {
                         ))}
                       </select>
                     </div>
+                    <div className="mt-3 flex gap-2">
+                      <button onClick={() => setVetModal({ open: true, animalId: animal._id, editing: null })} className="px-3 py-2 bg-blue-600 text-white rounded-lg">Add Vet Record</button>
+                      <button onClick={() => setVetModal({ open: true, animalId: animal._id, editing: null })} className="px-3 py-2 bg-gray-200 rounded-lg">View Records</button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -170,24 +195,46 @@ export default function SydenAdminDashboard() {
           ) : (
             <div className="space-y-4">
               {vetRecords.map((record, index) => (
-                <div key={`${record.animalId}-${index}`} className="rounded-2xl border border-neutral-200 p-4">
+                <div key={record._id || `${record.animal}-${index}`} className="rounded-2xl border border-neutral-200 p-4">
                   <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                     <div>
                       <div className="font-semibold">{record.animalName}</div>
                       <div className="text-sm text-gray-500">{record.category} • {record.vetName || 'Syden vet team'}</div>
                     </div>
                     <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${record.healthStatus === 'under-treatment' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                      {record.healthStatus}
+                      {record.healthStatus || 'n/a'}
                     </span>
                   </div>
+
                   <div className="mt-3 text-sm text-gray-700">
-                    {record.procedure} • {record.date ? new Date(record.date).toLocaleDateString() : 'No date'}
+                    {record.serviceType} • {record.dateAdministered ? new Date(record.dateAdministered).toLocaleDateString() : 'No date'}
                   </div>
                   {record.notes && <div className="mt-2 text-sm text-gray-600">{record.notes}</div>}
+                  <div className="mt-3 flex gap-2">
+                    <button onClick={() => setVetModal({ open: true, animalId: record.animal, editing: record })} className="px-3 py-1 bg-yellow-500 text-white rounded-lg">Edit</button>
+                    <button onClick={async () => {
+                      if (!confirm('Delete this vet record?')) return;
+                      try {
+                        await axios.delete(`/api/v1/vets/${record._id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+                        await loadVetRecords();
+                        alert('Deleted');
+                      } catch (err) {
+                        alert('Delete failed: ' + (err.response?.data?.message || err.message));
+                      }
+                    }} className="px-3 py-1 bg-red-600 text-white rounded-lg">Delete</button>
+                  </div>
+                  {record.images && record.images.length > 0 && (
+                    <div className="mt-3 grid grid-cols-3 gap-2">
+                      {record.images.map((img, i) => (
+                        <img key={i} src={img.url || img} alt={`vet-${i}`} className="h-24 w-full object-cover rounded-lg" />
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           )}
+          <VetRecordModal open={vetModal.open} onClose={() => setVetModal({ open: false, animalId: null, editing: null })} animalId={vetModal.animalId} onSaved={async () => { await loadVetRecords(); }} editing={vetModal.editing} />
         </div>
       </div>
     </div>

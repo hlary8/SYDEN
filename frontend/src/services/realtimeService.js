@@ -7,7 +7,13 @@ export const initializeSocket = () => {
   if (socket) return socket;
   
   // If VITE_API_URL includes a path like '/api/v1', strip it for socket connection
-  const rawApi = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+  const rawApi = import.meta.env.VITE_API_URL || (() => {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || host.includes('0.0.0.0')) {
+      return 'http://localhost:4000';
+    }
+    return window.location.origin;
+  })();
   const socketUrl = rawApi.replace(/\/api\/v1\/?$/, '');
   socket = io(socketUrl, {
     reconnection: true,

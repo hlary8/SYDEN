@@ -82,7 +82,7 @@ export default function MegaMenu({ open, onClose, activeSection = 'GROUP' }) {
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.2em] text-white/50">Highlight</p>
             <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-              <div className="h-48 md:h-56 bg-[url('https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center" />
+              <div className="h-48 md:h-56 bg-[url('https://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg')] bg-cover bg-center" />
               <div className="p-6">
                 <p className="text-sm uppercase tracking-[0.15em] text-white/70">Featured House</p>
                 <h3 className="mt-3 text-xl md:text-2xl font-semibold">A Legacy of Crafted Growth</h3>

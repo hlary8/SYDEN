@@ -22,8 +22,11 @@ const userSchema = new mongoose.Schema({
     gallery: [{ url: String, publicId: String }],
     farmPhoto: { url: String, publicId: String },
     contactPhone: String,
+    company: { type: String, enum: ['DeeFresh','Syden','None'], default: 'None' },
+    status: { type: String, enum: ['Pending','Approved','Suspended','Rejected'], default: 'Pending' },
+    appliedAt: Date,
     isApproved: { type: Boolean, default: false },
-    isSuspended: { type: Boolean, default: true }
+    isSuspended: { type: Boolean, default: false }
   },
   createdAt: { type: Date, default: Date.now },
   lastLogin: Date,

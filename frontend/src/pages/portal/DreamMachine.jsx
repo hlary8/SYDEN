@@ -6,7 +6,7 @@ const slides = [
   {
     id: 'DELEON ENTERPRiSES',
     title: 'THE LAND LEGACY',
-    subtitle: '15,000 acres of prime agricultural and development land',
+    subtitle: '1,000+ acres of prime agricultural and development land',
     cta: 'Enter DELEON ENTERPRiSES →',
     link: '/DELEON ENTERPRiSES',
     image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg',
@@ -28,7 +28,7 @@ const slides = [
     cta: 'Enter DeeFresh →',
     link: '/deefresh',
     image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
-    video: 'https://res.cloudinary.com/tmcloud1/video/upload/v1787084125/WhatsApp_Video_2026-08-18_at_22.51.13_nyl6pp.mp4'
+    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4'
   }
 ];
 

@@ -4,6 +4,8 @@ const Comment = require('../models/Comment');
 const User = require('../models/User');
 const Inquiry = require('../models/Inquiry');
 const ProduceOrder = require('../models/ProduceOrder');
+const Notification = require('../models/Notification');
+const ContactEnquiry = require('../models/ContactEnquiry');
 
 /**
  * GET /api/v1/admin/stats - Aggregated metrics
@@ -119,6 +121,142 @@ async function listUsers(req, res, next) {
   } catch (err) { next(err); }
 }
 
+/**
+ * ADMIN: List farmer applications (status = Pending)
+ */
+async function listFarmerApplications(req, res, next) {
+  try {
+    const { page = 1, limit = 50 } = req.query;
+    const query = { 'farmerProfile.status': 'Pending' };
+    const apps = await User.find(query)
+      .select('-passwordHash')
+      .sort({ 'farmerProfile.appliedAt': -1 })
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit, 10));
+    return res.json({ data: apps });
+  } catch (err) { next(err); }
+}
+
+/**
+ * ADMIN: Approve farmer application
+ */
+async function approveFarmer(req, res, next) {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) return next(createError(404, 'User not found'));
+    user.farmerProfile = user.farmerProfile || {};
+    user.farmerProfile.status = 'Approved';
+    user.farmerProfile.isApproved = true;
+    user.role = 'farmer';
+    await user.save();
+
+    await Notification.create({
+      recipient: user._id,
+      type: 'farmer_approval',
+      title: 'Farmer Application Approved',
+      message: 'Your farmer application has been approved. Your farmer profile is now active.',
+      link: '/profile'
+    });
+    try { require('../utils/notificationEmitter').emitNotification(req.app, user._id.toString(), { recipient: user._id, type: 'farmer_approval', title: 'Farmer Application Approved', message: 'Your farmer application has been approved. Your farmer profile is now active.', link: '/profile' }); } catch (e) {}
+
+    return res.json({ data: user });
+  } catch (err) { next(err); }
+}
+
+/**
+ * ADMIN: Reject farmer application
+ */
+async function rejectFarmer(req, res, next) {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndUpdate(id, { $set: { 'farmerProfile.status': 'Rejected', 'farmerProfile.isApproved': false } }, { new: true }).select('-passwordHash');
+    if (!user) return next(createError(404, 'User not found'));
+
+    await Notification.create({
+      recipient: user._id,
+      type: 'farmer_rejection',
+      title: 'Farmer Application Rejected',
+      message: 'Your farmer application was not approved. You can edit and reapply.',
+      link: '/account'
+    });
+      try { require('../utils/notificationEmitter').emitNotification(req.app, user._id.toString(), { recipient: user._id, type: 'farmer_rejection', title: 'Farmer Application Rejected', message: 'Your farmer application was not approved. You can edit and reapply.', link: '/account' }); } catch (e) {}
+
+    return res.json({ data: user });
+  } catch (err) { next(err); }
+}
+
+/**
+ * ADMIN: Delete farmer application (remove farmerProfile)
+ */
+async function deleteFarmerApplication(req, res, next) {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndUpdate(id, { $unset: { farmerProfile: '' } }, { new: true }).select('-passwordHash');
+    if (!user) return next(createError(404, 'User not found'));
+    return res.json({ ok: true });
+  } catch (err) { next(err); }
+}
+
+/**
+ * ADMIN: Edit farmer profile fields
+ */
+async function editFarmer(req, res, next) {
+  try {
+    const { id } = req.params;
+    const updates = req.body || {};
+    // Only allow updating farmerProfile subfields and basic user fields
+    const allowed = {};
+    if (updates.username) allowed.username = updates.username;
+    if (updates.email) allowed.email = updates.email;
+    if (updates.farmerProfile) {
+      for (const key of ['farmName','farmLocation','farmDescription','story','activities','company','status','appliedAt','contactPhone']) {
+        if (typeof updates.farmerProfile[key] !== 'undefined') {
+          allowed[`farmerProfile.${key}`] = updates.farmerProfile[key];
+        }
+      }
+    }
+
+    const user = await User.findByIdAndUpdate(id, { $set: allowed }, { new: true }).select('-passwordHash');
+    if (!user) return next(createError(404, 'User not found'));
+
+    // If admin approves via edit (status changed to Approved), ensure role and notification
+    if (updates.farmerProfile && updates.farmerProfile.status === 'Approved') {
+      user.role = 'farmer';
+      user.farmerProfile.isApproved = true;
+      await user.save();
+      await Notification.create({ recipient: user._id, type: 'farmer_approval', title: 'Farmer Approved', message: 'An admin approved your farmer profile.', link: '/profile' });
+    }
+
+    return res.json({ data: user });
+  } catch (err) { next(err); }
+}
+
+/**
+ * ADMIN: List website concerns (contact enquiries from land and vet forms)
+ */
+async function listWebsiteConcerns(req, res, next) {
+  try {
+    const { type, status } = req.query;
+    const query = {};
+    if (type) query.type = type;
+    if (status) query.status = status;
+    const data = await ContactEnquiry.find(query).sort({ createdAt: -1 });
+    res.json({ data });
+  } catch (err) { next(err); }
+}
+
+/**
+ * ADMIN: Mark website concern as read
+ */
+async function markWebsiteConcernRead(req, res, next) {
+  try {
+    const doc = await ContactEnquiry.findByIdAndUpdate(req.params.id, { status: 'read', read: true }, { new: true });
+    if (!doc) return next(createError(404, 'Enquiry not found'));
+    res.json({ data: doc });
+  } catch (err) { next(err); }
+}
+
 module.exports = {
   getStats,
   listComments,
@@ -126,5 +264,12 @@ module.exports = {
   updateUserRole,
   activityLogs,
   listInquiries,
-  listUsers
+  listUsers,
+  listFarmerApplications,
+  approveFarmer,
+  rejectFarmer,
+  deleteFarmerApplication,
+  editFarmer,
+  listWebsiteConcerns,
+  markWebsiteConcernRead
 };

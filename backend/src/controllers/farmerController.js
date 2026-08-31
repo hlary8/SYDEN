@@ -49,7 +49,7 @@ exports.applyAsFarmer = async (req, res, next) => {
     // Create admin notification
     const admins = await User.find({ role: 'admin' });
     for (const admin of admins) {
-      await Notification.create({
+      const notif = await Notification.create({
         recipient: admin._id,
         type: 'farmer_approval',
         title: 'New Farmer Application',
@@ -57,6 +57,7 @@ exports.applyAsFarmer = async (req, res, next) => {
         link: '/admin/farmers',
         data: { requestId: request._id, userId: req.user._id }
       });
+      try { require('../utils/notificationEmitter').emitNotification(req.app, admin._id.toString(), notif); } catch (e) {}
     }
 
     res.status(201).json({ success: true, message: 'Application submitted successfully', request });
@@ -129,6 +130,7 @@ exports.approveFarmer = async (req, res, next) => {
       link: '/deefresh',
       read: false
     });
+    try { require('../utils/notificationEmitter').emitNotification(req.app, request.user._id.toString(), { recipient: request.user._id, type: 'farmer_approval', title: 'Application Approved!', message: 'Your farmer application has been approved. You can now list produce on DeeFresh.', link: '/deefresh' }); } catch (e) {}
 
     // Console log instead of email for now
     console.log(`✓ Farmer approved: ${request.user.email}`);
@@ -172,6 +174,7 @@ exports.rejectFarmer = async (req, res, next) => {
       link: '/deefresh/farmers',
       read: false
     });
+    try { require('../utils/notificationEmitter').emitNotification(req.app, request.user._id.toString(), { recipient: request.user._id, type: 'farmer_rejection', title: 'Application Not Approved', message: `Your farmer application was not approved. Reason: ${rejectionReason || 'Not specified'}. You can reapply after 30 days.`, link: '/deefresh/farmers' }); } catch (e) {}
 
     console.log(`✗ Farmer rejected: ${request.user.email} - Reason: ${rejectionReason}`);
 

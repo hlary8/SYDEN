@@ -2,10 +2,16 @@ import { Link } from 'react-router-dom';
 import CinematicHero from '../../components/common/CinematicHero';
 
 export default function Houses() {
-  const heroImage = import.meta.env.VITE_HERO_IMAGE_URL || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=80';
+  const heroImage = import.meta.env.VITE_HERO_IMAGE_URL || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102133/IMG-20260814-WA0054.jpg';
   const deleonImage = import.meta.env.VITE_DELEON_HOUSE_IMAGE || 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg';
-  const sydenImage = import.meta.env.VITE_SYDEN_HOUSE_IMAGE || 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg';
-  const deefreshImage = import.meta.env.VITE_DEEFRESH_HOUSE_IMAGE || 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg';
+  const sydenImage = import.meta.env.VITE_SYDEN_HOUSE_IMAGE || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102146/IMG-20260814-WA0106.jpg';
+  const deefreshImage = import.meta.env.VITE_DEEFRESH_HOUSE_IMAGE || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102131/IMG-20260814-WA0127.jpg';
+
+  const quickLinks = [
+    { name: 'DeLeon', href: '/deleon', image: deleonImage },
+    { name: 'Syden', href: '/syden', image: sydenImage },
+    { name: 'DeeFresh', href: '/deefresh', image: deefreshImage }
+  ];
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -18,6 +24,18 @@ export default function Houses() {
         </div>
         <div className="absolute bottom-8 w-full text-center text-white/80 md:bottom-12">
           <div className="animate-bounce text-xs md:text-base">⌄ SCROLL TO DISCOVER</div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-2 pt-2 md:px-6 md:pb-6">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
+            {quickLinks.map((item) => (
+              <Link key={item.name} to={item.href} className="inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-neutral-200 bg-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 md:h-20 md:w-20" title={item.name}>
+                <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -45,9 +63,7 @@ export default function Houses() {
         </div>
       </section>
 
-
-
-             {/* DeeFresh Section */}
+      {/* DeeFresh Section */}
       <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5]">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12">
           <div className="lg:w-1/2">
@@ -70,11 +86,6 @@ export default function Houses() {
           </div>
         </div>
       </section>
-
-
-
-
-
 
       {/* Syden Section */}
       <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5] bg-white">
@@ -100,7 +111,6 @@ export default function Houses() {
         </div>
       </section>
 
-     
       {/* Footer handled by layout */}
     </div>
   );

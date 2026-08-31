@@ -4,6 +4,7 @@ const Inquiry = require('../models/Inquiry');
 const ProduceOrder = require('../models/ProduceOrder');
 const LandView = require('../models/LandView');
 const mongoose = require('mongoose');
+const Notification = require('../models/Notification');
 
 /**
  * GET /api/v1/users/:id/activity
@@ -45,3 +46,29 @@ async function activity(req, res, next) {
 }
 
 module.exports = { activity };
+
+// GET: /api/v1/users/notifications - current user's notifications
+async function getNotifications(req, res, next) {
+  try {
+    if (!req.user) return next(createError(401, 'Unauthorized'));
+    const { page = 1, limit = 50, unreadOnly } = req.query;
+    const query = { recipient: req.user._id };
+    if (unreadOnly === 'true' || unreadOnly === true) query.read = false;
+    const notifs = await Notification.find(query).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(Number(limit));
+    const count = await Notification.countDocuments(query);
+    res.json({ data: notifs, total: count, page: Number(page) });
+  } catch (err) { next(err); }
+}
+
+// PATCH: /api/v1/users/notifications/:id/read - mark as read
+async function markNotificationRead(req, res, next) {
+  try {
+    if (!req.user) return next(createError(401, 'Unauthorized'));
+    const { id } = req.params;
+    const notif = await Notification.findOneAndUpdate({ _id: id, recipient: req.user._id }, { $set: { read: true } }, { new: true });
+    if (!notif) return next(createError(404, 'Notification not found'));
+    res.json({ ok: true, data: notif });
+  } catch (err) { next(err); }
+}
+
+module.exports = { activity, getNotifications, markNotificationRead };

@@ -25,6 +25,8 @@ const uploadRoutes = require('./src/routes/upload');
 const newsRoutes = require('./src/routes/news');
 const farmerRoutes = require('./src/routes/farmers'); // ADDED: Farmer management routes
 const seedsRoutes = require('./src/routes/seeds'); // ADDED: Seeds management routes
+const vetRoutes = require('./src/routes/vets'); // Veterinary records
+const contactEnquiryRoutes = require('./src/routes/contactEnquiries');
 const { errorHandler } = require('./src/middleware/errorHandler');
 const realtimeEvents = require('./src/middleware/realtimeEvents');
 
@@ -88,10 +90,15 @@ app.use('/api/v1/comments', commentRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/produce', produceRoutes);
 app.use('/api/v1/admin', adminRoutes);
+// Farm activities (public + admin)
+const farmActivities = require('./src/routes/farmActivities');
+app.use('/api/v1/farm-activities', farmActivities);
 app.use('/api/v1/upload', uploadRoutes);
 app.use('/api/v1/news', newsRoutes);
 app.use('/api/v1/farmers', farmerRoutes); // ADDED: Farmer routes
 app.use('/api/v1/seeds', seedsRoutes); // ADDED: Seeds routes
+app.use('/api/v1/vets', vetRoutes); // Veterinary record routes
+app.use('/api/v1/contact-enquiries', contactEnquiryRoutes); // ADDED: Contact enquiries routes
 
 app.get('/', (req, res) => res.json({ ok: true, name: 'DELEON ENTERPRiSES Ecosystem API' }));
 

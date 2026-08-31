@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MegaMenu from '../portal/MegaMenu';
+import NotificationBell from './NotificationBell';
 import { useAuth } from '../../context/AuthContext';
 
 export default function ParentNavbar() {
@@ -34,23 +35,25 @@ export default function ParentNavbar() {
 
           <div className="flex items-center gap-3">
             {user ? (
-              <button
-                onClick={async () => {
-                  try {
-                    await logout();
-                  } catch (e) {
-                    console.error('Logout failed', e);
-                  }
-                  navigate('/');
-                }}
-                aria-label="Logout"
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-300 text-black font-semibold text-xs"
-              >
-                {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
-              </button>
+              <>
+                <NotificationBell />
+                <button
+                  onClick={async () => {
+                    try {
+                      await logout();
+                    } catch (e) {
+                      console.error('Logout failed', e);
+                    }
+                    navigate('/');
+                  }}
+                  aria-label="Logout"
+                  className="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-300 text-black font-semibold text-xs"
+                >
+                  {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
+                </button>
+              </>
             ) : (
                <Link to="/press" className="hover:text-white transition-colors duration-300">PRESS</Link>
-              
             )}
           </div>
         </div>
@@ -78,8 +81,9 @@ export default function ParentNavbar() {
           <Link to="/" className="text-xs font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:text-sm sm:tracking-[0.3em]">D E L E O N</Link>
 
           <div className="flex items-center gap-8">
+            <NotificationBell />
             <Link to="/sustainability" className="hover:text-white transition-colors duration-300">SUSTAINABILITY</Link>
-            <Link to="/history" className="hover:text-white transition-colors duration-300">HISTORY</Link>
+          {/*<Link to="/history" className="hover:text-white transition-colors duration-300">HISTORY</Link> */}  
             <Link to="/global-presence" className="hover:text-white transition-colors duration-300"></Link>
             <Link to="/press" className="hover:text-white transition-colors duration-300">PRESS</Link>
             {user ? (

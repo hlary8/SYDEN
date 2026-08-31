@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../../context/AuthContext';
 import ImageUploader from '../../../components/common/ImageUploader';
+import { io } from 'socket.io-client';
 
 const emptyForm = {
   animalId: '',
@@ -21,6 +22,7 @@ export default function SydenFarmActivitiesAdmin() {
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [farmActivitiesList, setFarmActivitiesList] = useState([]);
 
   if (user?.role !== 'admin') return <Navigate to='/' />;
 
@@ -51,6 +53,86 @@ export default function SydenFarmActivitiesAdmin() {
     };
     load();
   }, []);
+
+  // Load generic farm activities (company: Syden)
+  useEffect(() => {
+    let mounted = true;
+    const loadActivities = async () => {
+      try {
+        const { data } = await axios.get('/farm-activities?company=Syden');
+        if (!mounted) return;
+        setFarmActivitiesList(Array.isArray(data.data) ? data.data : []);
+      } catch (err) {
+        console.error('Error loading farm activities:', err);
+      }
+    };
+    loadActivities();
+
+    const SOCKET_BASE = (axios.defaults.baseURL || window.location.origin).replace(/\/api\/v1\/?$/,'');
+    const socket = io(SOCKET_BASE, { withCredentials: true });
+    socket.on('connect', () => console.log('Socket connected for farm activities', socket.id));
+    socket.on('farmActivity:created', (item) => setFarmActivitiesList((s) => [item, ...s]));
+    socket.on('farmActivity:updated', (item) => setFarmActivitiesList((s) => s.map((a) => a._id === item._id ? item : a)));
+    socket.on('farmActivity:deleted', ({ id }) => setFarmActivitiesList((s) => s.filter((a) => a._id !== id)));
+
+    return () => {
+      mounted = false;
+      try { socket.disconnect(); } catch (e) {}
+    };
+  }, []);
+
+  // Form state for generic farm activities
+  const [faForm, setFaForm] = useState({ title: '', headline: '', body: '', photos: [] });
+  const [faLoading, setFaLoading] = useState(false);
+  const [faEditId, setFaEditId] = useState(null);
+
+  const handleFaUpload = (imgs) => {
+    if (!imgs) return;
+    const urls = imgs.slice(0, 4).map((i) => i.url || i);
+    setFaForm((f) => ({ ...f, photos: urls }));
+  };
+
+  const saveFa = async (e) => {
+    e && e.preventDefault();
+    if (!faForm.title.trim()) return alert('Please add title');
+    setFaLoading(true);
+    try {
+      if (faEditId) {
+        const { data } = await axios.patch(`/farm-activities/${faEditId}`, { ...faForm, company: 'Syden' }, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+        setFarmActivitiesList((s) => s.map((a) => a._id === data.data._id ? data.data : a));
+        setMessage('Activity updated');
+      } else {
+        const { data } = await axios.post('/farm-activities', { ...faForm, company: 'Syden' }, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+        setFarmActivitiesList((s) => [data.data, ...s]);
+        setMessage('Activity created');
+      }
+      setFaForm({ title: '', headline: '', body: '', photos: [] });
+      setFaEditId(null);
+      setTimeout(() => setMessage(''), 3000);
+    } catch (err) {
+      console.error('Save farm activity error', err);
+      alert(err.response?.data?.message || err.message);
+    } finally { setFaLoading(false); }
+  };
+
+  const handleFaEdit = (item) => {
+    setFaEditId(item._id);
+    setFaForm({ title: item.title || '', headline: item.headline || '', body: item.body || '', photos: (item.photos || []).map(p => p.url || p) });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleFaDelete = async (id) => {
+    if (!confirm('Delete this activity?')) return;
+    try {
+      await axios.delete(`/farm-activities/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+      setFarmActivitiesList((s) => s.filter((a) => a._id !== id));
+      setMessage('Activity deleted');
+      setTimeout(() => setMessage(''), 3000);
+    } catch (err) {
+      console.error('Delete activity', err);
+      alert(err.response?.data?.message || err.message);
+    }
+  };
 
   const resetForm = () => {
     setForm({ ...emptyForm, animalId: animals[0]?._id || '' });
@@ -170,38 +252,116 @@ export default function SydenFarmActivitiesAdmin() {
   return (
     <div className="bg-[var(--bg)] min-h-screen px-4 py-12 text-[var(--text)]">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Farm Activities Manager</h1>
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-3xl font-bold sm:text-4xl">Farm Activities Manager</h1>
           <button
             onClick={() => {
               resetForm();
               setShowForm(true);
             }}
-            className="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700"
+            className="w-full rounded-full bg-green-600 px-6 py-3 text-white font-semibold hover:bg-green-700 sm:w-auto"
           >
             + Add Activity
           </button>
         </div>
 
         {message && (
-          <div className="mb-6 p-4 bg-green-100 text-green-800 rounded-lg">{message}</div>
+          <div className="mb-6 rounded-lg bg-green-100 p-4 text-green-800">{message}</div>
         )}
 
-        {activities.length === 0 ? (
-          <div className="bg-white rounded-2xl p-8 text-center text-gray-500">No farm activities yet.</div>
-        ) : (
+        {/* Generic Farm Activities Manager (Syden) */}
+        <div className="mt-12">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-2xl font-bold">Syden — Farm Activities (Magazine)</h2>
+            <button
+              onClick={() => {
+                setFaEditId(null);
+                setFaForm({ title: '', headline: '', body: '', photos: [] });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="w-full rounded-full bg-yellow-600 px-4 py-2 text-white sm:w-auto"
+            >
+              + New Activity
+            </button>
+          </div>
+
+          <div className="mb-6 rounded-2xl bg-white p-6">
+            <form onSubmit={saveFa} className="space-y-4">
+              <div>
+                <label className="mb-1 block text-sm font-semibold">Title *</label>
+                <input value={faForm.title} onChange={(e) => setFaForm(f => ({ ...f, title: e.target.value }))} className="w-full rounded-2xl border border-gray-200 px-4 py-3" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-semibold">Headline</label>
+                <input value={faForm.headline} onChange={(e) => setFaForm(f => ({ ...f, headline: e.target.value }))} className="w-full rounded-2xl border border-gray-200 px-4 py-3" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-semibold">Body</label>
+                <textarea value={faForm.body} onChange={(e) => setFaForm(f => ({ ...f, body: e.target.value }))} rows={4} className="w-full rounded-2xl border border-gray-200 px-4 py-3" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-semibold">Photos (up to 4)</label>
+                <ImageUploader onUpload={handleFaUpload} folder="farm-activities" multiple maxImages={4} />
+                {faForm.photos.length > 0 && (
+                  <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    {faForm.photos.map((p, i) => (
+                      <img key={`${p}-${i}`} src={p} alt={`photo-${i}`} className={`w-full object-cover ${i === 0 ? 'col-span-2 row-span-2 h-64 sm:h-64' : 'h-32'} rounded-2xl`} />
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <button type="submit" disabled={faLoading} className="w-full rounded-full bg-black px-6 py-3 text-white sm:w-auto">{faEditId ? 'Update' : 'Create'}</button>
+                <button type="button" onClick={() => { setFaEditId(null); setFaForm({ title: '', headline: '', body: '', photos: [] }); }} className="w-full rounded-full bg-gray-200 px-6 py-3 sm:w-auto">Reset</button>
+              </div>
+            </form>
+          </div>
+
           <div className="grid gap-6 md:grid-cols-2">
+            {farmActivitiesList.map((act) => (
+              <article key={act._id} className="rounded-2xl bg-white p-6 shadow">
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="md:col-span-2">
+                    <div className="mb-2 text-xs uppercase tracking-[0.2em] text-gray-500">{act.headline}</div>
+                    <h3 className="mb-2 text-xl font-bold">{act.title}</h3>
+                    <p className="mb-4 text-gray-600">{act.body}</p>
+                    <div className="flex flex-col gap-2 sm:flex-row">
+                      <button onClick={() => handleFaEdit(act)} className="rounded bg-blue-600 px-4 py-2 text-white">Edit</button>
+                      <button onClick={() => handleFaDelete(act._id)} className="rounded bg-red-600 px-4 py-2 text-white">Delete</button>
+                    </div>
+                  </div>
+                  <div className="md:col-span-1">
+                    {act.photos && act.photos.length > 0 ? (
+                      <div className="grid gap-2">
+                        {act.photos.slice(0,4).map((p, idx) => (
+                          <img key={idx} src={p.url || p} alt={`photo-${idx}`} className={`w-full object-cover ${idx === 0 ? 'h-40' : 'h-20'} rounded-lg`} />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex h-40 items-center justify-center rounded-lg bg-gray-100 text-gray-400">No photos</div>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {activities.length === 0 ? (
+          <div className="mt-8 rounded-2xl bg-white p-8 text-center text-gray-500">No farm activities yet.</div>
+        ) : (
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
             {activities.map((activity) => (
-              <div key={activity.id} className="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+              <div key={activity.id} className="rounded-2xl bg-white p-6 shadow transition hover:shadow-lg">
                 {activity.photo && (
-                  <img src={activity.photo} alt={activity.title} className="h-40 w-full object-cover rounded-xl mb-4" />
+                  <img src={activity.photo} alt={activity.title} className="mb-4 h-40 w-full rounded-xl object-cover" />
                 )}
                 <div className="mb-2 text-xs uppercase tracking-[0.2em] text-gray-500">{activity.animalName}</div>
-                <h3 className="text-xl font-bold mb-2">{activity.title}</h3>
-                <p className="text-gray-600 text-sm mb-4">{activity.content}</p>
-                <div className="flex gap-2">
-                  <button onClick={() => handleEdit(activity)} className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm">Edit</button>
-                  <button onClick={() => handleDelete(activity)} className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg text-sm">Delete</button>
+                <h3 className="mb-2 text-xl font-bold">{activity.title}</h3>
+                <p className="mb-4 text-sm text-gray-600">{activity.content}</p>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <button onClick={() => handleEdit(activity)} className="flex-1 rounded-lg bg-blue-500 px-4 py-2 text-sm text-white">Edit</button>
+                  <button onClick={() => handleDelete(activity)} className="flex-1 rounded-lg bg-red-500 px-4 py-2 text-sm text-white">Delete</button>
                 </div>
               </div>
             ))}
@@ -209,12 +369,12 @@ export default function SydenFarmActivitiesAdmin() {
         )}
 
         {showForm && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-3xl p-8 shadow-2xl max-w-2xl w-full">
-              <h2 className="text-3xl font-bold mb-6">{editingId ? 'Edit' : 'Add'} Farm Activity</h2>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+            <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-8 shadow-2xl">
+              <h2 className="mb-6 text-3xl font-bold">{editingId ? 'Edit' : 'Add'} Farm Activity</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Animal *</label>
+                  <label className="mb-2 block text-sm font-semibold">Animal *</label>
                   <select name="animalId" value={form.animalId} onChange={handleChange} className="w-full rounded-2xl border border-gray-200 px-4 py-3" required>
                     <option value="">Select an animal</option>
                     {animals.map((animal) => (
@@ -224,30 +384,30 @@ export default function SydenFarmActivitiesAdmin() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Title *</label>
+                  <label className="mb-2 block text-sm font-semibold">Title *</label>
                   <input name="title" value={form.title} onChange={handleChange} className="w-full rounded-2xl border border-gray-200 px-4 py-3" required />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Description *</label>
+                  <label className="mb-2 block text-sm font-semibold">Description *</label>
                   <textarea name="content" value={form.content} onChange={handleChange} rows="5" className="w-full rounded-2xl border border-gray-200 px-4 py-3" required />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Activity Photos (up to 3)</label>
+                  <label className="mb-2 block text-sm font-semibold">Activity Photos (up to 3)</label>
                   <ImageUploader onUpload={handlePhotoUpload} folder="farm-activities" multiple maxImages={3} />
                   {(form.photo || form.gallery.length > 0) && (
                     <div className="mt-4 grid grid-cols-3 gap-3">
                       {[form.photo, ...form.gallery].filter(Boolean).map((img, idx) => (
-                        <img key={`${img}-${idx}`} src={img} alt="Activity preview" className="h-24 w-full object-cover rounded-2xl" />
+                        <img key={`${img}-${idx}`} src={img} alt="Activity preview" className="h-24 w-full rounded-2xl object-cover" />
                       ))}
                     </div>
                   )}
                 </div>
 
-                <div className="flex gap-4">
-                  <button type="submit" className="flex-1 rounded-full bg-green-600 py-4 text-white font-semibold" disabled={loading}>{loading ? 'Saving...' : 'Save Activity'}</button>
-                  <button type="button" onClick={() => { setShowForm(false); resetForm(); }} className="flex-1 rounded-full bg-gray-300 py-4 text-gray-800 font-semibold">Cancel</button>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <button type="submit" className="flex-1 rounded-full bg-green-600 py-4 font-semibold text-white" disabled={loading}>{loading ? 'Saving...' : 'Save Activity'}</button>
+                  <button type="button" onClick={() => { setShowForm(false); resetForm(); }} className="flex-1 rounded-full bg-gray-300 py-4 font-semibold text-gray-800">Cancel</button>
                 </div>
               </form>
             </div>

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 const brandContent = {
   deleon: {
     name: 'DELEON',
-    hero: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80',
+    hero: 'hhttps://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg',
     summary: 'DELEON ENTERPRISES has grown from a land stewardship practice into a state of the art agricultural and property group united by stewardship, long-view investing, and a belief in responsible growth.',
     story: [
       'Founded on the conviction that fertile land is a lasting inheritance, DELEON ENTERPRISES has shaped a portfolio of premium assets that balance cultivation, conservation and value creation.',
@@ -11,10 +11,10 @@ const brandContent = {
       'Our VISION is to anchor a modern African ecosystem where land is not merely acquired but respected, developed and preserved with precision.'
     ],
     gallery: [
-      { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80', caption: 'Premium landscape stewardship' },
-      { src: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80', caption: 'Curated land developments' },
-      { src: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=900&q=80', caption: 'Protected natural corridors' },
-      { src: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80', caption: 'Long-term investment value' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109795/WhatsApp_Image_2026-08-14_at_15.30.14_1.jpg', caption: 'Premium landscape stewardship' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg', caption: 'Curated land developments' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109797/WhatsApp_Image_2026-08-14_at_15.30.15_2.jpg', caption: 'Protected natural corridors' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109787/WhatsApp_Image_2026-08-14_at_15.30.15_3.jpg', caption: 'Long-term investment value' },
       { src: 'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=900&q=80', caption: 'Multi-purpose agricultural estates' },
       { src: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=900&q=80', caption: 'Future-ready land planning' }
     ]
@@ -22,7 +22,7 @@ const brandContent = {
   
   deefresh: {
     name: 'DeeFresh',
-    hero: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc4a5?auto=format&fit=crop&w=1600&q=80',
+    hero: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109785/WhatsApp_Image_2026-08-14_at_20.28.15.jpg',
     summary: 'DeeFresh carries a produce legacy built on trusted farmer partnerships, rich soil and a promise of freshness from the field to the table.',
     story: [
       'The DeeFresh story is rooted in the belief that beautiful produce begins with excellent relationships with growers, agronomists and communities.',
@@ -30,11 +30,11 @@ const brandContent = {
       'Our vision is simple: every harvest should reflect freshness, trust and the promise of care from seed to shelf.'
     ],
     gallery: [
-      { src: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc4a5?auto=format&fit=crop&w=900&q=80', caption: 'Fresh farm harvest' },
-      { src: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80', caption: 'Farm partners' },
-      { src: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80', caption: 'Premium produce selection' },
-      { src: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=900&q=80', caption: 'Seasonal freshness' },
-      { src: 'https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?auto=format&fit=crop&w=900&q=80', caption: 'Quality assurance' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109791/WhatsApp_Image_2026-08-14_at_20.28.12.jpg', caption: 'Fresh farm harvest' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109801/WhatsApp_Image_2026-08-14_at_15.30.14_3.jpg', caption: 'Farm partners' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788110369/WhatsApp_Image_2026-08-14_at_11.25.35.jpg', caption: 'Premium produce selection' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102314/IMG-20260814-WA0090.jpg', caption: 'Seasonal freshness' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788110369/WhatsApp_Image_2026-08-14_at_11.25.35.jpg', caption: 'Quality assurance' },
       { src: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=900&q=80', caption: 'Harvest to market' }
     ]
   },

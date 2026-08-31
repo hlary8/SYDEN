@@ -8,7 +8,17 @@ import axios from 'axios'
 const queryClient = new QueryClient();
 
 // Configure axios to use deployed backend URL and send cookies
-const API_BASE = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/$/, '');
+const getApiBase = () => {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL.replace(/\/$/, '');
+  const host = window.location.hostname;
+  const origin = window.location.origin;
+  if (host === 'localhost' || host === '127.0.0.1' || host.includes('0.0.0.0')) {
+    return 'http://localhost:4000/api/v1';
+  }
+  return `${origin}/api/v1`;
+};
+
+const API_BASE = getApiBase();
 axios.defaults.baseURL = API_BASE;
 axios.defaults.withCredentials = true;
 
