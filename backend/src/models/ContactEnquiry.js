@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ContactEnquirySchema = new mongoose.Schema({
-  type: { type: String, enum: ['land_enquiry', 'vet_enquiry'], required: true },
+  type: { type: String, enum: ['land_enquiry', 'vet_enquiry', 'produce_enquiry'], required: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
   phone: String,
@@ -10,6 +10,8 @@ const ContactEnquirySchema = new mongoose.Schema({
   landId: mongoose.Schema.Types.ObjectId,
   landName: String,
   animalName: String,
+  productName: String,
+  enquiryType: String,
   problemDescription: String,
   serviceType: String,
   status: { type: String, enum: ['new', 'read'], default: 'new' },

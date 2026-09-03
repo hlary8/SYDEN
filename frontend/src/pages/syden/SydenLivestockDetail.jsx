@@ -52,98 +52,93 @@ export default function SydenLivestockDetail() {
     );
   }
 
-  // Display name with fallback
   const displayName = livestock.name || `${livestock.breed || 'Animal'} (${livestock.category || 'Unknown'})`;
   const galleryPhotos = [
     ...(livestock.coverImage?.url ? [{ url: livestock.coverImage.url }] : []),
-    ...(Array.isArray(livestock.gallery) ? livestock.gallery : []),
-  ].filter((photo, index, arr) => !!photo?.url && arr.findIndex((entry) => entry.url === photo.url) === index).slice(0, 3);
+    ...(Array.isArray(livestock.gallery) ? livestock.gallery : [])
+  ]
+    .filter((photo, index, arr) => !!photo?.url && arr.findIndex((entry) => entry.url === photo.url) === index)
+    .slice(0, 4);
 
   return (
     <div className="bg-[var(--bg)] min-h-screen px-4 py-12 text-[var(--text)]">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <Link to="/syden/livestock" className="text-blue-600 hover:text-blue-800 mb-6 inline-block">
           ← Back to Livestock
         </Link>
 
-        {/* Hero Image */}
         {livestock.coverImage?.url && (
           <div className="rounded-3xl overflow-hidden mb-8 h-96 bg-gray-200">
             <img src={livestock.coverImage.url} alt={displayName} className="w-full h-full object-cover" />
           </div>
         )}
 
-        {/* Title & Details */}
         <div className="rounded-3xl bg-white p-8 shadow-lg mb-8">
-          <h1 className="text-5xl font-bold mb-2">{displayName}</h1>
-          <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
-            {livestock.breed && <span>Breed: <strong>{livestock.breed}</strong></span>}
-            {livestock.age && <span>Age: <strong>{livestock.age}</strong></span>}
-            {livestock.weight && <span>Weight: <strong>{livestock.weight}</strong></span>}
-            {livestock.category && <span>Category: <strong className="capitalize">{livestock.category}</strong></span>}
-            {livestock.healthStatus && <span>Health: <strong className="capitalize">{livestock.healthStatus}</strong></span>}
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1 className="text-5xl font-bold mb-2">{displayName}</h1>
+              <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+                {livestock.breed && <span>Breed: <strong>{livestock.breed}</strong></span>}
+                {livestock.age && <span>Age: <strong>{livestock.age}</strong></span>}
+                {livestock.weight && <span>Weight: <strong>{livestock.weight}</strong></span>}
+                {livestock.category && <span>Category: <strong className="capitalize">{livestock.category}</strong></span>}
+                {livestock.healthStatus && <span>Health: <strong className="capitalize">{livestock.healthStatus}</strong></span>}
+              </div>
+            </div>
+
+            <Link
+              to={`/syden/contact?animal=${encodeURIComponent(displayName)}`}
+              className="inline-flex items-center justify-center rounded-full bg-[#E2725B] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#d55f46]"
+            >
+              Ask about this animal
+            </Link>
           </div>
+
           {livestock.location && (
-            <p className="text-gray-700 mb-4">
-              <strong>Location:</strong> {livestock.location}
-            </p>
+            <p className="text-gray-700 mb-4"><strong>Location:</strong> {livestock.location}</p>
           )}
           {livestock.description && (
-            <p className="text-gray-700 leading-relaxed">
-              {livestock.description}
-            </p>
+            <p className="text-gray-700 leading-relaxed">{livestock.description}</p>
           )}
         </div>
 
-        {/* Gallery */}
         {galleryPhotos.length > 0 && (
           <div className="rounded-3xl bg-white p-8 shadow-lg mb-8">
             <h2 className="text-3xl font-bold mb-6">Photo Gallery</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
               {galleryPhotos.map((photo, idx) => (
                 <div
                   key={idx}
-                  className="rounded-lg overflow-hidden h-48 bg-gray-200 cursor-pointer hover:shadow-lg transition"
+                  className="h-48 cursor-pointer overflow-hidden rounded-lg bg-gray-200 shadow-sm transition hover:shadow-lg"
                   onClick={() => setLightboxIndex(idx)}
                 >
-                  <img src={photo.url} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
+                  <img src={photo.url} alt={`Photo ${idx + 1}`} className="h-full w-full object-cover" />
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Farm Activities (Accordion) */}
         {livestock.accordionSections && livestock.accordionSections.length > 0 && (
           <div className="rounded-3xl bg-white p-8 shadow-lg mb-8">
             <h2 className="text-3xl font-bold mb-6">Farm Activities & Information</h2>
             <div className="space-y-4">
               {livestock.accordionSections.map((section, idx) => (
-                <div
-                  key={idx}
-                  className="border border-gray-200 rounded-lg overflow-hidden"
-                >
+                <div key={idx} className="overflow-hidden rounded-lg border border-gray-200">
                   <button
                     onClick={() => setExpanded(expanded === idx ? null : idx)}
-                    className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition"
+                    className="flex w-full items-center justify-between p-6 transition hover:bg-gray-50"
                   >
                     <h3 className="text-xl font-semibold">{section.title}</h3>
                     <span className="text-2xl text-gray-400">{expanded === idx ? '−' : '+'}</span>
                   </button>
 
                   {expanded === idx && (
-                    <div className="border-t p-6 bg-gray-50">
+                    <div className="border-t bg-gray-50 p-6">
                       {section.photo?.url && (
-                        <img
-                          src={section.photo.url}
-                          alt={section.title}
-                          className="w-full max-h-64 object-cover rounded-lg mb-4"
-                        />
+                        <img src={section.photo.url} alt={section.title} className="mb-4 max-h-64 w-full rounded-lg object-cover" />
                       )}
-                      <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                        {section.content}
-                      </p>
+                      <p className="whitespace-pre-wrap text-gray-700 leading-relaxed">{section.content}</p>
                     </div>
                   )}
                 </div>
@@ -152,49 +147,30 @@ export default function SydenLivestockDetail() {
           </div>
         )}
 
-        {/* Lightbox */}
         {lightboxIndex !== null && galleryPhotos.length > 0 && (
-          <div
-            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-            onClick={() => setLightboxIndex(null)}
-          >
-            <button
-              className="absolute top-6 right-6 text-white text-4xl mouse:hover:text-gray-300"
-              onClick={() => setLightboxIndex(null)}
-            >
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4" onClick={() => setLightboxIndex(null)}>
+            <button className="absolute right-6 top-6 text-4xl text-white" onClick={() => setLightboxIndex(null)}>
               ×
             </button>
 
             <div className="relative max-w-4xl" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={galleryPhotos[lightboxIndex].url}
-                alt={`Photo ${lightboxIndex + 1}`}
-                className="max-w-full max-h-[80vh] object-contain"
-              />
+              <img src={galleryPhotos[lightboxIndex].url} alt={`Photo ${lightboxIndex + 1}`} className="max-h-[80vh] max-w-full object-contain" />
 
               {galleryPhotos.length > 1 && (
                 <>
                   <button
-                    onClick={() =>
-                      setLightboxIndex(
-                        (lightboxIndex - 1 + galleryPhotos.length) % galleryPhotos.length
-                      )
-                    }
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white text-2xl rounded-full w-12 h-12 flex items-center justify-center transition"
+                    onClick={() => setLightboxIndex((lightboxIndex - 1 + galleryPhotos.length) % galleryPhotos.length)}
+                    className="absolute left-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white/40"
                   >
                     ‹
                   </button>
                   <button
-                    onClick={() =>
-                      setLightboxIndex((lightboxIndex + 1) % galleryPhotos.length)
-                    }
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white text-2xl rounded-full w-12 h-12 flex items-center justify-center transition"
+                    onClick={() => setLightboxIndex((lightboxIndex + 1) % galleryPhotos.length)}
+                    className="absolute right-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white/40"
                   >
                     ›
                   </button>
-                  <div className="text-center text-white mt-4">
-                    {lightboxIndex + 1} / {galleryPhotos.length}
-                  </div>
+                  <div className="mt-4 text-center text-white">{lightboxIndex + 1} / {galleryPhotos.length}</div>
                 </>
               )}
             </div>

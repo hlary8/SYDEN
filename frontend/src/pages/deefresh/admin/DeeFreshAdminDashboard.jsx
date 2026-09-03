@@ -8,8 +8,10 @@ export default function DeeFreshAdminDashboard() {
         <div className="grid gap-6 md:grid-cols-3">
           {[
             { title: 'Add Produce', link: '/deefresh/admin/produce-upload', icon: '🥕' },
-            { title: 'Farmer Applications', link: '/deefresh/admin/farmer-applications', icon: '👨‍🌾' },
-            { title: 'Seeds Management', link: '/deefresh/admin/seeds', icon: '🌱' }
+            { title: 'Farmers Management', link: '/deefresh/admin/farmers', icon: '👨‍🌾' },
+            { title: 'Farmer Applications', link: '/deefresh/admin/farmer-applications', icon: '✅' },
+            { title: 'Seeds Management', link: '/deefresh/admin/seeds', icon: '🌱' },
+            { title: 'Produce Enquiries', link: '/deefresh/admin/inquiries', icon: '📩' }
           ].map((item) => (
             <Link key={item.title} to={item.link} className="rounded-3xl bg-white p-8 shadow-lg hover:shadow-2xl transition flex flex-col items-center justify-center text-center">
               <div className="text-5xl mb-4">{item.icon}</div>

@@ -84,7 +84,7 @@ export default function MegaMenu({ open, onClose, activeSection = 'GROUP' }) {
             <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
               <div className="h-48 md:h-56 bg-[url('https://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg')] bg-cover bg-center" />
               <div className="p-6">
-                <p className="text-sm uppercase tracking-[0.15em] text-white/70">Featured House</p>
+                <p className="text-sm uppercase tracking-[0.15em] text-white/70">Featured Company</p>
                 <h3 className="mt-3 text-xl md:text-2xl font-semibold">A Legacy of Crafted Growth</h3>
                 <Link to="/houses" onClick={onClose} className="mt-4 inline-block text-sm uppercase tracking-[0.12em] text-[var(--holdings-accent)] hover:text-white transition-colors">
                   Learn more →

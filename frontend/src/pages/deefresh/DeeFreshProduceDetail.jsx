@@ -104,6 +104,8 @@ export default function DeeFreshProduceDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [form, setForm] = useState({ name: '', email: '', phone: '', enquiryType: 'buy', message: '' });
+  const [submitState, setSubmitState] = useState({ success: '', error: '' });
 
   const allImages = produce ? normalizeProduceImages(produce) : [];
 
@@ -129,6 +131,31 @@ export default function DeeFreshProduceDetail() {
     if (allImages.length <= 1) return;
     setLightboxIndex((prev) => (prev + direction + allImages.length) % allImages.length);
   }, [allImages.length]);
+
+  const handleSubmitEnquiry = async (e) => {
+    e.preventDefault();
+    setSubmitState({ success: '', error: '' });
+
+    try {
+      await axios.post('/contact-enquiries', {
+        type: 'produce_enquiry',
+        enquiryType: form.enquiryType,
+        productName: produce?.name || slug,
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        contactMethod: 'Email',
+        message: form.message || `I am interested in ${produce?.name || 'this produce'} ${form.enquiryType === 'buy' ? 'to buy' : 'to sell'} .`,
+        serviceType: form.enquiryType,
+        problemDescription: form.message || `I am interested in ${produce?.name || 'this produce'} ${form.enquiryType === 'buy' ? 'to buy' : 'to sell'} .`
+      }, { withCredentials: true });
+
+      setSubmitState({ success: 'Your enquiry has been sent to the DeeFresh admin team.', error: '' });
+      setForm({ name: '', email: '', phone: '', enquiryType: 'buy', message: '' });
+    } catch (err) {
+      setSubmitState({ success: '', error: err.response?.data?.message || 'Unable to send enquiry right now.' });
+    }
+  };
 
   if (loading) {
     return (
@@ -413,6 +440,68 @@ export default function DeeFreshProduceDetail() {
           onNav={handleLightboxNav}
         />
       )}
+
+      {/* Enquiry Form */}
+      <div style={{ marginBottom: '48px', backgroundColor: '#FFFFFF', border: '1px solid #E8E3D8', borderRadius: '4px', padding: '24px' }}>
+        <h2 style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: '28px',
+          marginBottom: '20px',
+          color: '#0A0A0A',
+          fontWeight: 400
+        }}>
+          Buy or Sell Enquiry
+        </h2>
+
+        <form onSubmit={handleSubmitEnquiry} style={{ display: 'grid', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+            <label style={{ display: 'grid', gap: '6px', fontSize: '13px', color: '#333' }}>
+              Name
+              <input required value={form.name} onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))} style={{ border: '1px solid #E5E7EB', borderRadius: '10px', padding: '10px 12px' }} />
+            </label>
+
+            <label style={{ display: 'grid', gap: '6px', fontSize: '13px', color: '#333' }}>
+              Email
+              <input type="email" required value={form.email} onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))} style={{ border: '1px solid #E5E7EB', borderRadius: '10px', padding: '10px 12px' }} />
+            </label>
+
+            <label style={{ display: 'grid', gap: '6px', fontSize: '13px', color: '#333' }}>
+              Phone
+              <input type="tel" value={form.phone} onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))} style={{ border: '1px solid #E5E7EB', borderRadius: '10px', padding: '10px 12px' }} />
+            </label>
+
+            <label style={{ display: 'grid', gap: '6px', fontSize: '13px', color: '#333' }}>
+              Enquiry type
+              <select value={form.enquiryType} onChange={(e) => setForm((prev) => ({ ...prev, enquiryType: e.target.value }))} style={{ border: '1px solid #E5E7EB', borderRadius: '10px', padding: '10px 12px' }}>
+                <option value="buy">Buy this produce</option>
+                <option value="sell">Sell with DeeFresh</option>
+              </select>
+            </label>
+          </div>
+
+          <label style={{ display: 'grid', gap: '6px', fontSize: '13px', color: '#333' }}>
+            Message
+            <textarea
+              rows={4}
+              value={form.message}
+              onChange={(e) => setForm((prev) => ({ ...prev, message: e.target.value }))}
+              placeholder={form.enquiryType === 'buy' ? `I would like to buy ${produce?.name || 'this produce'}.` : `I would like to sell ${produce?.name || 'this produce'} to DeeFresh.`}
+              style={{ border: '1px solid #E5E7EB', borderRadius: '10px', padding: '10px 12px', resize: 'vertical' }}
+            />
+          </label>
+
+          {submitState.success && (
+            <div style={{ backgroundColor: '#ECFDF5', color: '#166534', border: '1px solid #A7F3D0', borderRadius: '10px', padding: '10px 12px', fontSize: '13px' }}>{submitState.success}</div>
+          )}
+          {submitState.error && (
+            <div style={{ backgroundColor: '#FEF2F2', color: '#991B1B', border: '1px solid #FECACA', borderRadius: '10px', padding: '10px 12px', fontSize: '13px' }}>{submitState.error}</div>
+          )}
+
+          <button type="submit" style={{ backgroundColor: '#FFD700', color: '#673147', border: 'none', borderRadius: '999px', padding: '12px 18px', fontWeight: 700, cursor: 'pointer' }}>
+            Send enquiry
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

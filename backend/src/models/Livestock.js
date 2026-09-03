@@ -27,7 +27,7 @@ const LivestockSchema = new mongoose.Schema({
   location: String, // ADDED: Location field
   // ADDED: Cover image for hero section
   coverImage: { url: String, publicId: String },
-  // ADDED: Gallery photos (max 3)
+  // ADDED: Gallery photos (max 4 total including cover image)
   gallery: [ImageSchema],
   // ADDED: Accordion sections instead of hardcoded care instructions
   accordionSections: [AccordionSectionSchema],

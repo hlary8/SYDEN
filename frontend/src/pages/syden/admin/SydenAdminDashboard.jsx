@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import VetRecordModal from '../../../components/syden/VetRecordModal';
@@ -81,14 +82,21 @@ export default function SydenAdminDashboard() {
   return (
     <div className="bg-[var(--bg)] min-h-screen px-4 py-12 text-[var(--text)]">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Syden Admin Dashboard</h1>
-        <div className="mb-8 flex items-center gap-6">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-3xl font-bold sm:text-4xl">Syden Admin Dashboard</h1>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Link to="/syden/admin/farm-activities" className="rounded-full bg-[#E2725B] px-4 py-2 text-center text-sm font-semibold text-white">Farm Activities</Link>
+            <Link to="/syden/admin/inquiries" className="rounded-full border border-neutral-300 px-4 py-2 text-center text-sm font-semibold">Vet enquiries</Link>
+            <Link to="/syden/admin/livestock-upload" className="rounded-full border border-neutral-300 px-4 py-2 text-center text-sm font-semibold">Add Livestock</Link>
+          </div>
+        </div>
+        <div className="mb-8 flex flex-wrap items-center gap-6">
           {[
             { name: 'DeLeon', href: '/deleon', img: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg' },
             { name: 'Syden', href: '/syden', img: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg' },
             { name: 'DeeFresh', href: '/deefresh', img: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg' }
           ].map((c) => (
-            <a key={c.name} href={c.href} className="inline-flex items-center justify-center h-16 w-16 rounded-full border border-neutral-200 overflow-hidden" title={c.name}>
+            <a key={c.name} href={c.href} className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-neutral-200 bg-white shadow-sm sm:h-16 sm:w-16" title={c.name}>
               <img src={c.img} alt={c.name} className="h-full w-full object-cover" />
             </a>
           ))}
@@ -175,7 +183,7 @@ export default function SydenAdminDashboard() {
                         ))}
                       </select>
                     </div>
-                    <div className="mt-3 flex gap-2">
+                    <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                       <button onClick={() => setVetModal({ open: true, animalId: animal._id, editing: null })} className="px-3 py-2 bg-blue-600 text-white rounded-lg">Add Vet Record</button>
                       <button onClick={() => setVetModal({ open: true, animalId: animal._id, editing: null })} className="px-3 py-2 bg-gray-200 rounded-lg">View Records</button>
                     </div>
@@ -210,7 +218,7 @@ export default function SydenAdminDashboard() {
                     {record.serviceType} • {record.dateAdministered ? new Date(record.dateAdministered).toLocaleDateString() : 'No date'}
                   </div>
                   {record.notes && <div className="mt-2 text-sm text-gray-600">{record.notes}</div>}
-                  <div className="mt-3 flex gap-2">
+                  <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                     <button onClick={() => setVetModal({ open: true, animalId: record.animal, editing: record })} className="px-3 py-1 bg-yellow-500 text-white rounded-lg">Edit</button>
                     <button onClick={async () => {
                       if (!confirm('Delete this vet record?')) return;

@@ -42,9 +42,9 @@ export default function Login() {
             {loading ? <span className="btn-loader" aria-label="Loading" /> : 'Sign in'}
           </button>
         </form>
-        <p className="mt-6 text-sm text-gray-400">
-          Don&apos;t have an account? <Link to="/auth/register" className="text-yellow-300 hover:text-yellow-400">Register</Link>
-        </p>
+       {/* <p className="mt-6 text-sm text-gray-400">
+          Don&apos;t have an account? <Link to="/auth/login" className="text-yellow-300 hover:text-yellow-400">Register</Link>
+        </p> */} 
         <p className="mt-2 text-sm text-gray-400">
           <Link to="/auth/forgot-password" className="text-yellow-300 hover:text-yellow-400">Forgot password?</Link>
         </p>

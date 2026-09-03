@@ -80,7 +80,7 @@ export default function Houses() {
               label="THE HARVEST DREAM"
               headline="At DeeFresh, We Cultivate<br/>Abundance"
               subheadline="Contractual farming, agronomical services, and the finest fresh produce from farm to global market supply."
-              ctas={[{ label: 'Shop Produce →', to: '/deefresh/produce', variant: 'primary' }, { label: 'Farm With Us →', to: '/deefresh/contract-farming', variant: 'secondary' }]}
+              ctas={[{ label: 'View Produce →', to: '/deefresh/produce', variant: 'primary' }, { label: 'Farm With Us →', to: '/deefresh', variant: 'secondary' }]}
             />
             <p className="mt-3 text-xs md:text-sm text-gray-500">DeeFresh Partner Farm</p>
           </div>

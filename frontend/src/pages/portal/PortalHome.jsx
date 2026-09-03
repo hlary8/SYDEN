@@ -165,7 +165,7 @@ export default function PortalHome() {
       <section className="deleon-highlights-section">
         <div className="highlights-container">
           <div
-            className="highlights-slideshow touch-pan-x overflow-x-auto snap-x snap-mandatory md:overflow-visible"
+            className="highlights-slideshow overflow-hidden md:overflow-visible"
             onClick={handleMobileTap}
             onMouseEnter={() => {
               if (window.innerWidth >= 1024) {
@@ -250,14 +250,14 @@ export default function PortalHome() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-text-muted)]">The Dream Machine</p>
-              <h2 className="mt-4 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">A journey through our Companies</h2>
+              <h2 className="mt-4 text-3xl font-serif uppercase tracking-[0.12em] sm:text-4xl lg:text-5xl">Our Business</h2>
             </div>
             <Link to="/dream-machine" className="inline-flex rounded-full border border-[var(--holdings-accent)] px-8 py-4 text-sm uppercase tracking-[0.18em] text-[var(--holdings-accent)] transition-colors duration-300 hover:bg-[var(--holdings-accent)] hover:text-black">
-              Explore the story
+              Company Highlights →
             </Link>
           </div>
 
-          <div className="house-scroll-container md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:[&>*]:max-w-none md:[&>*]:flex-none overflow-x-auto snap-x snap-mandatory touch-pan-x">
+          <div className="house-scroll-container md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:[&>*]:max-w-none md:[&>*]:flex-none overflow-x-auto snap-x snap-mandatory">
             {[
               { brand: 'DELEON', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg', href: '/history' },
               { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg', href: '/history' },
@@ -278,7 +278,7 @@ export default function PortalHome() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(201,169,110,0.08),_transparent_55%)]" />
         <div className="relative mx-auto max-w-5xl text-center">
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--holdings-accent)]">The DeLeon Story</p>
-          <h2 className="mt-5 font-serif text-4xl text-white md:text-6xl">The DELEON Story</h2>
+          <h2 className="mt-5 font-serif text-4xl text-white md:text-6xl"> DELEON </h2>
           <div className="mt-10 overflow-hidden rounded-none border border-[#C9A96E] bg-black/30 shadow-[0_25px_80px_rgba(0,0,0,0.3)]">
             <VideoShowcase />
           </div>

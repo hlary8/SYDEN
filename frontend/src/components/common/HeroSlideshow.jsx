@@ -36,13 +36,21 @@ export default function HeroSlideshow() {
   }, [next]);
 
   const handleScrollDown = () => {
-    if (window.innerWidth <= 768) return;
     window.scrollBy({ top: window.innerHeight * 0.85, behavior: 'smooth' });
   };
 
   return (
     <div
       className="hero-slideshow"
+      onClick={handleScrollDown}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          handleScrollDown();
+        }
+      }}
+      role="button"
+      tabIndex={0}
       aria-label="Scroll to the next section"
     >
       {slides.map((slide, index) => (

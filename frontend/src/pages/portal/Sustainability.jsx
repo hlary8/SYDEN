@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const galleryItems = [
   {
@@ -49,7 +49,48 @@ const galleryItems = [
     src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109804/WhatsApp_Image_2026-08-14_at_15.30.13.jpg',
     alt: 'Sustainable harvest scene',
     span: 'md:col-span-3'
-  }
+  },
+
+ {
+    id: 'image-5234',
+    type: 'image',
+    src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788169931/WhatsApp_Image_2026-08-14_at_15.30.13_1.jpg',
+    alt: 'Pasture scene',
+    span: 'md:col-span-3'
+  },
+
+   {
+    id: 'image-523',
+    type: 'image',
+    src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102141/IMG-20260814-WA0107.jpg',
+    alt: 'Haappy pasture Happy Days',
+    span: 'md:col-span-3'
+  },
+
+
+ {
+    id: 'image-52',
+    type: 'image',
+    src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788169931/WhatsApp_Image_2026-08-14_at_15.30.12_2.jpg',
+    alt: 'Farm scene',
+    span: 'md:col-span-3'
+  },
+
+    {
+    id: 'image-52345',
+    type: 'image',
+    src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788105549/WA_1788105488897.jpg',
+    alt: 'Pasture scene',
+    span: 'md:col-span-3'
+  },
+
+
+];
+
+const statCards = [
+  { value: '1,000+', label: 'Acres under sustainable management', to: '/deleon' },
+  { value: '2,500+', label: 'Animals under ethical care', to: '/syden' },
+  { value: '1,200+', label: 'Farmer partnerships active', to: '/deefresh' }
 ];
 
 export default function Sustainability() {
@@ -96,20 +137,25 @@ export default function Sustainability() {
         </div>
 
         <div className="mt-12 grid gap-4 text-center md:grid-cols-3">
-          {[
-            ['1,000+', 'Acres under sustainable management'],
-            ['2,500+', 'Animals under ethical care'],
-            ['1,200+', 'Farmer partnerships active']
-          ].map(([value, label]) => (
-            <div key={label} className="border border-[#d9c299] bg-[#f7f2e9] px-6 py-8 shadow-[0_8px_28px_rgba(0,0,0,0.04)]">
-              <div className="text-4xl font-bold text-[#111] md:text-5xl">{value}</div>
-              <div className="mt-3 text-[11px] uppercase tracking-[0.14em] text-[#7a6a51]">{label}</div>
-            </div>
+          {statCards.map((stat) => (
+            <Link
+              key={stat.label}
+              to={stat.to}
+              className="block border border-[#d9c299] bg-[#f7f2e9] px-6 py-8 shadow-[0_8px_28px_rgba(0,0,0,0.04)] transition-transform duration-300 hover:-translate-y-1"
+            >
+              <div className="text-4xl font-bold text-[#111] md:text-5xl">{stat.value}</div>
+              <div className="mt-3 text-[11px] uppercase tracking-[0.14em] text-[#7a6a51]">{stat.label}</div>
+            </Link>
           ))}
         </div>
 
         <div className="mt-12 text-center">
-          <button type="button" className="inline-flex items-center justify-center rounded-full bg-[#c9a96e] px-8 py-3 text-[11px] uppercase tracking-[0.2em] text-[#111] shadow-[0_10px_25px_rgba(201,169,110,0.35)] transition-transform duration-300 hover:-translate-y-0.5">Join Our Mission</button>
+          <Link
+            to="/coming-soon"
+            className="inline-flex items-center justify-center rounded-full bg-[#c9a96e] px-8 py-3 text-[11px] uppercase tracking-[0.2em] text-[#111] shadow-[0_10px_25px_rgba(201,169,110,0.35)] transition-transform duration-300 hover:-translate-y-0.5"
+          >
+            Join Our Mission
+          </Link>
         </div>
       </section>
     </div>

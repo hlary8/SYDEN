@@ -145,7 +145,7 @@ export default function HistoryPage() {
       <section className="border-t border-white/10 bg-[#111111] py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#C9A96E]">Featured House</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-[#C9A96E]">Featured</p>
             <span className="text-[11px] uppercase tracking-[0.18em] text-white/60">Art of the farm</span>
           </div>
           <div className="mt-6 overflow-hidden rounded-2xl border border-[#C9A96E]/30 bg-[#171717]">

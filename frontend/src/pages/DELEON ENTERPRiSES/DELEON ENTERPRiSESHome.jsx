@@ -17,30 +17,33 @@ const ArrowRight = () => (
 const companySlides = [
   {
     id: 'deleon',
-    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788105550/IMG-20260814-WA0052.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg',
     title: 'DELEON Land',
     subtitle: 'Premium Land Stewardship'
   },
   {
     id: 'syden',
-    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102143/IMG-20260814-WA0082.jpg',
     title: 'Syden Livestock',
     subtitle: 'Livestock Excellence'
   },
   {
     id: 'deefresh',
-    image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109791/WhatsApp_Image_2026-08-14_at_20.28.12.jpg',
     title: 'DeeFresh',
     subtitle: 'Harvest to Markets'
   }
 ];
 
 const artGrowingDreamsPhotos = [
-  'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg',
-  'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg',
-  'https://res.cloudinary.com/tmcloud1/image/upload/v1771536702/farmlink_posts/nofkjggsubvr39t3mii1.jpg',
-  'https://res.cloudinary.com/tmcloud1/image/upload/v1786698435/WhatsApp_Image_2026-08-14_at_11.25.35_2_fkx7yb.jpg',
-  'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg'
+
+        'https://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg',
+        'https://res.cloudinary.com/gcne2xno/image/upload/v1788109787/WhatsApp_Image_2026-08-14_at_15.30.15_3.jpg',
+        'https://res.cloudinary.com/gcne2xno/image/upload/v1788105550/IMG-20260814-WA0052.jpg',
+        'https://res.cloudinary.com/gcne2xno/image/upload/v1788109795/WhatsApp_Image_2026-08-14_at_15.30.14_1.jpg',
+        'https://res.cloudinary.com/gcne2xno/image/upload/v1788109801/WhatsApp_Image_2026-08-14_at_15.30.14_3.jpg'
+
+
 ];
 
 export default function DeLeonEnterprisesHome() {

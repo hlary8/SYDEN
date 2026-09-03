@@ -8,7 +8,7 @@ const NotificationSchema = new mongoose.Schema({
   recipient: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   type: {
     type: String,
-    enum: ['farmer_approval', 'farmer_rejection', 'farmer_edited', 'farmer_expiry', 'admin_alert', 'new_application', 'new_produce', 'new_seed'],
+    enum: ['farmer_approval', 'farmer_rejection', 'farmer_edited', 'farmer_expiry', 'admin_alert', 'new_application', 'new_produce', 'new_seed', 'land_enquiry', 'vet_enquiry', 'produce_enquiry'],
     default: 'admin_alert'
   },
   title: String,

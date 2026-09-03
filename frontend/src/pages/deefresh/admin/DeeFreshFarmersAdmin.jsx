@@ -33,7 +33,15 @@ export default function DeeFreshFarmersAdmin() {
     const load = async () => {
       try {
         const { data } = await axios.get('/api/v1/farmers/approved');
-        setFarmers(Array.isArray(data.farmers) ? data.farmers : []);
+        const approvedFarmers = Array.isArray(data.farmers)
+          ? data.farmers.filter((farmer) => {
+              const profile = farmer.farmerProfile || {};
+              const isApproved = Boolean(farmer.isApproved || profile.isApproved || profile.status === 'Approved' || farmer.status === 'Approved');
+              const isSuspended = Boolean(farmer.isSuspended || profile.isSuspended || profile.status === 'Suspended' || profile.status === 'Rejected');
+              return isApproved && !isSuspended;
+            })
+          : [];
+        setFarmers(approvedFarmers);
       } catch (e) {
         console.error('Load error', e);
         setFarmers([]);
@@ -97,7 +105,7 @@ export default function DeeFreshFarmersAdmin() {
         const { data } = await axios.patch(`/api/v1/farmers/admin/${editingId}`, payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setFarmers(farmers.map(f => f._id === editingId ? {
+        setFarmers(prev => prev.map(f => f._id === editingId ? {
           ...f,
           farmName: data.data.farmName,
           location: data.data.location,
@@ -121,7 +129,7 @@ export default function DeeFreshFarmersAdmin() {
         const { data } = await axios.post('/api/v1/farmers/admin/create', payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setFarmers([data.data, ...farmers]);
+        setFarmers(prev => [data.data, ...prev]);
         setSuccessMessage('Farmer added successfully');
       }
 
@@ -160,7 +168,7 @@ export default function DeeFreshFarmersAdmin() {
       await axios.delete(`/api/v1/farmers/admin/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setFarmers(farmers.filter(f => f._id !== id));
+      setFarmers(prev => prev.filter(f => f._id !== id));
       setSuccessMessage('Farmer deleted successfully');
     } catch (err) {
       alert('Error deleting farmer: ' + (err.response?.data?.message || err.message));

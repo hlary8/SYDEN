@@ -5,17 +5,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc5a3?auto=format&fit=crop&w=1200&q=80',
-    title: 'From seed to supper',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109801/WhatsApp_Image_2026-08-14_at_15.30.14_3.jpg',
+    title: 'From seed to Markets',
     subtitle: 'Fresh farming, trusted growers, and premium produce end-to-end.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109796/WhatsApp_Image_2026-08-14_at_15.30.14_2.jpg',
     title: 'Cultivated with care',
     subtitle: 'Every harvest is grown with integrity, quality, and thoughtful stewardship.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109794/WhatsApp_Image_2026-08-14_at_15.30.14.jpg',
     title: 'Packaged for freshness',
     subtitle: 'From soil and sunlight to your kitchen table, freshness stays first.'
   }
@@ -35,12 +35,12 @@ const journeySteps = [
   {
     title: 'Harvest & Quality Check',
     description: 'Picked at peak freshness and inspected for premium quality.',
-    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80'
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109785/WhatsApp_Image_2026-08-14_at_20.28.15.jpg'
   },
   {
     title: 'Packaging',
     description: 'Careful handling and beautiful presentation to preserve freshness.',
-    image: 'https://images.unsplash.com/photo-1566385090619-5a8f9993c7d0?auto=format&fit=crop&w=900&q=80'
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788110369/WhatsApp_Image_2026-08-14_at_11.25.35.jpg'
   },
   {
     title: 'Delivery to You',
@@ -149,7 +149,7 @@ export default function DeeFreshHome() {
               <p className="text-base text-white/80 md:text-lg mb-8">{heroSlides[heroIndex].subtitle}</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/deefresh/produce" className="rounded-full bg-[#D9A441] px-8 py-4 text-[#1A1A1A] font-semibold text-center shadow-xl hover:opacity-90 transition">
-                  Shop produce
+                  Show produce
                 </Link>
                 <Link to="/deefresh/farmers" className="rounded-full border border-white/60 px-8 py-4 text-white font-semibold text-center hover:bg-white/10 transition">
                   Meet growers

@@ -58,7 +58,7 @@ async function create(req, res, next) {
       return next(createError(400, 'Invalid category. Must be one of: ' + validCategories.join(', ')));
     }
     
-    // Handle multi-image upload (cover + gallery, max 3 total)
+    // Handle multi-image upload (cover + gallery, max 4 total)
     if (req.files && req.files.length) {
       const virusScanner = require('../services/virusScanner');
       const uploadedPhotos = [];
@@ -79,10 +79,10 @@ async function create(req, res, next) {
         }
       }
       
-      // First photo is cover, rest go to gallery (max 3 total)
+      // First photo is cover, rest go to gallery (max 4 total)
       if (uploadedPhotos.length > 0) {
         coverImage = uploadedPhotos[0];
-        gallery = uploadedPhotos.slice(1, 3);
+        gallery = uploadedPhotos.slice(1, 4);
       }
     }
     
@@ -155,10 +155,10 @@ async function update(req, res, next) {
         }
       }
       
-      // Add to gallery (max 3 total)
+      // Add to gallery (max 4 total)
       if (newPhotos.length > 0) {
         const existingGallery = item.gallery || [];
-        const maxNewPhotos = Math.max(0, 3 - existingGallery.length - (item.coverImage ? 1 : 0));
+        const maxNewPhotos = Math.max(0, 4 - existingGallery.length - (item.coverImage ? 1 : 0));
         updates.gallery = [...existingGallery, ...newPhotos.slice(0, maxNewPhotos)];
       }
     }

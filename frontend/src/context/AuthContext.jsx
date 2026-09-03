@@ -71,7 +71,9 @@ export function AuthProvider({ children }) {
       async (err) => {
         const original = err.config;
         const isAuthEndpoint = /\/auth\//.test(original?.url || '') || window.location.pathname.includes('/auth/');
-        if (err.response?.status === 401 && !original._retry && !isAuthEndpoint) {
+        const isUnauthorized = err.response?.status === 401;
+
+        if (isUnauthorized && !original._retry && !isAuthEndpoint) {
           original._retry = true;
           try {
             const { data } = await axios.post('/auth/refresh', {}, { withCredentials: true });
@@ -86,10 +88,21 @@ export function AuthProvider({ children }) {
             setAccessToken(null);
             setUser(null);
             if (!window.location.pathname.includes('/auth/')) {
-              window.location.replace('/auth/login');
+              const isPublicPage = ['/', '/houses', '/sustainability', '/press', '/history', '/global-presence', '/about'].includes(window.location.pathname);
+              if (!isPublicPage) {
+                window.location.replace('/auth/login');
+              }
             }
           }
         }
+
+        if (isUnauthorized && isAuthEndpoint) {
+          updateAccessTokenHeader(null);
+          setAccessToken(null);
+          setUser(null);
+          return Promise.resolve();
+        }
+
         return Promise.reject(err);
       }
     );
@@ -103,8 +116,10 @@ export function AuthProvider({ children }) {
   // Only run once on mount to prevent infinite loops
   useEffect(() => {
     const initAuth = async () => {
+      const currentPath = window.location.pathname;
+      const isPublicPage = ['/', '/houses', '/sustainability', '/press', '/history', '/global-presence', '/about', '/contact', '/dream-machine', '/deefresh/seeds'].includes(currentPath);
+
       try {
-        // First try cookie/session-based verification (supports Render cookies)
         try {
           const res = await axios.get('/auth/me', { withCredentials: true });
           if (res.data?.user) {
@@ -116,11 +131,12 @@ export function AuthProvider({ children }) {
             setUser(res.data.user);
             return;
           }
-        } catch (cookieErr) {
-          // ignore and fall back to local token
+        } catch (_cookieErr) {
+          if (!isPublicPage && !currentPath.includes('/auth/')) {
+            // Keep this silent: unauthenticated page loads are expected on public routes.
+          }
         }
 
-        // Fallback: check token stored in localStorage
         const token = getStoredToken();
         if (token && !isTokenExpired(token)) {
           try {
@@ -130,8 +146,7 @@ export function AuthProvider({ children }) {
               setAccessToken(token);
               updateAccessTokenHeader(token);
             }
-          } catch (err2) {
-            // invalid token
+          } catch (_err2) {
             updateAccessTokenHeader(null);
             setAccessToken(null);
             setUser(null);
@@ -141,8 +156,7 @@ export function AuthProvider({ children }) {
           setAccessToken(null);
           setUser(null);
         }
-      } catch (err) {
-        console.error('Auth initialization failed', err.message);
+      } catch (_err) {
         updateAccessTokenHeader(null);
         setAccessToken(null);
         setUser(null);

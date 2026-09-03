@@ -18,8 +18,15 @@ export default function SydenNavbar() {
             <Link to="/syden/admin" className="px-4 py-2 rounded-full bg-[#E2725B] text-white font-semibold hover:bg-opacity-90 transition-colors">Admin</Link>
           )}
           <Link to="/syden/contact" className="px-4 py-2 rounded-full bg-[#E2725B] text-white font-semibold hover:bg-opacity-90 transition-colors">Contact</Link>
-          <Link to="/" className="text-sm text-slate-700 hover:text-slate-900 transition-colors">Back to Holdings</Link>
+          <Link to="/" className="text-sm text-slate-700 hover:text-slate-900 transition-colors">DELEON</Link>
         </div>
+
+        {user?.role === 'admin' && (
+          <div className="flex items-center gap-2 md:hidden">
+            <Link to="/syden/admin" className="rounded-full bg-[#E2725B] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">Admin</Link>
+            <Link to="/syden/admin/farm-activities" className="rounded-full border border-[#E2725B] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#2F4F4F]">Farm</Link>
+          </div>
+        )}
       </div>
     </nav>
   );

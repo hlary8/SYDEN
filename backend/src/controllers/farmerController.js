@@ -116,10 +116,36 @@ exports.approveFarmer = async (req, res, next) => {
     if (!request) return next(createError(404, 'Request not found'));
 
     // Update user role to farmer
-    await User.findByIdAndUpdate(request.user._id, { 
+    await User.findByIdAndUpdate(request.user._id, {
       role: 'farmer',
-      'farmerProfile.isApproved': true 
+      'farmerProfile.farmName': request.farmName || request.user.username,
+      'farmerProfile.farmLocation': request.location || '',
+      'farmerProfile.contactPhone': request.contactPhone || '',
+      'farmerProfile.farmDescription': request.farmName ? `Approved farmer profile for ${request.farmName}.` : '',
+      'farmerProfile.story': request.farmName ? `Approved farmer profile for ${request.farmName}.` : '',
+      'farmerProfile.activities': Array.isArray(request.activities) ? request.activities : [],
+      'farmerProfile.gallery': Array.isArray(request.gallery) ? request.gallery : [],
+      'farmerProfile.isApproved': true,
+      'farmerProfile.isSuspended': false,
+      'farmerProfile.status': 'Approved'
     });
+
+    // If the user already had a profile object, keep it and fill in missing fields
+    const applicant = await User.findById(request.user._id);
+    if (applicant && applicant.farmerProfile) {
+      applicant.farmerProfile = {
+        ...applicant.farmerProfile,
+        farmName: applicant.farmerProfile.farmName || request.farmName || request.user.username,
+        farmLocation: applicant.farmerProfile.farmLocation || request.location || '',
+        contactPhone: applicant.farmerProfile.contactPhone || request.contactPhone || '',
+        farmDescription: applicant.farmerProfile.farmDescription || `Approved farmer profile for ${request.farmName || request.user.username}.`,
+        story: applicant.farmerProfile.story || `Approved farmer profile for ${request.farmName || request.user.username}.`,
+        isApproved: true,
+        isSuspended: false,
+        status: 'Approved'
+      };
+      await applicant.save();
+    }
 
     // Create notification for user
     await Notification.create({
@@ -193,20 +219,60 @@ exports.deleteFarmerRequest = async (req, res, next) => {
       return next(createError(403, 'Admin only'));
     }
 
-    const request = await FarmerRequest.findById(requestId);
-    if (!request) return next(createError(404, 'Request not found'));
+    const matchingRequest = await FarmerRequest.findById(requestId).populate('user');
+    const matchingUser = await User.findById(requestId);
 
-    // If farmer was approved, downgrade to user
-    if (request.status === 'approved') {
-      await User.findByIdAndUpdate(request.user._id, { 
-        role: 'user',
-        'farmerProfile.isApproved': false 
-      });
+    if (matchingRequest) {
+      const targetUserId = matchingRequest.user?._id || matchingRequest.user;
+      if (matchingRequest.status === 'approved') {
+        await User.findByIdAndUpdate(targetUserId, {
+          role: 'user',
+          farmerProfile: {
+            farmName: '',
+            farmLocation: '',
+            farmDescription: '',
+            story: '',
+            activities: [],
+            gallery: [],
+            farmPhoto: null,
+            contactPhone: '',
+            company: 'None',
+            status: 'Suspended',
+            isApproved: false,
+            isSuspended: true
+          }
+        });
+      }
+
+      await FarmerRequest.findByIdAndDelete(requestId);
+      return res.json({ success: true, message: 'Farmer request deleted' });
     }
 
-    await FarmerRequest.findByIdAndDelete(requestId);
+    if (matchingUser && (matchingUser.role === 'farmer' || matchingUser.farmerProfile?.isApproved || matchingUser.farmerProfile?.status === 'Approved')) {
+      await User.findByIdAndUpdate(matchingUser._id, {
+        role: 'user',
+        farmerProfile: {
+          ...(matchingUser.farmerProfile || {}),
+          farmName: '',
+          farmLocation: '',
+          farmDescription: '',
+          story: '',
+          activities: [],
+          gallery: [],
+          farmPhoto: null,
+          contactPhone: '',
+          company: 'None',
+          status: 'Suspended',
+          isApproved: false,
+          isSuspended: true
+        }
+      });
 
-    res.json({ success: true, message: 'Farmer request deleted' });
+      await FarmerRequest.deleteMany({ user: matchingUser._id });
+      return res.json({ success: true, message: 'Farmer profile deleted' });
+    }
+
+    return next(createError(404, 'Farmer not found'));
   } catch (err) {
     next(err);
   }
@@ -215,26 +281,84 @@ exports.deleteFarmerRequest = async (req, res, next) => {
 // GET: Approved farmers list (for dropdown in produce admin form)
 exports.getApprovedFarmers = async (req, res, next) => {
   try {
+    const approvedRequests = await FarmerRequest.find({ status: 'approved' })
+      .select('user farmName location contactPhone requestedAt')
+      .lean();
+
+    const approvedRequestMap = new Map(
+      approvedRequests.map((item) => [String(item.user), item])
+    );
+
+    const approvedUserIds = approvedRequests.map((item) => String(item.user));
+
     const farmers = await User.find({
-      role: 'farmer',
-      'farmerProfile.isApproved': true,
-      'farmerProfile.isSuspended': { $ne: true }
+      $and: [
+        {
+          $or: [
+            { _id: { $in: approvedUserIds } },
+            {
+              role: 'farmer',
+              'farmerProfile.isApproved': true,
+              'farmerProfile.status': 'Approved',
+              'farmerProfile.isSuspended': false
+            }
+          ]
+        },
+        {
+          $or: [
+            { 'farmerProfile.isApproved': true },
+            { 'farmerProfile.status': 'Approved' },
+            { _id: { $in: approvedUserIds } }
+          ]
+        }
+      ]
     })
-      .select('username _id farmerProfile email')
+      .select('username _id farmerProfile email role')
       .sort({ username: 1 });
 
-    const filtered = farmers.filter((farmer) => {
-      const profile = farmer.farmerProfile || {};
-      const isComplete = Boolean(
-        profile.farmName &&
-        profile.farmLocation &&
-        profile.farmPhoto?.url &&
-        (profile.farmDescription || profile.story || (Array.isArray(profile.activities) && profile.activities.length))
-      );
-      return isComplete;
-    });
+    const normalized = farmers
+      .filter((farmer) => {
+        const profile = farmer.farmerProfile || {};
+        const isApproved = Boolean(profile.isApproved || profile.status === 'Approved' || approvedUserIds.includes(String(farmer._id)));
+        const isSuspended = Boolean(profile.isSuspended || profile.status === 'Suspended' || profile.status === 'Rejected');
+        return isApproved && !isSuspended;
+      })
+      .map((farmer) => {
+        const profile = farmer.farmerProfile || {};
+        const request = approvedRequestMap.get(String(farmer._id));
+        const farmName = profile.farmName || request?.farmName || farmer.username || 'Approved Farmer';
+        const farmLocation = profile.farmLocation || request?.location || 'Kenya';
+        const contactPhone = profile.contactPhone || request?.contactPhone || 'Not provided';
+        const farmDescription = profile.farmDescription || profile.story || `Approved farmer profile for ${farmName}.`;
 
-    res.json({ success: true, farmers: filtered });
+        return {
+          _id: farmer._id,
+          username: farmer.username,
+          email: farmer.email,
+          role: farmer.role,
+          farmName,
+          location: farmLocation,
+          contactPhone,
+          description: farmDescription,
+          profilePhoto: profile.farmPhoto?.url || null,
+          farmerProfile: {
+            ...profile,
+            farmName,
+            farmLocation,
+            contactPhone,
+            farmDescription,
+            story: profile.story || farmDescription,
+            isApproved: true,
+            isSuspended: false,
+            status: 'Approved'
+          },
+          isApproved: true,
+          isSuspended: false,
+          status: 'Approved'
+        };
+      });
+
+    res.json({ success: true, farmers: normalized });
   } catch (err) {
     next(err);
   }
@@ -298,7 +422,8 @@ exports.createApprovedFarmer = async (req, res, next) => {
       farmPhoto: profilePhoto ? { url: profilePhoto, publicId: '' } : undefined,
       contactPhone,
       isApproved: true,
-      isSuspended: nextSuspended
+      isSuspended: nextSuspended,
+      status: 'Approved'
     };
 
     let newFarmer = await User.findOne({ username: baseUsername });
@@ -370,7 +495,8 @@ exports.updateFarmerProfile = async (req, res, next) => {
       isApproved: typeof incoming.isApproved === 'boolean' ? incoming.isApproved : (currentProfile.isApproved ?? false),
       isSuspended: typeof incoming.isSuspended === 'boolean'
         ? incoming.isSuspended
-        : (currentProfile.isSuspended ?? true)
+        : (currentProfile.isSuspended ?? true),
+      status: incoming.status || currentProfile.status || (typeof incoming.isApproved === 'boolean' && incoming.isApproved ? 'Approved' : 'Pending')
     };
 
     const hasRequiredPublicFields = Boolean(
@@ -382,6 +508,8 @@ exports.updateFarmerProfile = async (req, res, next) => {
 
     if (hasRequiredPublicFields) {
       nextProfile.isSuspended = false;
+      nextProfile.isApproved = true;
+      nextProfile.status = 'Approved';
     }
 
     const updatedUser = await User.findByIdAndUpdate(

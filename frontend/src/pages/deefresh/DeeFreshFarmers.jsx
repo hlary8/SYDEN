@@ -10,7 +10,15 @@ export default function DeeFreshFarmers() {
     const fetchFarmers = async () => {
       try {
         const { data } = await axios.get('/api/v1/farmers/approved');
-        setFarmers(Array.isArray(data.farmers) ? data.farmers : []);
+        const approvedFarmers = Array.isArray(data.farmers)
+          ? data.farmers.filter((farmer) => {
+              const profile = farmer.farmerProfile || {};
+              const isApproved = Boolean(farmer.isApproved || profile.isApproved || profile.status === 'Approved' || farmer.status === 'Approved');
+              const isSuspended = Boolean(farmer.isSuspended || profile.isSuspended || profile.status === 'Suspended' || profile.status === 'Rejected');
+              return isApproved && !isSuspended;
+            })
+          : [];
+        setFarmers(approvedFarmers);
       } catch (err) {
         console.error('Error fetching farmers:', err);
         setFarmers([]);
