@@ -1,8 +1,16 @@
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function SydenContact() {
+  useSEO({
+    title: 'Contact Syden | Veterinary & Farm Services Kenya',
+    description: 'Contact the Syden team for veterinary services, livestock support, farm consulting and agricultural assistance in Kenya.',
+    canonical: 'https://deleon1.onrender.com/syden/contact',
+    ogTitle: 'Contact Syden | Kenya',
+    ogDescription: 'Reach Syden for veterinary and livestock services.'
+  });
   const [searchParams] = useSearchParams();
   const animalName = searchParams.get('animal') || '';
   const [form, setForm] = useState({
@@ -55,7 +63,7 @@ export default function SydenContact() {
       <div className="mx-auto max-w-4xl rounded-3xl bg-white p-10 shadow-2xl">
         <h1 className="text-4xl font-bold mb-6">Contact Syden</h1>
         <p className="mb-8 text-lg text-gray-700">
-          Contact our vet care and livestock team for farm consultations, emergency support, and partnership enquiries.
+          Contact the Syden team for veterinary services, livestock support, farm consulting and agricultural assistance.
         </p>
 
         {animalName && (
@@ -66,14 +74,14 @@ export default function SydenContact() {
 
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl bg-[var(--surface)] p-6">
-            <h2 className="text-xl font-semibold mb-3">Office</h2>
-            <p>Rongai Farm House</p>
-            <p>support@syden.ag</p>
+            <h2 className="text-xl font-semibold mb-3">Team Location</h2>
+            <p>Syden Pastoral Farm</p>
+            <p>support@syden.co.ke</p>
           </div>
           <div className="rounded-3xl bg-[var(--surface)] p-6">
-            <h2 className="text-xl font-semibold mb-3">Hotline</h2>
+            <h2 className="text-xl font-semibold mb-3">Support</h2>
             <p>+254 700 220 330</p>
-            <p>24/7 veterinary support</p>
+            <p>Veterinary & Farm Services</p>
           </div>
         </div>
 

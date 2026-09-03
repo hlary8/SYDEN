@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useSEO } from '../../hooks/useSEO';
 
 const ArrowLeft = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
@@ -50,6 +51,15 @@ export default function DeLeonEnterprisesHome() {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [companyIndex, setCompanyIndex] = useState(0);
 
+  useSEO({
+    title: 'DELEON | Land Opportunities in Kenya',
+    description: 'DELEON offers agricultural and development land in Laikipia and Meru. Transparent pricing, clear ownership and direct access to land investors and entrepreneurs across Kenya.',
+    canonical: 'https://deleon1.onrender.com/deleon',
+    ogTitle: 'DELEON | Land Opportunities in Kenya',
+    ogDescription: 'Land ownership opportunities in Laikipia and Meru counties, Kenya.',
+    ogType: 'website'
+  });
+
   // Auto-rotate "Art of Growing Dreams" photos every 6 seconds
   useEffect(() => {
     const photoInterval = setInterval(() => {
@@ -85,23 +95,23 @@ export default function DeLeonEnterprisesHome() {
             {/* Text Content */}
             <div className="order-2 lg:order-1">
               <h1 className="text-4xl lg:text-5xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                DELEON Land
+                Land Opportunities in Kenya
               </h1>
               <p className="text-base lg:text-lg mb-8 text-gray-700">
-                Discover premium land listings built for long-term investment and generational legacy.
+                DELEON offers agricultural and development land in Laikipia and Meru. Transparent pricing, clear ownership and direct access to land entrepreneurs and investors across Kenya.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   to="lands" 
                   className="rounded-full bg-[var(--accent)] px-8 py-4 text-[var(--primary)] font-semibold hover:opacity-90 text-center transition"
                 >
-                  Browse Lands
+                  Browse Land Listings
                 </Link>
                 <Link 
                   to="about" 
                   className="rounded-full border border-[var(--accent)] px-8 py-4 text-[var(--text)] font-semibold hover:bg-[var(--accent)] hover:text-[var(--bg)] text-center transition"
                 >
-                  Learn more
+                  Learn More
                 </Link>
               </div>
             </div>

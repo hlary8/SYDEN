@@ -2,49 +2,50 @@ import { Link } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSEO } from '../../hooks/useSEO';
 
 const heroSlides = [
   {
     image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109801/WhatsApp_Image_2026-08-14_at_15.30.14_3.jpg',
-    title: 'From seed to Markets',
-    subtitle: 'Fresh farming, trusted growers, and premium produce end-to-end.'
+    title: 'Fresh Produce from Kenya',
+    subtitle: 'Farming, agronomical support and quality produce connections.'
   },
   {
     image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109796/WhatsApp_Image_2026-08-14_at_15.30.14_2.jpg',
-    title: 'Cultivated with care',
-    subtitle: 'Every harvest is grown with integrity, quality, and thoughtful stewardship.'
+    title: 'Farm to Market',
+    subtitle: 'Supporting farmers and connecting quality produce to customers.'
   },
   {
     image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109794/WhatsApp_Image_2026-08-14_at_15.30.14.jpg',
-    title: 'Packaged for freshness',
-    subtitle: 'From soil and sunlight to your kitchen table, freshness stays first.'
+    title: 'Quality & Freshness',
+    subtitle: 'Direct connections between growers and buyers across Kenya.'
   }
 ];
 
 const journeySteps = [
   {
     title: 'Seed Selection',
-    description: 'Bespoke varietals chosen for flavor, resilience, and seasonality.',
+    description: 'Agronomically suitable seed varieties for Kenyan farming conditions.',
     image: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=900&q=80'
   },
   {
     title: 'Farm Cultivation',
-    description: 'Healthy fields, skilled growers, and soil-first growing methods.',
+    description: 'Farming support and agronomical guidance for producers.',
     image: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc5a3?auto=format&fit=crop&w=900&q=80'
   },
   {
-    title: 'Harvest & Quality Check',
-    description: 'Picked at peak freshness and inspected for premium quality.',
+    title: 'Harvest',
+    description: 'Quality produce sourced directly from farming partners.',
     image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109785/WhatsApp_Image_2026-08-14_at_20.28.15.jpg'
   },
   {
-    title: 'Packaging',
-    description: 'Careful handling and beautiful presentation to preserve freshness.',
+    title: 'Processing',
+    description: 'Careful handling to maintain produce quality.',
     image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788110369/WhatsApp_Image_2026-08-14_at_11.25.35.jpg'
   },
   {
-    title: 'Delivery to You',
-    description: 'Fast, reliable delivery so every order arrives fresh and ready.',
+    title: 'Market Connection',
+    description: 'Direct delivery and customer connections for fresh produce.',
     image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80'
   }
 ];
@@ -89,6 +90,14 @@ export default function DeeFreshHome() {
   const [farmers, setFarmers] = useState([]);
   const [seeds, setSeeds] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useSEO({
+    title: 'DeeFresh | Fresh Produce, Farming & Agronomy Kenya',
+    description: 'DeeFresh connects farmers, producers and customers with fresh produce, agronomical consulting and market connections in Kenya. Farm support and seed supplies.',
+    canonical: 'https://deleon1.onrender.com/deefresh',
+    ogTitle: 'DeeFresh | Fresh Produce & Farming Kenya',
+    ogDescription: 'Farm to market: Fresh produce and farming solutions in Kenya.'
+  });
 
   useEffect(() => {
     const timer = setInterval(() => setHeroIndex((prev) => (prev + 1) % heroSlides.length), 5000);

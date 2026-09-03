@@ -1,8 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function DeeFreshSeeds() {
+  useSEO({
+    title: 'F1 Seeds & Agricultural Seeds | DeeFresh',
+    description: 'Browse quality F1 and agricultural seeds from DeeFresh. Seeds for farming in Kenya with agronomical support.',
+    canonical: 'https://deleon1.onrender.com/deefresh/seeds',
+    ogTitle: 'Seeds & Supplies | DeeFresh',
+    ogDescription: 'Quality agricultural seeds for farming.'
+  });
+
   const [seeds, setSeeds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedSeed, setSelectedSeed] = useState(null);

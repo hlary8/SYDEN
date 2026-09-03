@@ -1,8 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function DeeFreshFarmers() {
+  useSEO({
+    title: 'Farmers & Farm Partners | DeeFresh Kenya',
+    description: 'Connect with farming partners and farmers on DeeFresh. Contractual farming partnerships and agronomical support in Kenya.',
+    canonical: 'https://deleon1.onrender.com/deefresh/farmers',
+    ogTitle: 'Farmers & Farm Partnerships | DeeFresh',
+    ogDescription: 'Farming partnerships and resources.'
+  });
+
   const [farmers, setFarmers] = useState([]);
   const [loading, setLoading] = useState(true);
 

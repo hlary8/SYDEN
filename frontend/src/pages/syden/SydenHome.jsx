@@ -2,22 +2,23 @@ import { Link } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSEO } from '../../hooks/useSEO';
 
 const heroSlides = [
   {
     image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1200&q=80',
-    title: 'Syden — Where Livestock Meets Legacy',
-    subtitle: 'Premium animal care, breeding excellence, and ethical farm stewardship.'
+    title: 'Syden — Veterinary Services & Livestock',
+    subtitle: 'Professional animal health care and farm support across Kenya.'
   },
   {
     image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80',
-    title: 'Healthy Herds, Strong Futures',
-    subtitle: 'From pasture to protection, each animal is cared for holistically.'
+    title: 'Livestock Health & Management',
+    subtitle: 'Comprehensive veterinary care and farm services for productive herds.'
   },
   {
     image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80',
-    title: 'Farm Life, Cultivated With Care',
-    subtitle: 'Veterinary excellence and daily husbandry drive every decision we make.'
+    title: 'Agricultural Solutions',
+    subtitle: 'Veterinary expertise, livestock support and farming guidance.'
   }
 ];
 
@@ -32,6 +33,14 @@ export default function SydenHome() {
   const [livestock, setLivestock] = useState([]);
   const [loading, setLoading] = useState(true);
   const [heroIndex, setHeroIndex] = useState(0);
+
+  useSEO({
+    title: 'Syden | Veterinary Services, Livestock & Agricultural Solutions Kenya',
+    description: 'Syden provides veterinary services, livestock management and agricultural solutions for farmers and producers in Kenya. Professional animal health care and farm support.',
+    canonical: 'https://deleon1.onrender.com/syden',
+    ogTitle: 'Syden | Veterinary Services & Livestock Kenya',
+    ogDescription: 'Professional animal health care, livestock management and farm support services in Kenya.'
+  });
 
   useEffect(() => {
     const interval = setInterval(() => setHeroIndex((prev) => (prev + 1) % heroSlides.length), 5000);
@@ -92,7 +101,7 @@ export default function SydenHome() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#meet-our-livestock" className="rounded-full bg-[#D9A441] px-8 py-4 text-[#171717] font-semibold text-center shadow-xl hover:opacity-90 transition">
-                  Explore Our Animals
+                  View Our Animals
                 </a>
                 <Link to="/syden/veterinary" className="rounded-full border border-white/60 px-8 py-4 text-white font-semibold text-center hover:bg-white/10 transition">
                   Veterinary Services

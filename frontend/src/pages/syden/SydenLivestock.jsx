@@ -1,8 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function SydenLivestock() {
+  useSEO({
+    title: 'Livestock | Syden',
+    description: 'Browse livestock available from Syden. Animals for sale, breeding and veterinary services in Kenya.',
+    canonical: 'https://deleon1.onrender.com/syden/livestock',
+    ogTitle: 'Livestock | Syden Kenya',
+    ogDescription: 'View our livestock collection.'
+  });
+
   const [livestock, setLivestock] = useState([]);
   const [filteredLivestock, setFilteredLivestock] = useState([]);
   const [loading, setLoading] = useState(true);

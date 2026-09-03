@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroSlideshow from '../../components/common/HeroSlideshow';
+import { useSEO } from '../../hooks/useSEO';
 
 const VideoShowcase = () => {
   const videoRef = useRef(null);
@@ -100,6 +101,14 @@ const storyGrid = [
 
 export default function PortalHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  useSEO({
+    title: 'DELEON ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
+    description: 'DELEON ENTERPRISES: Three pillars of agricultural excellence. DELEON land opportunities, Syden veterinary services, DeeFresh fresh produce in Kenya.',
+    canonical: 'https://deleon1.onrender.com/',
+    ogTitle: 'DELEON ENTERPRISES | Kenya',
+    ogDescription: 'Land, livestock and harvest across Kenya.'
+  });
 
   useEffect(() => {
     const timer = window.setInterval(() => {

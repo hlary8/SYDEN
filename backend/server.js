@@ -27,6 +27,7 @@ const farmerRoutes = require('./src/routes/farmers'); // ADDED: Farmer managemen
 const seedsRoutes = require('./src/routes/seeds'); // ADDED: Seeds management routes
 const vetRoutes = require('./src/routes/vets'); // Veterinary records
 const contactEnquiryRoutes = require('./src/routes/contactEnquiries');
+const seoRoutes = require('./src/routes/seo'); // SEO: robots.txt and sitemap.xml
 const { errorHandler } = require('./src/middleware/errorHandler');
 const realtimeEvents = require('./src/middleware/realtimeEvents');
 
@@ -99,6 +100,9 @@ app.use('/api/v1/farmers', farmerRoutes); // ADDED: Farmer routes
 app.use('/api/v1/seeds', seedsRoutes); // ADDED: Seeds routes
 app.use('/api/v1/vets', vetRoutes); // Veterinary record routes
 app.use('/api/v1/contact-enquiries', contactEnquiryRoutes); // ADDED: Contact enquiries routes
+
+// SEO: robots.txt and sitemap.xml at root level
+app.use(seoRoutes);
 
 app.get('/', (req, res) => res.json({ ok: true, name: 'DELEON ENTERPRiSES Ecosystem API' }));
 

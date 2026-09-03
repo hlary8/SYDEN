@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function DeLeonEnterprisesLands() {
+  useSEO({
+    title: 'Land Listings | Agricultural & Development Land Kenya',
+    description: 'Browse land listings in Laikipia and Meru, Kenya. Agricultural and development opportunities with transparent pricing from DELEON.',
+    canonical: 'https://deleon1.onrender.com/deleon/lands',
+    ogTitle: 'Land Listings | Kenya',
+    ogDescription: 'Agricultural and development land opportunities in Laikipia and Meru counties.'
+  });
   const [lands, setLands] = useState([]);
   const [filteredLands, setFilteredLands] = useState([]);
   const [loading, setLoading] = useState(true);

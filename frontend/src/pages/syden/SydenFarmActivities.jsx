@@ -1,7 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function SydenFarmActivities() {
+  useSEO({
+    title: 'Farm Activities | Syden Kenya',
+    description: 'Browse farm activities and farm updates from Syden. Record of farming and veterinary activities at Syden Pastoral Farm in Kenya.',
+    canonical: 'https://deleon1.onrender.com/syden/farm-activities',
+    ogTitle: 'Farm Activities | Syden',
+    ogDescription: 'Farm updates and activities.'
+  });
+
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
 

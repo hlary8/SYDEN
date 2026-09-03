@@ -1,4 +1,14 @@
+import { useSEO } from '../../hooks/useSEO';
+
 export default function PortalContact() {
+  useSEO({
+    title: 'Contact DELEON ENTERPRISES | Company Inquiries',
+    description: 'Contact DELEON ENTERPRISES for investor relations, corporate inquiries, and media requests. Reach our headquarters in Nairobi, Kenya.',
+    canonical: 'https://deleon1.onrender.com/contact',
+    ogTitle: 'Contact DELEON ENTERPRISES',
+    ogDescription: 'Reach DELEON ENTERPRISES corporate headquarters.'
+  });
+
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-white px-4 py-12">
       <div className="max-w-5xl mx-auto rounded-3xl bg-[#111111] p-10 shadow-2xl">

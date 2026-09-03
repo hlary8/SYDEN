@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
+import { useSEO } from '../../hooks/useSEO';
 
 const statusClasses = {
   excellent: 'bg-green-100 text-green-700',
@@ -11,6 +12,14 @@ const statusClasses = {
 export default function SydenVetServices() {
   const [livestock, setLivestock] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useSEO({
+    title: 'Veterinary Services in Kenya | Syden',
+    description: 'Syden offers veterinary care, livestock health monitoring and farm support services for farmers across Kenya. Professional veterinary consultations and livestock management.',
+    canonical: 'https://deleon1.onrender.com/syden/veterinary',
+    ogTitle: 'Veterinary Services | Kenya',
+    ogDescription: 'Professional veterinary consultations and livestock health monitoring.'
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,14 +64,14 @@ export default function SydenVetServices() {
         <div className="rounded-3xl bg-white p-10 shadow-2xl mb-10">
           <h1 className="text-4xl font-bold mb-4">Veterinary Services</h1>
           <p className="text-gray-700 text-lg mb-8">
-            State-of-the-art health monitoring, preventive care, and care coordination for every animal in our herd.
+            Syden offers veterinary care, livestock health monitoring and agricultural support services to farmers across Kenya. Our services help maintain healthy herds and productive farms.
           </p>
 
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              { name: 'Vaccination', description: 'Preventative plans and herd vaccination schedules.' },
-              { name: 'Breeding', description: 'Reproductive health and breeding support programs.' },
-              { name: 'Emergency Care', description: 'Fast veterinary response for urgent health needs.' }
+              { name: 'Veterinary Consultations', description: 'Animal health assessments and veterinary guidance for livestock.' },
+              { name: 'Livestock Monitoring', description: 'Health tracking and farm record management for herds.' },
+              { name: 'Farm Support', description: 'Agricultural guidance and farming assistance for producers.' }
             ].map((service) => (
               <div key={service.name} className="rounded-3xl bg-[var(--surface)] p-6">
                 <h2 className="text-2xl font-semibold mb-3">{service.name}</h2>
