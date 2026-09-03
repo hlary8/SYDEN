@@ -15,7 +15,7 @@ RUN addgroup -S nodejs && adduser -S -G nodejs -u 1001 nodejs \
 
 USER nodejs
 
-EXPOSE 5000
+EXPOSE 4000
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "server.js"]

@@ -11,7 +11,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: "5000"
+        value: "4000"
       - key: JWT_SECRET
         generate: true
       - key: JWT_ACCESS_SECRET
@@ -45,3 +45,5 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://deleon-enterprises-api.onrender.com/api/v1
+      - key: BACKEND_URL
+        value: https://deleon-enterprises-api.onrender.com
