@@ -18,9 +18,11 @@ RUN npm run build
 # Stage 2: serve with nginx
 FROM nginx:stable-alpine
 
-# Remove default config and add our nginx config
+# Remove default config
 RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy template and prepare for env substitution
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # Copy build
 COPY --from=build /app/dist /usr/share/nginx/html
@@ -28,5 +30,5 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Expose port
 EXPOSE 80
 
-# Run nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Replace env vars in nginx config at container start
+CMD ["/bin/sh", "-c", "envsubst '${BACKEND_URL}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;' "
