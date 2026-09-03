@@ -2,8 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const getSiteBaseUrl = () => {
-  const configured = (process.env.CLIENT_URL || process.env.CORS_ORIGIN || '').replace(/\/$/, '');
-  return configured || 'https://deleon.onrender.com';
+  const configured = (
+    process.env.CLIENT_URL ||
+    process.env.CORS_ORIGIN ||
+    process.env.RENDER_EXTERNAL_URL ||
+    process.env.RENDER_URL ||
+    ''
+  ).replace(/\/$/, '');
+  return configured || 'https://deleon1.onrender.com';
 };
 
 // robots.txt
