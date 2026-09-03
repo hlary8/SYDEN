@@ -9,13 +9,24 @@ const queryClient = new QueryClient();
 
 // Configure axios to use deployed backend URL and send cookies
 const getApiBase = () => {
-  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL.replace(/\/$/, '');
+  const configured = (import.meta.env.VITE_API_URL || import.meta.env.BACKEND_URL || '').replace(/\/$/, '');
+
+  if (configured) {
+    return configured.endsWith('/api/v1') ? configured : `${configured}/api/v1`;
+  }
+
   const host = window.location.hostname;
-  const origin = window.location.origin;
+  const isRenderFrontend = host === 'deleon1.onrender.com' || host === 'www.deleon1.onrender.com';
+
   if (host === 'localhost' || host === '127.0.0.1' || host.includes('0.0.0.0')) {
     return 'http://localhost:4000/api/v1';
   }
-  return `${origin}/api/v1`;
+
+  if (isRenderFrontend) {
+    return 'https://deleon.onrender.com/api/v1';
+  }
+
+  return `${window.location.origin}/api/v1`;
 };
 
 const API_BASE = getApiBase();

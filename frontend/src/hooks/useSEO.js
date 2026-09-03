@@ -1,5 +1,10 @@
 import { useEffect } from 'react';
 
+const getCanonicalBase = () => {
+  const configured = (import.meta.env.VITE_SITE_URL || import.meta.env.VITE_APP_URL || '').replace(/\/$/, '');
+  return configured || 'https://deleon.onrender.com';
+};
+
 /**
  * Custom hook to manage SEO metadata for pages
  * Updates document title, meta tags, canonical URL, and structured data
@@ -8,7 +13,7 @@ export const useSEO = (config) => {
   const {
     title = 'DELEON ENTERPRISES',
     description = 'Land, livestock and agricultural solutions in Kenya.',
-    canonical = 'https://deleon1.onrender.com',
+    canonical = `${getCanonicalBase()}`,
     ogTitle = null,
     ogDescription = null,
     ogImage = null,

@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+const getSiteBaseUrl = () => {
+  const configured = (process.env.CLIENT_URL || process.env.CORS_ORIGIN || '').replace(/\/$/, '');
+  return configured || 'https://deleon.onrender.com';
+};
+
 // robots.txt
 router.get('/robots.txt', (req, res) => {
+  const siteBaseUrl = getSiteBaseUrl();
   const robotsTxt = `User-agent: *
 Allow: /
 Allow: /deleon
@@ -34,14 +40,14 @@ Disallow: /api/
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://deleon1.onrender.com/sitemap.xml
+Sitemap: ${siteBaseUrl}/sitemap.xml
 `;
   res.type('text/plain').send(robotsTxt);
 });
 
 // sitemap.xml
 router.get('/sitemap.xml', (req, res) => {
-  const baseUrl = 'https://deleon1.onrender.com';
+  const baseUrl = getSiteBaseUrl();
   
   const staticUrls = [
     { url: '/', priority: '1.0', changefreq: 'weekly' },
