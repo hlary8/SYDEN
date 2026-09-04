@@ -229,7 +229,7 @@ export default function DeLeonEnterprisesLandDetail() {
                 </label>
                 <div className="md:col-span-2 flex items-center justify-between gap-4 flex-wrap">
                   <button type="submit" className="rounded-full bg-black px-6 py-3 text-sm font-semibold text-white">Send to admin</button>
-                  <a href="mailto:admin@syden.com?subject=Land%20Consultation%20-%20DeLeon" className="text-sm font-medium text-[#7A5A12] underline">or email admin directly</a>
+                  <a href="mailto:sydencompanylimited@gmail.com?subject=Land%20Consultation%20-%20DeLeon" className="text-sm font-medium text-[#7A5A12] underline">or email admin directly</a>
                 </div>
               </form>
             )}

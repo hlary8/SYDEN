@@ -20,8 +20,8 @@ export default function DeeFreshFooter() {
         </div>
         <div>
           <h3 className="text-lg font-bold mb-3">Contact</h3>
-          <p className="text-sm text-[#F5FFFA]/90">hello@deefresh.co.ke</p>
-          <p className="text-sm text-[#F5FFFA]/90">+254 700 330 440</p>
+          <p className="text-sm text-[#F5FFFA]/90">scatesdenno4000@gmail.com</p>
+          <p className="text-sm text-[#F5FFFA]/90">+254 724 306 613</p>
            © {year} DeeFresh. All rights reserved.
         </div>
       </div>

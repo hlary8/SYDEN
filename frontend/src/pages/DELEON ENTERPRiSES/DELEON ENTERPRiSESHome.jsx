@@ -165,6 +165,114 @@ export default function DeLeonEnterprisesHome() {
         </div>
       </section>
 
+      {/* Our Land Services Section */}
+      <section className="px-4 py-16 lg:py-20 bg-white/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Land Services</h2>
+            <p className="text-gray-600 text-lg">Comprehensive agricultural and land management solutions tailored to your needs</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Service 1: Land Preparation */}
+            <motion.div
+              whileHover={{ y: -8 }}
+              className="rounded-3xl bg-white p-8 shadow-lg hover:shadow-xl transition text-center"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full bg-[var(--accent)]/10 flex items-center justify-center text-5xl">
+                  🚜
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--accent)' }}>Land Preparation & Clearing</h3>
+              <p className="text-gray-700 leading-relaxed">
+                We prepare your land for optimal productivity — clearing, grading, and soil analysis to ensure every acre is ready for cultivation.
+              </p>
+            </motion.div>
+
+            {/* Service 2: Crop Planting */}
+            <motion.div
+              whileHover={{ y: -8 }}
+              className="rounded-3xl bg-white p-8 shadow-lg hover:shadow-xl transition text-center"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full bg-[var(--accent)]/10 flex items-center justify-center text-5xl">
+                  🌾
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--accent)' }}>Crop Planting — Barley & Maize</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Expert planting services for barley, maize, and high-yield crops using modern techniques and quality seed stock.
+              </p>
+            </motion.div>
+
+            {/* Service 3: Silage Preparation */}
+            <motion.div
+              whileHover={{ y: -8 }}
+              className="rounded-3xl bg-white p-8 shadow-lg hover:shadow-xl transition text-center"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full bg-[var(--accent)]/10 flex items-center justify-center text-5xl">
+                  🌱
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--accent)' }}>Silage Preparation</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Professional silage making to preserve nutritious feed for your livestock all year round.
+              </p>
+            </motion.div>
+
+            {/* Service 4: Land Fencing */}
+            <motion.div
+              whileHover={{ y: -8 }}
+              className="rounded-3xl bg-white p-8 shadow-lg hover:shadow-xl transition text-center"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full bg-[var(--accent)]/10 flex items-center justify-center text-5xl">
+                  🛡️
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--accent)' }}>Land Fencing & Boundaries</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Secure your investment with durable fencing solutions — from post-and-wire to electric fencing tailored to your terrain.
+              </p>
+            </motion.div>
+
+            {/* Service 5: Agricultural Consultancy */}
+            <motion.div
+              whileHover={{ y: -8 }}
+              className="rounded-3xl bg-white p-8 shadow-lg hover:shadow-xl transition text-center"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full bg-[var(--accent)]/10 flex items-center justify-center text-5xl">
+                  👨‍🌾
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--accent)' }}>Agricultural Consultancy & Talks</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Book a session with our agricultural experts for personalized advice on land use, crop rotation, and farm management.
+              </p>
+            </motion.div>
+
+            {/* Service 6: Farm Visits */}
+            <motion.div
+              whileHover={{ y: -8 }}
+              className="rounded-3xl bg-white p-8 shadow-lg hover:shadow-xl transition text-center"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full bg-[var(--accent)]/10 flex items-center justify-center text-5xl">
+                  🏞️
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--accent)' }}>Farm Visits & Inspections</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Schedule a guided visit to our model farms. See best practices in action and learn from our experienced team.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Cinematic Journey - Company Carousel */}
       <section className="px-4 py-16 bg-gradient-to-b from-white/5 to-transparent">
         <div className="max-w-6xl mx-auto">
@@ -235,21 +343,19 @@ export default function DeLeonEnterprisesHome() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl lg:text-4xl font-bold mb-12 text-center">Our Story in Motion</h2>
           
-          <div className="relative rounded-3xl overflow-hidden bg-black h-72 lg:h-96 flex items-center justify-center group">
-            {/* Video Placeholder */}
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800" />
-            
-            {/* Play Button Overlay */}
-            <button 
-              className="relative z-10 w-20 h-20 bg-[var(--accent)]/80 hover:bg-[var(--accent)] rounded-full flex items-center justify-center transition group-hover:scale-110"
-              aria-label="Play video"
+          <div className="relative rounded-3xl overflow-hidden bg-black h-72 lg:h-96 shadow-2xl group">
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              poster="https://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg"
+              preload="metadata"
             >
-              <span className="text-white text-3xl ml-1">▶</span>
-            </button>
-            
-            <p className="absolute top-6 left-6 text-white text-sm font-semibold opacity-75">
-              {/* INSERT VIDEO URL HERE */}
-            </p>
+              <source 
+                src="https://res.cloudinary.com/tmcloud1/video/upload/v1787084125/WhatsApp_Video_2026-08-18_at_22.51.13_nyl6pp.mp4" 
+                type="video/mp4" 
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </section>

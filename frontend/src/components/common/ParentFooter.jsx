@@ -20,8 +20,8 @@ export default function ParentFooter() {
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-3">Contact</h3>
-          <p className="text-sm text-gray-400"><a href="mailto:info@deleonholdings.com" className="hover:text-white">info@deleonholdings.com</a></p>
-          <p className="text-sm text-gray-400"><a href="tel:+254712345678" className="hover:text-white">+254 712 345 678</a></p>
+          <p className="text-sm text-gray-400"><a href="mailto:sydencompanylimited@gmail.com" className="hover:text-white">sydencompanylimited@gmail.com</a></p>
+          <p className="text-sm text-gray-400"><a href="tel:+254740690960" className="hover:text-white">+254 740 690 960</a></p>
         </div>
       </div>
       <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-gray-500">

@@ -12,7 +12,7 @@ const organizationSchema = {
   'contactPoint': {
     '@type': 'ContactPoint',
     'contactType': 'Customer Service',
-    'telephone': '+254-700-110-220'
+    'telephone': '+254 724 306 613'
   }
 };
 

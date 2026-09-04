@@ -140,7 +140,7 @@ export default function SydenHome() {
           <div className="mb-6 flex items-center justify-between gap-4">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Meet our livestock</p>
-              <h2 className="text-3xl font-bold">The living gallery</h2>
+              {/* <h2 className="text-3xl font-bold">The Living Gallery</h2> */}
             </div>
             <Link to="/syden/livestock" className="text-sm font-semibold text-[var(--accent)] hover:underline">View all animals →</Link>
           </div>
@@ -193,7 +193,7 @@ export default function SydenHome() {
         <section className="mb-10 overflow-hidden rounded-[28px] bg-[#F3EFE7] p-6 shadow-lg md:p-8">
           <div className="mb-6">
             <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Farm life</p>
-            <h2 className="text-3xl font-bold">From our pastures to diet</h2>
+           {/*  <h2 className="text-3xl font-bold">From our pastures to diet</h2>*/}
           </div>
 
           <div className="grid gap-4 md:grid-cols-4">
@@ -252,9 +252,28 @@ export default function SydenHome() {
           </div>
         </section>
 
+        <section className="mb-10">
+          <div className="relative rounded-[28px] overflow-hidden bg-black shadow-2xl">
+            <h2 className="absolute top-6 left-6 right-6 text-2xl lg:text-3xl font-bold text-white z-10">Syden in Action</h2>
+            <video 
+              className="w-full h-72 lg:h-96 object-cover"
+              controls
+              poster="https://res.cloudinary.com/gcne2xno/image/upload/v1788102143/IMG-20260814-WA0082.jpg"
+              preload="metadata"
+            >
+              <source 
+                src="https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4" 
+                type="video/mp4" 
+              />
+              Your browser does not support the video tag.
+            </video>
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/80 to-transparent" />
+          </div>
+        </section>
+
         <section className="mb-10 text-center">
           <a
-            href="mailto:vet@syden.deleon.com?subject=Emergency%20Veterinary%20Care"
+            href="mailto:sydencompanylimited@gmail.com?subject=Emergency%20Veterinary%20Care"
             className="inline-block rounded-full bg-red-600 px-10 py-4 text-white font-semibold shadow-lg hover:bg-red-700 transition pulse"
           >
             Emergency? Contact Our Veterinary Team

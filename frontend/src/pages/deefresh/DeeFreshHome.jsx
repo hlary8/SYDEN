@@ -51,9 +51,21 @@ const journeySteps = [
 ];
 
 const videoCards = [
-  { title: 'Farm Life', image: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80' },
-  { title: 'Harvest', image: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc5a3?auto=format&fit=crop&w=900&q=80' },
-  { title: 'Delivery', image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80' }
+  { 
+    title: 'Farm Life', 
+    image: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80',
+    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4'
+  },
+  { 
+    title: 'Harvest', 
+    image: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc5a3?auto=format&fit=crop&w=900&q=80',
+    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4'
+  },
+  { 
+    title: 'Delivery', 
+    image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80',
+    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4'
+  }
 ];
 
 const trustedCountries = [
@@ -408,12 +420,17 @@ export default function DeeFreshHome() {
           <div className="grid gap-6 md:grid-cols-3">
             {videoCards.map((video) => (
               <div key={video.title} className="group relative overflow-hidden rounded-[28px] bg-black shadow-xl">
-                <img src={video.image} alt={video.title} className="h-72 w-full object-cover opacity-80 transition duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <button className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-2xl text-black shadow-lg transition group-hover:scale-110">
-                  ▶
-                </button>
-                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                <video 
+                  className="h-72 w-full object-cover opacity-80 transition duration-500 group-hover:opacity-100"
+                  poster={video.image}
+                  controls
+                  preload="metadata"
+                >
+                  <source src={video.video} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white pointer-events-none">
                   <div className="text-lg font-semibold">{video.title}</div>
                 </div>
               </div>

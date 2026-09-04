@@ -20,8 +20,8 @@ export default function SydenFooter() {
         </div>
         <div>
           <h3 className="text-lg font-bold mb-3">Contact</h3>
-          <p className="text-sm text-[#FFFDD0]/80">support@syden.ag</p>
-          <p className="text-sm text-[#FFFDD0]/80">+254 700 220 330</p>
+          <p className="text-sm text-[#FFFDD0]/80">sydencompanylimited@gmail.com</p>
+          <p className="text-sm text-[#FFFDD0]/80">+254 110 030 133</p>
             © {year} Syden. All rights reserved.
         </div>
       </div>

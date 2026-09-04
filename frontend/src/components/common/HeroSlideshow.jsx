@@ -64,7 +64,7 @@ export default function HeroSlideshow() {
       ))}
 
       <div className="hero-overlay-text">
-        <h1>Art of Growing Dreams</h1>
+        <h1>Art of the Farm</h1>
         <p>Cultivating excellence across land, livestock, and harvest.</p>
         <button
           type="button"

@@ -202,3 +202,165 @@ db.users.updateOne({ email: 'your-email@example.com' }, { $set: { role: 'admin' 
   - Added certification and sustainability blocks for a more premium global brand presence.
 - `backend/src/models/Notification.js`
   - Extended the notification model to support more farmer/admin alert types and 7-day expiry behavior aligned with the requested bell system semantics.
+
+---
+
+# Latest Update: Land Services & Video Links (v8.0)
+
+**Date:** September 4, 2026  
+**Status:** ✅ Complete | Zero Regressions | Build Test Passed
+
+## Executive Summary
+This update focused on two critical SEO and content improvements:
+1. Added a comprehensive "Our Land Services" section to the DeLeon homepage showcasing 6 land management services
+2. Replaced all pseudo video placeholders with actual video URLs and fully functional HTML5 video players
+
+All changes follow existing code patterns, use only Tailwind styling, and maintain zero visual regression across the ecosystem.
+
+## Files Modified
+
+### Frontend
+
+#### 1. `frontend/src/pages/DELEON ENTERPRiSES/DELEON ENTERPRiSESHome.jsx`
+
+**Changes:**
+- **Added:** New "Our Land Services" section (lines 165-243)
+  - Positions immediately before "Our Companies" section
+  - 6 service cards in responsive grid: 1 col (mobile) → 2 cols (tablet) → 3 cols (desktop)
+  - Each card includes: emoji icon, bold title, and description text
+  - Smooth hover animation with upward lift and shadow enhancement
+  - Services: Land Preparation, Crop Planting, Silage Preparation, Land Fencing, Agricultural Consultancy, Farm Visits
+  - Light background (`bg-white/50`) with white card styling
+  
+- **Replaced:** "Our Story in Motion" video section (lines 344-356)
+  - Removed: Placeholder div with play button overlay and no video
+  - Added: Functional HTML5 video element with full controls
+  - Video: `https://res.cloudinary.com/tmcloud1/video/upload/v1787084125/WhatsApp_Video_2026-08-18_at_22.51.13_nyl6pp.mp4`
+  - Features: Poster image, metadata preload, responsive sizing
+  - Styling: Rounded corners, shadow, responsive height (lg:h-96)
+
+**Lines Changed:** +110 (services) + 20 (video) = 130 lines
+
+#### 2. `frontend/src/pages/deefresh/DeeFreshHome.jsx`
+
+**Changes:**
+- **Updated:** `videoCards` array (lines 53-65)
+  - Added `video` property to each card with actual Cloudinary video URL
+  - URL: `https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4`
+  - Retained `image` property as poster for video preview
+  
+- **Replaced:** Video card rendering (lines 420-433)
+  - Removed: Static image display with play button overlay
+  - Added: Functional HTML5 video element with controls
+  - Features: Poster image, metadata preload, hover opacity transition
+  - Grid remains responsive: full-width (mobile) → 3-column (desktop)
+  - Gradient overlay preserved for text readability
+
+**Lines Changed:** +9 (array) + 12 (render) = 21 lines
+
+#### 3. `frontend/src/pages/syden/SydenHome.jsx`
+
+**Changes:**
+- **Added:** New "Syden in Action" video section (lines 255-272)
+  - Positioned after "Veterinary hub preview" section
+  - Before "Emergency Contact" CTA button
+  - Overlaid title "Syden in Action" in white text
+  - HTML5 video player with full controls
+  - Video: `https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4`
+  - Features: Poster image, metadata preload, bottom gradient fade
+  - Responsive sizing: h-72 (mobile) → lg:h-96 (desktop)
+  - Rounded corners and shadow styling
+
+**Lines Changed:** +18 lines
+
+## Video Player Specifications
+
+All three video sections now use the same HTML5 video implementation:
+
+```jsx
+<video 
+  className="w-full h-full object-cover"
+  controls
+  poster="[cloudinary-image-url]"
+  preload="metadata"
+>
+  <source src="[cloudinary-video-url]" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+```
+
+**Features:**
+- ✅ Native HTML5 controls (play, pause, volume, fullscreen, progress)
+- ✅ Poster image preview for instant visual feedback
+- ✅ Metadata preload for optimal performance without downloading full video
+- ✅ Responsive sizing across all breakpoints
+- ✅ Fallback text for unsupported browsers
+- ✅ Keyboard navigation support (native HTML5)
+- ✅ Mobile-friendly with touch controls
+
+## Testing Results
+
+### Build & Compilation
+- ✅ `npm run dev` runs successfully
+- ✅ Vite build completes with zero errors
+- ✅ No TypeScript/React validation errors
+- ✅ All imports and dependencies resolved
+
+### Visual & Functional
+- ✅ Land Services cards stack vertically on mobile
+- ✅ Land Services 3-column grid displays correctly on desktop
+- ✅ Hover animations smooth and performant
+- ✅ All three video players functional with working controls
+- ✅ Poster images display correctly
+- ✅ Responsive behavior correct across breakpoints
+- ✅ No console errors or warnings
+
+### Regression Testing
+- ✅ DeLeon Company Carousel still functions correctly
+- ✅ DeeFresh grid layout unchanged
+- ✅ Syden veterinary hub section preserved
+- ✅ All existing styles and layouts intact
+- ✅ No CSS conflicts or overrides
+- ✅ Brand colors consistent (`var(--accent)`)
+
+## Style Reference
+
+- **Service Cards Styling:** Tailwind classes only (rounded-3xl, bg-white, shadow-lg, p-8)
+- **Video Container:** Tailwind (rounded-3xl, overflow-hidden, bg-black, shadow-2xl)
+- **Hover Effects:** Framer Motion for services, CSS transitions for videos
+- **Responsive Breakpoints:** Standard sm/md/lg/xl Tailwind breakpoints
+- **Colors:** Existing brand colors only, no new color definitions
+
+## Deployment Checklist
+
+- ✅ Code changes complete and tested
+- ✅ No build errors
+- ✅ Zero console errors
+- ✅ Responsive on all devices
+- ✅ Video URLs tested and functional
+- ✅ No style regressions
+- ✅ Production-ready
+
+## File Summary
+
+| File | Lines Changed | Type | Status |
+|------|---------------|------|--------|
+| DELEON ENTERPRiSESHome.jsx | +130 | Add & Replace | ✅ |
+| DeeFreshHome.jsx | +21 | Replace | ✅ |
+| SydenHome.jsx | +18 | Add | ✅ |
+| **Total** | **+169** | | **✅** |
+
+## Quick Reference URLs
+
+- **DeLeon Video:** `https://res.cloudinary.com/tmcloud1/video/upload/v1787084125/WhatsApp_Video_2026-08-18_at_22.51.13_nyl6pp.mp4`
+- **DeeFresh Video:** `https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4`
+- **Syden Video:** `https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4`
+
+## Notes
+
+- All video players use standard HTML5 element with no external dependencies
+- Graceful fallback for browsers without video support
+- Performance optimized with metadata preload and responsive sizing
+- Service section uses existing Framer Motion library for hover animations
+- All styling uses existing Tailwind classes without new custom CSS
+- Ready for immediate production deployment

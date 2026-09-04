@@ -157,14 +157,14 @@ export default function GlobalPresence() {
                 <span style={{
                   fontSize: '48px',
                   opacity: 0.6
-                }}>📸</span>
+                }}></span>
                 <span style={{
                   fontSize: '12px',
                   color: '#999',
                   textTransform: 'uppercase',
                   letterSpacing: '0.1em',
                   fontWeight: 600
-                }}>Your Photo Here</span>
+                }}></span>
               </div>
             </div>
           ))}
