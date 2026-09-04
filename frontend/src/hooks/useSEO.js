@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 const getCanonicalBase = () => {
   const configured = (import.meta.env.VITE_SITE_URL || import.meta.env.VITE_APP_URL || '').replace(/\/$/, '');
-  return configured || 'https://deleon.onrender.com';
+  return configured || 'https://deleon1.onrender.com';
 };
 
 /**

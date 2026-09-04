@@ -43,6 +43,8 @@ services:
     rootDir: frontend
     autoDeploy: true
     envVars:
+      - key: VITE_SITE_URL
+        value: https://deleon1.onrender.com
       - key: VITE_API_URL
         value: https://deleon-enterprises-api.onrender.com/api/v1
       - key: BACKEND_URL
