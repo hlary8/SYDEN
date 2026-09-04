@@ -1,8 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import prerender from 'vite-plugin-prerender'
+import { preRenderRoutes } from './prerender-routes.js'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    prerender({
+      routes: preRenderRoutes,
+      additional: preRenderRoutes,
+      eol: 'lf',
+    })
+  ],
   server: {
     host: '0.0.0.0',
     port: 5173,

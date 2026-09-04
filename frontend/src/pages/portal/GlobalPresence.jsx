@@ -211,7 +211,7 @@ export default function GlobalPresence() {
             Interested in our global presence?
           </p>
           <a
-            href="mailto:info@deleonholdings.com"
+            href="mailto:sydencompanylimited@gmail.com"
             style={{
               display: 'inline-block',
               padding: '12px 40px',

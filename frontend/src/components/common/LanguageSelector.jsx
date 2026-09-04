@@ -21,9 +21,9 @@ export default function LanguageSelector() {
 
   return (
     <div className="lang-selector" ref={ref}>
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-haspopup="true">
+     {/* <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-haspopup="true">
         {lang} ▾
-      </button>
+      </button> */} 
       {open && (
         <ul className="lang-dropdown" role="menu">
           {options.map((opt) => (

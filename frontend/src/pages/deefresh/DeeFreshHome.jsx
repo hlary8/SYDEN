@@ -31,7 +31,7 @@ const journeySteps = [
   {
     title: 'Farm Cultivation',
     description: 'Farming support and agronomical guidance for producers.',
-    image: 'https://images.unsplash.com/photo-1464226184884-fa52ac9fc5a3?auto=format&fit=crop&w=900&q=80'
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788514770/WhatsApp_Image_2026-08-14_at_20.28.14.jpg'
   },
   {
     title: 'Harvest',
@@ -54,7 +54,7 @@ const videoCards = [
   { 
     title: 'Farm Life', 
     image: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80',
-    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4'
+    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102304/VID-20260826-WA0011.mp4'
   },
   { 
     title: 'Harvest', 
@@ -64,7 +64,7 @@ const videoCards = [
   { 
     title: 'Delivery', 
     image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80',
-    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102313/VID-20260826-WA0004.mp4'
+    video: 'https://res.cloudinary.com/gcne2xno/video/upload/v1788102321/VID-20260826-WA0014.mp4'
   }
 ];
 
@@ -195,7 +195,7 @@ export default function DeeFreshHome() {
           <div className="flex items-end justify-between gap-4 mb-6">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">The Journey</p>
-              <h2 className="text-3xl font-bold">From field to fork</h2>
+              <h2 className="text-3xl font-bold">From field to market</h2>
             </div>
           </div>
 

@@ -71,7 +71,7 @@ const highlights = [
     id: 1,
     category: 'LAND',
     title: '1,000+ Acres Under Management',
-    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102131/IMG-20260814-WA0066.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788514774/WhatsApp_Image_2026-08-14_at_20.28.14_1.jpg',
     link: '/deleon'
   },
   {
