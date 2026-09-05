@@ -262,7 +262,7 @@ export default function SydenHome() {
               preload="metadata"
             >
               <source 
-                src="https://res.cloudinary.com/tmcloud1/video/upload/v1787083390/WhatsApp_Video_2026-08-18_at_22.51.16_dfqxzb.mp4" 
+                src="https://res.cloudinary.com/gcne2xno/video/upload/v1788514886/WhatsApp_Video_2026-08-26_at_12.40.17.mp4" 
                 type="video/mp4" 
               />
               Your browser does not support the video tag.
