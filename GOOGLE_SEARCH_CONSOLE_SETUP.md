@@ -10,7 +10,7 @@ Your website is now properly configured for Google Search Console visibility:
 - Ensures Google recognizes your primary domain
 
 ### 2. **Meta Tags & SEO** ✓
-- ✓ Google Site Verification meta tag present (code: `aPtRU0q5p9VyO3Yxncfqh4bTngHZFe-4d-7WWTKy25o`)
+- ✓ Google Site Verification meta tag present (code: `ccUPlI_-IGS4mXF-7bmSy41y-wMAt9kMarXylkRKw8Q`)
 - ✓ Meta description (compelling description of your business)
 - ✓ Robots meta tag: `index, follow` (allows crawling)
 - ✓ Revisit-after: 7 days
@@ -50,7 +50,7 @@ You have two options:
 
 #### **Option B: Meta Tag Verification**
 1. Google will provide a meta tag (already in your index.html)
-2. We've already added: `<meta name="google-site-verification" content="aPtRU0q5p9VyO3Yxncfqh4bTngHZFe-4d-7WWTKy25o" />`
+2. We've already added: `<meta name="google-site-verification" content="ccUPlI_-IGS4mXF-7bmSy41y-wMAt9kMarXylkRKw8Q" />`
 3. Click **"Verify"** in Search Console
 
 ### Step 3: Submit Your Sitemap

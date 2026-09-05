@@ -6,26 +6,26 @@ import { useSEO } from '../../hooks/useSEO';
 
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102143/IMG-20260814-WA0082.jpg',
     title: 'Syden — Veterinary Services & Livestock',
     subtitle: 'Professional animal health care and farm support across Kenya.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102134/IMG-20260814-WA0063.jpg',
     title: 'Livestock Health & Management',
     subtitle: 'Comprehensive veterinary care and farm services for productive herds.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788101644/samples/sheep.jpg',
     title: 'Agricultural Solutions',
     subtitle: 'Veterinary expertise, livestock support and farming guidance.'
   }
 ];
 
 const farmMoments = [
-  { title: 'Morning pasture checks', image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80' },
+  { title: 'Morning pasture checks', image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788169931/WhatsApp_Image_2026-08-14_at_15.30.13_1.jpg' },
   { title: 'Feeding and nutrition', image: 'https://images.unsplash.com/photo-1532712938310-34cbec9d4e0a?auto=format&fit=crop&w=900&q=80' },
-  { title: 'Veterinary care', image: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80' },
+  { title: 'Veterinary care', image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102141/IMG-20260814-WA0107.jpg' },
   { title: 'Milk collection', image: 'https://images.unsplash.com/photo-1559742811-b6a0da1d97c7?auto=format&fit=crop&w=900&q=80' }
 ];
 
@@ -37,7 +37,7 @@ export default function SydenHome() {
   useSEO({
     title: 'Syden | Veterinary Services, Livestock & Agricultural Solutions Kenya',
     description: 'Syden provides veterinary services, livestock management and agricultural solutions for farmers and producers in Kenya. Professional animal health care and farm support.',
-    canonical: 'https://deleon1.onrender.com/syden',
+    canonical: 'https://deleon.co.ke/syden',
     ogTitle: 'Syden | Veterinary Services & Livestock Kenya',
     ogDescription: 'Professional animal health care, livestock management and farm support services in Kenya.'
   });
