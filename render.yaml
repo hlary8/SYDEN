@@ -23,9 +23,9 @@ services:
       - key: JWT_REFRESH_EXPIRE
         value: 7d
       - key: CLIENT_URL
-        value: https://deleon-enterprises-web.onrender.com
+        value: https://deleon.co.ke
       - key: CORS_ORIGIN
-        value: https://deleon-enterprises-web.onrender.com
+        value: https://deleon.co.ke
       - key: MONGODB_URI
         sync: false
       - key: CLOUDINARY_CLOUD_NAME
@@ -44,7 +44,7 @@ services:
     autoDeploy: true
     envVars:
       - key: VITE_SITE_URL
-        value: https://deleon1.onrender.com
+        value: https://deleon.co.ke
       - key: VITE_API_URL
         value: https://deleon-enterprises-api.onrender.com/api/v1
       - key: BACKEND_URL

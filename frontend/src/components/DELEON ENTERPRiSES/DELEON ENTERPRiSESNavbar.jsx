@@ -19,6 +19,13 @@ export default function DeLeonEnterprisesNavbar() {
           )}
           <Link to="/" className="text-sm text-gray-200 hover:text-white transition-colors">Back to DELEON</Link>
         </div>
+
+        {user?.role === 'admin' && (
+          <div className="flex items-center gap-2 md:hidden">
+            <Link to="/deleon/admin" className="rounded-full bg-yellow-300 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-black">Admin</Link>
+            <Link to="/deleon/admin/upload" className="rounded-full border border-yellow-300 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-yellow-300">Land</Link>
+          </div>
+        )}
       </div>
     </nav>
   );

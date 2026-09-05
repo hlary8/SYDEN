@@ -20,7 +20,15 @@ export default function DeeFreshNavbar() {
           <Link to="/deefresh/contact" className="px-4 py-2 rounded-full bg-[#FFD700] text-[#673147] font-semibold hover:bg-opacity-90 transition-colors">Contact</Link>
           <Link to="/" className="text-sm text-[#673147]/80 hover:text-[#673147] transition-colors">Back to DELEON</Link>
         </div>
+
+        {user?.role === 'admin' && (
+          <div className="flex items-center gap-2 md:hidden">
+            <Link to="/deefresh/admin" className="rounded-full bg-[#FFD700] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#673147]">Admin</Link>
+            <Link to="/deefresh/admin/produce-upload" className="rounded-full border border-[#FFD700] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#673147]">Produce</Link>
+          </div>
+        )}
       </div>
     </nav>
   );
 }
+
