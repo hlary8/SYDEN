@@ -164,22 +164,22 @@ export default function DeLeonEnterprisesLandDetail() {
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <a href={`mailto:visits@deleon.com?subject=Farm%20Visit%20Booking%20-%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+            <a href={`mailto:sydencompanylimited@gmail.com?subject=Farm%20Visit%20Booking%20-%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
               <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Visit</div>
               <h3 className="text-xl font-semibold mb-2">Book a Farm Visit</h3>
               <p className="text-sm text-gray-600">Experience the land first-hand.</p>
             </a>
-            <a href={`mailto:enquiries@deleon.com?subject=Enquiry%20about%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+            <a href={`mailto:sydencompanylimited@gmail.com?subject=Enquiry%20about%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
               <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Questions</div>
               <h3 className="text-xl font-semibold mb-2">Make an Enquiry</h3>
               <p className="text-sm text-gray-600">Talk to our team directly.</p>
             </a>
-            <a href={`mailto:sales@deleon.com?subject=Purchase%20Interest%20-%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+            <a href={`mailto:sydencompanylimited@gmail.com?subject=Purchase%20Interest%20-%20${encodeURIComponent(title)}`} className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
               <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Ownership</div>
               <h3 className="text-xl font-semibold mb-2">Purchase This Farm</h3>
               <p className="text-sm text-gray-600">Start your ownership journey.</p>
             </a>
-            <a href="tel:+254700000000" className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
+            <a href="tel:+254724306613" className="rounded-3xl border border-[#D9A441]/40 bg-[#F8F3E8] p-5 text-center">
               <div className="text-xs uppercase tracking-[0.18em] text-[#7A5A12] mb-2">Advisor</div>
               <h3 className="text-xl font-semibold mb-2">Consultancy</h3>
               <p className="text-sm text-gray-600">Call our consultants today.</p>
