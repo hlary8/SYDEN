@@ -269,7 +269,7 @@ export default function DeeFreshHome() {
                     <div className="p-3 pb-2">
                       <div className="mb-2 flex items-center justify-between gap-3">
                         <h3 className="text-xl font-semibold">{item.name}</h3>
-                        {item.availability ? <span className="rounded-full bg-[#D9A441]/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#7A5A12]">{item.availability}</span> : null}
+                        {item.availability?.inStock !== undefined ? <span className="rounded-full bg-[#D9A441]/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#7A5A12]">{item.availability?.inStock ? '✓ In Stock' : 'Out of Stock'}</span> : null}
                       </div>
                       <p className="text-sm text-gray-500 mb-3">{item.category}</p>
                       {itemImages.length > 1 && (

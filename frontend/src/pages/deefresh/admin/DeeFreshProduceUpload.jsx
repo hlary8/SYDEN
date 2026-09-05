@@ -9,7 +9,7 @@ export default function DeeFreshProduceUpload() {
   const [items, setItems] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [form, setForm] = useState({ name: '', slug: '', category: 'vegetables', variety: '', description: '', pricePerUnit: 0, unit: 'kg', availability: 'in-season', images: [], farmerSource: { name: '', location: '' } });
+  const [form, setForm] = useState({ name: '', slug: '', category: 'vegetables', variety: '', description: '', pricePerUnit: 0, unit: 'kg', availability: { inStock: true, quantity: 0 }, images: [], farmerSource: { name: '', location: '' } });
   const [loading, setLoading] = useState(false);
 
   // Admin-only check
@@ -34,6 +34,9 @@ export default function DeeFreshProduceUpload() {
     if (name.startsWith('farmer')) {
       const key = name.split('.')[1];
       setForm(f => ({ ...f, farmerSource: { ...f.farmerSource, [key]: value } }));
+    } else if (name.startsWith('availability')) {
+      const key = name.split('.')[1];
+      setForm(f => ({ ...f, availability: { ...f.availability, [key]: key === 'inStock' ? value === 'true' : parseInt(value) || 0 } }));
     } else {
       setForm(f => ({ ...f, [name]: name === 'pricePerUnit' ? parseFloat(value) || 0 : value }));
     }
@@ -57,7 +60,7 @@ export default function DeeFreshProduceUpload() {
         });
         setItems([data.data, ...items]);
       }
-      setForm({ name: '', slug: '', category: 'vegetables', variety: '', description: '', pricePerUnit: 0, unit: 'kg', availability: 'in-season', images: [], farmerSource: { name: '', location: '' } });
+      setForm({ name: '', slug: '', category: 'vegetables', variety: '', description: '', pricePerUnit: 0, unit: 'kg', availability: { inStock: true, quantity: 0 }, images: [], farmerSource: { name: '', location: '' } });
       setShowForm(false);
       setEditingId(null);
     } catch (err) {
@@ -93,7 +96,7 @@ export default function DeeFreshProduceUpload() {
       <div className="max-w-5xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Produce Manager</h1>
-          <button onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: '', slug: '', category: 'vegetables', variety: '', description: '', pricePerUnit: 0, unit: 'kg', availability: 'in-season', images: [], farmerSource: { name: '', location: '' } }); }} className="bg-[#FF6347] text-white px-6 py-3 rounded-full font-semibold">+ Add Produce</button>
+          <button onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: '', slug: '', category: 'vegetables', variety: '', description: '', pricePerUnit: 0, unit: 'kg', availability: { inStock: true, quantity: 0 }, images: [], farmerSource: { name: '', location: '' } }); }} className="bg-[#FF6347] text-white px-6 py-3 rounded-full font-semibold">+ Add Produce</button>
         </div>
 
         {/* List */}
@@ -141,11 +144,11 @@ export default function DeeFreshProduceUpload() {
                     <option value="unit">unit</option>
                   </select>
                 </div>
-                <select name="availability" value={form.availability} onChange={handleChange} className="w-full rounded-3xl border border-gray-200 px-5 py-4">
-                  <option value="in-season">In Season</option>
-                  <option value="out-of-season">Out of Season</option>
-                  <option value="available">Available</option>
+                <select name="availability.inStock" value={form.availability?.inStock ? 'true' : 'false'} onChange={handleChange} className="w-full rounded-3xl border border-gray-200 px-5 py-4">
+                  <option value="true">In Stock</option>
+                  <option value="false">Out of Stock</option>
                 </select>
+                <input placeholder="Quantity available" name="availability.quantity" type="number" value={form.availability?.quantity || 0} onChange={handleChange} className="w-full rounded-3xl border border-gray-200 px-5 py-4" />
 
                 <div>
                   <label className="block text-sm font-semibold mb-2">Images</label>

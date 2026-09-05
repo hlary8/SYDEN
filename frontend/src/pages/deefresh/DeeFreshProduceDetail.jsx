@@ -404,10 +404,10 @@ export default function DeeFreshProduceDetail() {
                     fontWeight: 600,
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
-                    backgroundColor: produce.availability.inStock ? '#E8F5E9' : '#FFEBEE',
-                    color: produce.availability.inStock ? '#2E7D32' : '#1a9aba'
+                    backgroundColor: produce.availability?.inStock ? '#E8F5E9' : '#FFEBEE',
+                    color: produce.availability?.inStock ? '#2E7D32' : '#1a9aba'
                   }}>
-                    {produce.availability.inStock ? '✓ In Stock' : '✓ In Stock'}
+                    {produce.availability?.inStock === true ? '✓ In Stock' : 'Out of Stock'}
                   </span>
                 </div>
               )}

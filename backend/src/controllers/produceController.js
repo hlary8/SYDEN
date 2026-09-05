@@ -143,8 +143,8 @@ async function create(req, res, next) {
       pricePerUnit: Number(payload.pricePerUnit),
       unit: payload.unit || 'kg',
       availability: {
-        inStock: Boolean(payload.inStock !== 'false'),
-        quantity: Number(payload.quantity) || 0
+        inStock: payload.availability?.inStock !== false,
+        quantity: Number(payload.availability?.quantity) || 0
       },
       farmerSource: farmerSource,
       coverImage: coverImage || null,
@@ -252,10 +252,10 @@ async function update(req, res, next) {
     }
     
     // Update availability
-    if (payload.inStock !== undefined) {
+    if (payload.availability !== undefined) {
       updates.availability = {
-        inStock: Boolean(payload.inStock !== 'false'),
-        quantity: Number(payload.quantity) || 0
+        inStock: payload.availability?.inStock !== false,
+        quantity: Number(payload.availability?.quantity) || 0
       };
     }
     

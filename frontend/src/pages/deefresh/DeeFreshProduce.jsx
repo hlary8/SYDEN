@@ -7,7 +7,7 @@ export default function DeeFreshProduce() {
   useSEO({
     title: 'Fresh Produce | DeeFresh Kenya',
     description: 'Browse fresh produce from DeeFresh. Quality vegetables, fruits and produce in Kenya with direct farmer connections.',
-    canonical: 'https://deleon1.onrender.com/deefresh/produce',
+    canonical: 'https://deleon.co.ke/deefresh/produce',
     ogTitle: 'Fresh Produce | DeeFresh',
     ogDescription: 'Quality fresh produce from Kenya.'
   });
@@ -46,7 +46,7 @@ export default function DeeFreshProduce() {
       
       const matchesCategory = !category || item.category?.toLowerCase() === category.toLowerCase();
       
-      const matchesAvailability = !availability || item.availability?.toLowerCase() === availability.toLowerCase();
+      const matchesAvailability = !availability || (availability === 'in-stock' ? item.availability?.inStock === true : !item.availability?.inStock);
       
       return matchesQuery && matchesCategory && matchesAvailability;
     });
@@ -64,7 +64,7 @@ export default function DeeFreshProduce() {
   }, [query, category, availability, sort, produce]);
 
   const categories = [...new Set(produce.map(item => item.category).filter(Boolean))];
-  const availabilityOptions = [...new Set(produce.map(item => item.availability).filter(Boolean))];
+  const availabilityOptions = ['in-stock', 'out-of-stock'];
 
   const normalizeProduceImages = (item) => {
     if (!item) return [];
@@ -125,7 +125,7 @@ export default function DeeFreshProduce() {
               >
                 <option value="">All Status</option>
                 {availabilityOptions.map(status => (
-                  <option key={status} value={status}>{status}</option>
+                  <option key={status} value={status}>{status === 'in-stock' ? 'In Stock' : 'Out of Stock'}</option>
                 ))}
               </select>
             </div>
@@ -194,9 +194,9 @@ export default function DeeFreshProduce() {
                     {itemImages[0]?.url && (
                       <img src={itemImages[0].url} alt={item.name} className="w-full h-full object-cover" />
                     )}
-                    {item.availability && (
+                    {item.availability?.inStock !== undefined && (
                       <span className="absolute top-3 right-3 bg-orange-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                        {item.availability}
+                        {item.availability?.inStock ? '✓ In Stock' : 'Out of Stock'}
                       </span>
                     )}
                   </div>
