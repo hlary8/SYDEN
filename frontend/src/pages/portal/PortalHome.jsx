@@ -105,7 +105,7 @@ export default function PortalHome() {
   useSEO({
     title: 'DELEON ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
     description: 'DELEON ENTERPRISES: Three pillars of agricultural excellence. DELEON land opportunities, Syden veterinary services, DeeFresh fresh produce in Kenya.',
-    canonical: 'https://deleon1.onrender.com/',
+    canonical: 'https://deleon.co.ke/',
     ogTitle: 'DELEON ENTERPRISES | Kenya',
     ogDescription: 'Land, livestock and harvest across Kenya.'
   });
@@ -139,7 +139,7 @@ export default function PortalHome() {
           <div className="space-y-8">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-accent)]">Cultivating Excellence</div>
             <div className="space-y-6">
-              <h1 className="max-w-3xl text-[clamp(3rem,6vw,6rem)] font-serif uppercase tracking-[0.15em] leading-[0.9]">THE ART OF<br />GROWING DREAMS</h1>
+              <h1 className="max-w-3xl text-[clamp(3rem,6vw,6rem)] font-serif uppercase tracking-[0.15em] leading-[0.9]">THE ART IN<br />THE FARM</h1>
               <p className="max-w-xl text-base leading-8 text-[var(--holdings-text-muted)]">From fertile soil to flourishing enterprises, DELEON ENTERPRISES crafts legacies across land, livestock, and harvest.</p>
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">

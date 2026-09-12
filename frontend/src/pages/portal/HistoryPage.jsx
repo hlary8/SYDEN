@@ -119,7 +119,7 @@ export default function HistoryPage() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
           <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#C9A96E]">Our story</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-[#C9A96E]">The Art</p>
             <p className="text-lg leading-8 text-white/80">{activeBrand.summary}</p>
             {activeBrand.story.map((paragraph) => (
               <p key={paragraph} className="text-base leading-8 text-white/70">{paragraph}</p>
