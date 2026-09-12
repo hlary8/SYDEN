@@ -40,7 +40,7 @@ const brandContent = {
   },
    syden: {
     name: 'Syden',
-    hero: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1600&q=80',
+    hero: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142071/WhatsApp_Image_2026-09-11_at_10.52.17.jpg',
     summary: 'Syden blends veterinary heritage with progressive herd management, producing healthy livestock and trusted farm systems rooted in care, science and craft.',
     story: [
       'Syden was built around a simple principle: healthy animals create stronger farms, communities and food systems.',
@@ -48,10 +48,10 @@ const brandContent = {
       'Our vision is to make excellence in livestock health and welfare a daily standard across every farm we serve.'
     ],
     gallery: [
-      { src: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=900&q=80', caption: 'Healthy livestock management' },
-      { src: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80', caption: 'Daily farm life' },
-      { src: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80', caption: 'Veterinary care and wellness' },
-      { src: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=900&q=80', caption: 'Pasture-based nutrition' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142075/WhatsApp_Image_2026-09-11_at_10.52.19_6.jpg', caption: 'Healthy livestock management' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142077/WhatsApp_Image_2026-09-11_at_10.52.19_10.jpg', caption: 'Daily farm life' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102139/IMG-20260814-WA0072.jpg', caption: 'Veterinary care and wellness' },
+      { src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102141/IMG-20260814-WA0107.jpg', caption: 'Pasture-based nutrition' },
       { src: 'https://images.unsplash.com/photo-1570042225831-d98fa7577c1a?auto=format&fit=crop&w=900&q=80', caption: 'Farm operations at scale' },
       { src: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80', caption: 'Healthy herd culture' }
     ]

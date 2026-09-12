@@ -4,7 +4,7 @@ export default function DeLeonEnterprisesContact() {
   useSEO({
     title: 'Contact DELEON | Land Inquiries Kenya',
     description: 'Contact the DELEON land team with questions about available properties, listings and land opportunities in Laikipia and Meru, Kenya.',
-    canonical: 'https://deleon1.onrender.com/deleon/contact',
+    canonical: 'https://deleon1.co.ke/deleon/contact',
     ogTitle: 'Contact DELEON | Land Kenya',
     ogDescription: 'Reach DELEON for land opportunity inquiries.'
   });
@@ -18,8 +18,8 @@ export default function DeLeonEnterprisesContact() {
           <div className="rounded-3xl bg-[var(--surface)] p-6">
             <h2 className="text-xl font-semibold mb-3">Inquiries</h2>
             <p>DELEON Land Team</p>
-            <p>inquiries@deleon.co.ke</p>
-            <p>+254 700 110 220</p>
+            <p>sydencompanylimited@gmail.com</p>
+            <p>+254 724 306 613</p>
           </div>
           <div className="rounded-3xl bg-[var(--surface)] p-6">
             <h2 className="text-xl font-semibold mb-3">Hours</h2>

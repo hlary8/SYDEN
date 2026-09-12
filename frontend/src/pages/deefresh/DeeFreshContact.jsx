@@ -4,7 +4,7 @@ export default function DeeFreshContact() {
   useSEO({
     title: 'Contact DeeFresh | Produce & Farming Kenya',
     description: 'Contact DeeFresh for produce orders, seed supplies, farming inquiries and farming partnership discussions in Kenya.',
-    canonical: 'https://deleon1.onrender.com/deefresh/contact',
+    canonical: 'https://deleon.co.ke/deefresh/contact',
     ogTitle: 'Contact DeeFresh | Kenya',
     ogDescription: 'Reach DeeFresh for produce, seeds and farming inquiries.'
   });

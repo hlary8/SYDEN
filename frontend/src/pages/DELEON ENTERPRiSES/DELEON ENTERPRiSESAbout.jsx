@@ -4,7 +4,7 @@ export default function DeLeonEnterprisesAbout() {
   useSEO({
     title: 'About DELEON | Land Business in Kenya',
     description: 'Learn about DELEON, a land business in Kenya connecting landowners and investors with agricultural and development land opportunities in Laikipia and Meru.',
-    canonical: 'https://deleon1.onrender.com/deleon/about',
+    canonical: 'https://deleon1.co.ke/deleon/about',
     ogTitle: 'About DELEON | Land Business Kenya',
     ogDescription: 'DELEON offers transparent land transactions and clear ownership transfers in Kenya.'
   });

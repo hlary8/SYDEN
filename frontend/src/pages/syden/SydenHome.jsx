@@ -6,27 +6,27 @@ import { useSEO } from '../../hooks/useSEO';
 
 const heroSlides = [
   {
-    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102143/IMG-20260814-WA0082.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142070/WhatsApp_Image_2026-09-11_at_10.52.19_2.jpg',
     title: 'Syden — Veterinary Services & Livestock',
     subtitle: 'Professional animal health care and farm support across Kenya.'
   },
   {
-    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102134/IMG-20260814-WA0063.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142074/WhatsApp_Image_2026-09-11_at_10.52.19_9.jpg',
     title: 'Livestock Health & Management',
     subtitle: 'Comprehensive veterinary care and farm services for productive herds.'
   },
   {
-    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788101644/samples/sheep.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142077/WhatsApp_Image_2026-09-11_at_10.52.19_10.jpg',
     title: 'Agricultural Solutions',
     subtitle: 'Veterinary expertise, livestock support and farming guidance.'
   }
 ];
 
 const farmMoments = [
-  { title: 'Morning pasture checks', image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788169931/WhatsApp_Image_2026-08-14_at_15.30.13_1.jpg' },
-  { title: 'Feeding and nutrition', image: 'https://images.unsplash.com/photo-1532712938310-34cbec9d4e0a?auto=format&fit=crop&w=900&q=80' },
+  { title: 'Morning pasture checks', image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142077/WhatsApp_Image_2026-09-11_at_10.52.19_10.jpg' },
+  { title: 'Feeding and nutrition', image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142073/WhatsApp_Image_2026-09-11_at_10.52.19_4.jpg' },
   { title: 'Veterinary care', image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102141/IMG-20260814-WA0107.jpg' },
-  { title: 'Milk collection', image: 'https://images.unsplash.com/photo-1559742811-b6a0da1d97c7?auto=format&fit=crop&w=900&q=80' }
+  { title: 'Production', image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142069/WhatsApp_Image_2026-09-11_at_10.52.19.jpg' }
 ];
 
 export default function SydenHome() {
@@ -162,7 +162,7 @@ export default function SydenHome() {
               <Link key={animal._id} to={`/syden/livestock/${animal._id}`} className="group relative overflow-hidden rounded-[28px] bg-[var(--surface)] shadow-md transition hover:shadow-xl">
                 <div className="relative overflow-hidden">
                   <img
-                    src={animal.coverImage?.url || animal.gallery?.[0]?.url || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80'}
+                    src={animal.coverImage?.url || animal.gallery?.[0]?.url || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102143/IMG-20260814-WA0082.jpg'}
                     alt={animal.name}
                     className="h-72 w-full object-cover transition duration-500 group-hover:scale-105"
                   />

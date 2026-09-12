@@ -13,7 +13,7 @@ export default function ParentFooter() {
         <div>
           <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li><Link to="/DELEON ENTERPRiSES" className="hover:text-white">DELEON ENTERPRISES</Link></li>
+            <li><Link to="/deleon/lands" className="hover:text-white">DELEON ENTERPRISES</Link></li>
             <li><Link to="/syden" className="hover:text-white">Syden</Link></li>
             <li><Link to="/deefresh" className="hover:text-white">DeeFresh</Link></li>
           </ul>

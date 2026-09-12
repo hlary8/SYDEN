@@ -4,7 +4,7 @@ import CinematicHero from '../../components/common/CinematicHero';
 export default function Houses() {
   const heroImage = import.meta.env.VITE_HERO_IMAGE_URL || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102133/IMG-20260814-WA0054.jpg';
   const deleonImage = import.meta.env.VITE_DELEON_HOUSE_IMAGE || 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg';
-  const sydenImage = import.meta.env.VITE_SYDEN_HOUSE_IMAGE || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102146/IMG-20260814-WA0106.jpg';
+  const sydenImage = import.meta.env.VITE_SYDEN_HOUSE_IMAGE || 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142071/WhatsApp_Image_2026-09-11_at_10.52.17.jpg';
   const deefreshImage = import.meta.env.VITE_DEEFRESH_HOUSE_IMAGE || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102131/IMG-20260814-WA0127.jpg';
 
   const quickLinks = [
