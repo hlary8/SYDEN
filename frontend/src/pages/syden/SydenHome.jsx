@@ -6,7 +6,7 @@ import { useSEO } from '../../hooks/useSEO';
 
 const heroSlides = [
   {
-    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142070/WhatsApp_Image_2026-09-11_at_10.52.19_2.jpg',
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142075/WhatsApp_Image_2026-09-11_at_10.52.19_6.jpg',
     title: 'Syden — Veterinary Services & Livestock',
     subtitle: 'Professional animal health care and farm support across Kenya.'
   },
