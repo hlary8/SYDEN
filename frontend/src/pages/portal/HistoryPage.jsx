@@ -40,7 +40,7 @@ const brandContent = {
   },
    syden: {
     name: 'Syden',
-    hero: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142077/WhatsApp_Image_2026-09-11_at_10.52.19_10.jpg',
+    hero: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142069/WhatsApp_Image_2026-09-11_at_10.52.18_1.jpg',
     summary: 'Syden blends veterinary heritage with progressive herd management, producing healthy livestock and trusted farm systems rooted in care, science and craft.',
     story: [
       'Syden was built around a simple principle: healthy animals create stronger farms, communities and food systems.',
