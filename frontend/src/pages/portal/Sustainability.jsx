@@ -84,6 +84,38 @@ const galleryItems = [
     span: 'md:col-span-3'
   },
 
+  ,
+
+    {
+    id: 'image-523456',
+    type: 'image',
+    src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142071/WhatsApp_Image_2026-09-11_at_10.52.17.jpg',
+    alt: 'Pasture scene',
+    span: 'md:col-span-3'
+  },
+
+
+  ,
+
+    {
+    id: 'image-523457',
+    type: 'image',
+    src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142074/WhatsApp_Image_2026-09-11_at_10.52.19_9.jpg',
+    alt: 'Pasture scene',
+    span: 'md:col-span-3'
+  },
+
+
+  ,
+
+    {
+    id: 'image-523459',
+    type: 'image',
+    src: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789142069/WhatsApp_Image_2026-09-11_at_10.52.19.jpg',
+    alt: 'Pasture scene',
+    span: 'md:col-span-3'
+  },
+
 
 ];
 

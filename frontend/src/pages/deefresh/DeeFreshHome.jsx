@@ -26,7 +26,7 @@ const journeySteps = [
   {
     title: 'Seed Selection',
     description: 'Agronomically suitable seed varieties for Kenyan farming conditions.',
-    image: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=900&q=80'
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1789328841/WhatsApp_Image_2026-09-09_at_16.49.01_1.jpg'
   },
   {
     title: 'Farm Cultivation',
@@ -46,7 +46,7 @@ const journeySteps = [
   {
     title: 'Market Connection',
     description: 'Direct delivery and customer connections for fresh produce.',
-    image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80'
+    image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788110369/WhatsApp_Image_2026-08-14_at_11.25.35.jpg'
   }
 ];
 
@@ -106,7 +106,7 @@ export default function DeeFreshHome() {
   useSEO({
     title: 'DeeFresh | Fresh Produce, Farming & Agronomy Kenya',
     description: 'DeeFresh connects farmers, producers and customers with fresh produce, agronomical consulting and market connections in Kenya. Farm support and seed supplies.',
-    canonical: 'https://deleon1.onrender.com/deefresh',
+    canonical: 'https://deleon.co.ke/deefresh',
     ogTitle: 'DeeFresh | Fresh Produce & Farming Kenya',
     ogDescription: 'Farm to market: Fresh produce and farming solutions in Kenya.'
   });

@@ -87,32 +87,60 @@ export default function SydenFarmActivitiesAdmin() {
   const [faEditId, setFaEditId] = useState(null);
 
   const handleFaUpload = (imgs) => {
-    if (!imgs) return;
+    if (!imgs || imgs.length === 0) {
+      console.warn('No images uploaded');
+      return;
+    }
     const urls = imgs.slice(0, 4).map((i) => i.url || i);
+    console.log('Photos uploaded:', urls);
     setFaForm((f) => ({ ...f, photos: urls }));
   };
 
   const saveFa = async (e) => {
     e && e.preventDefault();
-    if (!faForm.title.trim()) return alert('Please add title');
+    if (!faForm.title.trim()) return alert('Please add a title for the activity');
+    if (faForm.photos.length === 0) return alert('Please upload at least one photo');
+    
     setFaLoading(true);
     try {
+      // Build photo objects
+      const photoPayload = faForm.photos.map((url) => ({
+        url: url,
+        publicId: ''
+      }));
+
+      const payload = {
+        title: faForm.title.trim(),
+        headline: faForm.headline.trim(),
+        body: faForm.body.trim(),
+        photos: photoPayload,
+        company: 'Syden'
+      };
+
       if (faEditId) {
-        const { data } = await axios.patch(`/farm-activities/${faEditId}`, { ...faForm, company: 'Syden' }, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+        const { data } = await axios.patch(`/farm-activities/${faEditId}`, payload, { 
+          headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } 
+        });
         setFarmActivitiesList((s) => s.map((a) => a._id === data.data._id ? data.data : a));
-        setMessage('Activity updated');
+        setMessage('✓ Activity updated successfully');
       } else {
-        const { data } = await axios.post('/farm-activities', { ...faForm, company: 'Syden' }, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+        const { data } = await axios.post('/farm-activities', payload, { 
+          headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } 
+        });
         setFarmActivitiesList((s) => [data.data, ...s]);
-        setMessage('Activity created');
+        setMessage('✓ Activity created successfully');
       }
+      
       setFaForm({ title: '', headline: '', body: '', photos: [] });
       setFaEditId(null);
-      setTimeout(() => setMessage(''), 3000);
+      setTimeout(() => setMessage(''), 4000);
     } catch (err) {
       console.error('Save farm activity error', err);
-      alert(err.response?.data?.message || err.message);
-    } finally { setFaLoading(false); }
+      const errorMsg = err.response?.data?.message || err.message || 'Error saving activity';
+      alert(errorMsg);
+    } finally { 
+      setFaLoading(false); 
+    }
   };
 
   const handleFaEdit = (item) => {
@@ -277,74 +305,150 @@ export default function SydenFarmActivitiesAdmin() {
               onClick={() => {
                 setFaEditId(null);
                 setFaForm({ title: '', headline: '', body: '', photos: [] });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                const formElement = document.querySelector('[data-farm-activities-form]');
+                if (formElement) {
+                  formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
               }}
-              className="w-full rounded-full bg-yellow-600 px-4 py-2 text-white sm:w-auto"
+              className="w-full rounded-full bg-yellow-600 px-4 py-3 text-white font-semibold hover:bg-yellow-700 sm:w-auto transition"
             >
               + New Activity
             </button>
           </div>
 
-          <div className="mb-6 rounded-2xl bg-white p-6">
+          <div className="mb-6 rounded-2xl bg-white p-6 border-2 border-yellow-100" data-farm-activities-form>
             <form onSubmit={saveFa} className="space-y-4">
-              <div>
-                <label className="mb-1 block text-sm font-semibold">Title *</label>
-                <input value={faForm.title} onChange={(e) => setFaForm(f => ({ ...f, title: e.target.value }))} className="w-full rounded-2xl border border-gray-200 px-4 py-3" />
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label className="mb-2 block text-sm font-semibold">Title * (Required)</label>
+                  <input 
+                    value={faForm.title} 
+                    onChange={(e) => setFaForm(f => ({ ...f, title: e.target.value }))} 
+                    placeholder="e.g., Cattle Health Check"
+                    className="w-full rounded-2xl border border-gray-300 px-4 py-3 focus:border-yellow-500 focus:outline-none" 
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="mb-2 block text-sm font-semibold">Headline (Optional)</label>
+                  <input 
+                    value={faForm.headline} 
+                    onChange={(e) => setFaForm(f => ({ ...f, headline: e.target.value }))} 
+                    placeholder="e.g., Weekly Wellness Program"
+                    className="w-full rounded-2xl border border-gray-300 px-4 py-3 focus:border-yellow-500 focus:outline-none" 
+                  />
+                </div>
               </div>
+
               <div>
-                <label className="mb-1 block text-sm font-semibold">Headline</label>
-                <input value={faForm.headline} onChange={(e) => setFaForm(f => ({ ...f, headline: e.target.value }))} className="w-full rounded-2xl border border-gray-200 px-4 py-3" />
+                <label className="mb-2 block text-sm font-semibold">Description / Details</label>
+                <textarea 
+                  value={faForm.body} 
+                  onChange={(e) => setFaForm(f => ({ ...f, body: e.target.value }))} 
+                  rows={4} 
+                  placeholder="Provide detailed information about this farm activity, health checks, updates, etc."
+                  className="w-full rounded-2xl border border-gray-300 px-4 py-3 focus:border-yellow-500 focus:outline-none resize-none" 
+                />
               </div>
+
               <div>
-                <label className="mb-1 block text-sm font-semibold">Body</label>
-                <textarea value={faForm.body} onChange={(e) => setFaForm(f => ({ ...f, body: e.target.value }))} rows={4} className="w-full rounded-2xl border border-gray-200 px-4 py-3" />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-semibold">Photos (up to 4)</label>
+                <label className="mb-2 block text-sm font-semibold">Photos (up to 4) * (Required)</label>
                 <ImageUploader onUpload={handleFaUpload} folder="farm-activities" multiple maxImages={4} />
                 {faForm.photos.length > 0 && (
-                  <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                    {faForm.photos.map((p, i) => (
-                      <img key={`${p}-${i}`} src={p} alt={`photo-${i}`} className={`w-full object-cover ${i === 0 ? 'col-span-2 row-span-2 h-64 sm:h-64' : 'h-32'} rounded-2xl`} />
-                    ))}
+                  <div className="mt-4">
+                    <p className="text-xs font-semibold text-green-600 mb-3">✓ {faForm.photos.length} photo(s) ready</p>
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                      {faForm.photos.map((p, i) => (
+                        <div key={`${p}-${i}`} className="relative group rounded-xl overflow-hidden border-2 border-green-200 bg-green-50">
+                          <img 
+                            src={p} 
+                            alt={`photo-${i}`} 
+                            className={`w-full object-cover ${i === 0 ? 'col-span-2 row-span-2 h-40 sm:h-40' : 'h-32'} rounded-xl`} 
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFaForm(f => ({
+                                ...f,
+                                photos: f.photos.filter((_, idx) => idx !== i)
+                              }));
+                            }}
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <button type="submit" disabled={faLoading} className="w-full rounded-full bg-black px-6 py-3 text-white sm:w-auto">{faEditId ? 'Update' : 'Create'}</button>
-                <button type="button" onClick={() => { setFaEditId(null); setFaForm({ title: '', headline: '', body: '', photos: [] }); }} className="w-full rounded-full bg-gray-200 px-6 py-3 sm:w-auto">Reset</button>
+
+              <div className="flex flex-col gap-3 sm:flex-row pt-4">
+                <button 
+                  type="submit" 
+                  disabled={faLoading || faForm.photos.length === 0} 
+                  className="w-full rounded-full bg-black px-6 py-3 text-white font-semibold hover:bg-gray-800 disabled:bg-gray-400 sm:w-auto transition"
+                >
+                  {faLoading ? 'Saving...' : faEditId ? '✓ Update Activity' : '+ Create Activity'}
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => { 
+                    setFaEditId(null); 
+                    setFaForm({ title: '', headline: '', body: '', photos: [] }); 
+                  }} 
+                  className="w-full rounded-full bg-gray-200 px-6 py-3 font-semibold hover:bg-gray-300 sm:w-auto transition"
+                >
+                  Reset
+                </button>
               </div>
             </form>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {farmActivitiesList.map((act) => (
-              <article key={act._id} className="rounded-2xl bg-white p-6 shadow">
-                <div className="grid gap-4 md:grid-cols-3">
-                  <div className="md:col-span-2">
-                    <div className="mb-2 text-xs uppercase tracking-[0.2em] text-gray-500">{act.headline}</div>
-                    <h3 className="mb-2 text-xl font-bold">{act.title}</h3>
-                    <p className="mb-4 text-gray-600">{act.body}</p>
-                    <div className="flex flex-col gap-2 sm:flex-row">
-                      <button onClick={() => handleFaEdit(act)} className="rounded bg-blue-600 px-4 py-2 text-white">Edit</button>
-                      <button onClick={() => handleFaDelete(act._id)} className="rounded bg-red-600 px-4 py-2 text-white">Delete</button>
+          {farmActivitiesList.length === 0 ? (
+            <div className="rounded-2xl bg-white p-8 text-center text-gray-500 border border-gray-200">
+              <p className="text-lg font-semibold">No farm activities yet</p>
+              <p className="text-sm mt-1">Create your first activity above to get started!</p>
+            </div>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2">
+              {farmActivitiesList.map((act) => (
+                <article key={act._id} className="rounded-2xl bg-white p-6 shadow hover:shadow-lg transition border border-gray-200">
+                  <div className="grid gap-4">
+                    <div>
+                      <div className="mb-2 text-xs uppercase tracking-[0.2em] text-yellow-600 font-semibold">{act.headline || 'Farm Activity'}</div>
+                      <h3 className="mb-2 text-xl font-bold">{act.title}</h3>
+                      <p className="mb-4 text-gray-600 line-clamp-3">{act.body}</p>
+                      <div className="flex flex-col gap-2 sm:flex-row">
+                        <button onClick={() => handleFaEdit(act)} className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-white text-sm hover:bg-blue-700 transition">Edit</button>
+                        <button onClick={() => handleFaDelete(act._id)} className="flex-1 rounded-lg bg-red-600 px-4 py-2 text-white text-sm hover:bg-red-700 transition">Delete</button>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      {act.photos && act.photos.length > 0 ? (
+                        <div className="grid gap-2">
+                          {act.photos.slice(0, 4).map((p, idx) => (
+                            <img 
+                              key={idx} 
+                              src={p.url || p} 
+                              alt={`photo-${idx}`} 
+                              className={`w-full object-cover ${idx === 0 ? 'h-40' : 'h-20'} rounded-lg`} 
+                              onError={(e) => {
+                                e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999" font-size="14"%3EImage Error%3C/text%3E%3C/svg%3E';
+                              }}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="flex h-20 items-center justify-center rounded-lg bg-gray-100 text-gray-400 text-sm">No photos available</div>
+                      )}
                     </div>
                   </div>
-                  <div className="md:col-span-1">
-                    {act.photos && act.photos.length > 0 ? (
-                      <div className="grid gap-2">
-                        {act.photos.slice(0,4).map((p, idx) => (
-                          <img key={idx} src={p.url || p} alt={`photo-${idx}`} className={`w-full object-cover ${idx === 0 ? 'h-40' : 'h-20'} rounded-lg`} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="flex h-40 items-center justify-center rounded-lg bg-gray-100 text-gray-400">No photos</div>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
 
         {activities.length === 0 ? (
