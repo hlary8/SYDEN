@@ -6,7 +6,7 @@ import { useSEO } from '../hooks/useSEO';
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  'name': 'DELEON ENTERPRISES',
+  'name': 'DELOEN ENTERPRISES',
   'url': 'https://deleon.co.ke',
   'description': 'Land opportunities, veterinary services and fresh produce across Kenya.',
   'contactPoint': {
@@ -21,8 +21,8 @@ export default function HomePage() {
   const theme = themes[brand];
 
   useSEO({
-    title: 'DELEON ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
-    description: 'DELEON ENTERPRISES: Three pillars of agricultural excellence. Land opportunities, veterinary services and fresh produce across Kenya. DELEON land, Syden livestock, DeeFresh farming.',
+    title: 'DELOEN ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
+    description: 'DELOEN ENTERPRISES LIMITED: Three pillars of agricultural excellence. Land opportunities, veterinary services and fresh produce across Kenya. DELEON land, Syden livestock, DeeFresh farming.',
     canonical: 'https://deleon.co.ke/',
     ogTitle: 'DELEON ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
     ogDescription: 'Three pillars. One vision. Land, livestock and harvest.',

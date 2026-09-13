@@ -259,8 +259,8 @@ export default function NewsFormModal({ article, onClose, onSuccess }) {
                   background: '#FFFFFF'
                 }}
               >
-                <option value="holdings">DELEON</option>
-                <option value="deleon">DELEON</option>
+                <option value="holdings">DELOEN</option>
+                <option value="deleon">DELOEN</option>
                 <option value="syden">Syden</option>
                 <option value="deefresh">DeeFresh</option>
                 <option value="sustainability">Sustainability</option>

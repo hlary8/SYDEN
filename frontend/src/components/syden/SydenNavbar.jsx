@@ -18,7 +18,7 @@ export default function SydenNavbar() {
             <Link to="/syden/admin" className="px-4 py-2 rounded-full bg-[#E2725B] text-white font-semibold hover:bg-opacity-90 transition-colors">Admin</Link>
           )}
           <Link to="/syden/contact" className="px-4 py-2 rounded-full bg-[#E2725B] text-white font-semibold hover:bg-opacity-90 transition-colors">Contact</Link>
-          <Link to="/" className="text-sm text-slate-700 hover:text-slate-900 transition-colors">DELEON</Link>
+          <Link to="/" className="text-sm text-slate-700 hover:text-slate-900 transition-colors">DELOEN</Link>
         </div>
 
         {user?.role === 'admin' && (

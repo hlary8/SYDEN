@@ -7,7 +7,7 @@ export default function DeLeonEnterprisesFooter() {
     <footer className="bg-[var(--primary)] text-[var(--bg)] py-12">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
         <div>
-          <h3 className="text-lg font-bold mb-3">DELEON</h3>
+          <h3 className="text-lg font-bold mb-3">DELOEN</h3>
           <p className="text-sm text-[var(--bg)]/80">Land opportunities in Kenya. Agricultural and development land in Laikipia and Meru counties.</p>
         </div>
         <div>
@@ -23,7 +23,7 @@ export default function DeLeonEnterprisesFooter() {
           <h3 className="text-lg font-bold mb-3">Contact</h3>
           <p className="text-sm text-[var(--bg)]/80">inquiries@deleon.co.ke</p>
           <p className="text-sm text-[var(--bg)]/80">+254 700 110 220</p>
-          <p className="text-sm text-[var(--bg)]/80 mt-4">© {year} DELEON ENTERPRISES. All rights reserved.</p>
+          <p className="text-sm text-[var(--bg)]/80 mt-4">© {year} DELOEN ENTERPRISES LIMITED. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -11,7 +11,7 @@ const getCanonicalBase = () => {
  */
 export const useSEO = (config) => {
   const {
-    title = 'DELEON ENTERPRISES',
+    title = 'DELOEN ENTERPRISES',
     description = 'Land, livestock and agricultural solutions in Kenya.',
     canonical = `${getCanonicalBase()}`,
     ogTitle = null,

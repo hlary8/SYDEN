@@ -30,7 +30,7 @@ export function Navbar() {
           className={`${currentTheme.headingFont} text-2xl font-bold`}
           style={{ color: currentTheme.primary }}
         >
-          DELEON
+          DELOEN
         </motion.div>
 
         {/* Brand Switcher */}
