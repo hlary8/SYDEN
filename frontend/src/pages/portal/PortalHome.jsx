@@ -49,7 +49,7 @@ const mobileSlides = [
   {
     id: 'deleon',
     image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698429/WhatsApp_Image_2026-08-14_at_11.25.33_r2o5fu.jpg',
-    title: 'DeLeon',
+    title: 'DeLoen',
     subtitle: 'Premium land stewardship' 
   },
   {
@@ -103,10 +103,10 @@ export default function PortalHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useSEO({
-    title: 'DELEON ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
-    description: 'DELEON ENTERPRISES: Three pillars of agricultural excellence. DELEON land opportunities, Syden veterinary services, DeeFresh fresh produce in Kenya.',
-    canonical: 'https://deleon.co.ke/',
-    ogTitle: 'DELEON ENTERPRISES | Kenya',
+    title: 'DELOEN ENTERPRISES LIMITED | Land, Livestock & Fresh Produce Kenya',
+    description: 'DELOEN ENTERPRISES LIMITED: Three pillars of agricultural excellence. DeLoen land opportunities, Syden veterinary services, DeeFresh fresh produce in Kenya.',
+    canonical: 'https://deloen.co.ke/',
+    ogTitle: 'DELOEN ENTERPRISES LIMITED | Kenya',
     ogDescription: 'Land, livestock and harvest across Kenya.'
   });
 
@@ -140,7 +140,7 @@ export default function PortalHome() {
             <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--holdings-accent)]">Cultivating Excellence</div>
             <div className="space-y-6">
               <h1 className="max-w-3xl text-[clamp(3rem,6vw,6rem)] font-serif uppercase tracking-[0.15em] leading-[0.9]">THE ART IN<br />THE FARM</h1>
-              <p className="max-w-xl text-base leading-8 text-[var(--holdings-text-muted)]">From fertile soil to flourishing enterprises, DELEON ENTERPRISES crafts legacies across land, livestock, and harvest.</p>
+              <p className="max-w-xl text-base leading-8 text-[var(--holdings-text-muted)]">From fertile soil to flourishing enterprises, DELOEN ENTERPRISES LIMITED crafts legacies across land, livestock, and harvest.</p>
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link to="/houses" className="inline-flex items-center justify-center rounded-full border border-white px-10 py-4 text-sm uppercase tracking-[0.18em] transition-colors duration-300 hover:bg-white hover:text-black">
@@ -245,8 +245,8 @@ export default function PortalHome() {
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-[11px] uppercase tracking-[0.2em] text-[#6B5F49]">OUR COMPANIES</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 lg:gap-10">
-            {['DeLeon', 'Syden', 'DeeFresh'].map((name) => (
-              <Link key={name} to={name === 'DeLeon' ? '/deleon' : name === 'Syden' ? '/syden' : '/deefresh'} className="flex h-24 w-24 items-center justify-center rounded-full border border-[#DDD] bg-white text-sm font-semibold uppercase tracking-[0.18em] text-[#111] transition duration-300 hover:scale-110 hover:shadow-2xl">
+            {['DeLoen', 'Syden', 'DeeFresh'].map((name) => (
+              <Link key={name} to={name === 'DeLoen' ? '/deleon' : name === 'Syden' ? '/syden' : '/deefresh'} className="flex h-24 w-24 items-center justify-center rounded-full border border-[#DDD] bg-white text-sm font-semibold uppercase tracking-[0.18em] text-[#111] transition duration-300 hover:scale-110 hover:shadow-2xl">
                 {name}
               </Link>
             ))}
@@ -268,7 +268,7 @@ export default function PortalHome() {
 
           <div className="house-scroll-container md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:[&>*]:max-w-none md:[&>*]:flex-none overflow-x-auto snap-x snap-mandatory">
             {[
-              { brand: 'DELEON', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg', href: '/history' },
+              { brand: 'DELOEN', title: 'Premium Real Estate', desc: 'Legacy land portfolios and curated estates.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698444/WhatsApp_Image_2026-08-14_at_11.25.34_zkxxz8.jpg', href: '/history' },
               { brand: 'DeeFresh', title: 'Nature\'s Finest Harvest', desc: 'Farm-to-table freshness and premium seeds.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698436/WhatsApp_Image_2026-08-14_at_11.25.35_l8otp4.jpg', href: '/history' },
               { brand: 'Syden', title: 'The Science of Healthy Livestock', desc: 'Veterinary excellence & pastoral heritage.', image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg', href: '/history' }
             ].map((item) => (
@@ -286,8 +286,8 @@ export default function PortalHome() {
       <section className="relative overflow-hidden border-t border-[var(--holdings-border)] bg-[#0d0d0d] px-4 py-20 sm:px-6 lg:px-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(201,169,110,0.08),_transparent_55%)]" />
         <div className="relative mx-auto max-w-5xl text-center">
-          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--holdings-accent)]">The DeLeon Story</p>
-          <h2 className="mt-5 font-serif text-4xl text-white md:text-6xl"> DELEON </h2>
+          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--holdings-accent)]">The DeLoen Story</p>
+          <h2 className="mt-5 font-serif text-4xl text-white md:text-6xl"> DELOEN </h2>
           <div className="mt-10 overflow-hidden rounded-none border border-[#C9A96E] bg-black/30 shadow-[0_25px_80px_rgba(0,0,0,0.3)]">
             <VideoShowcase />
           </div>

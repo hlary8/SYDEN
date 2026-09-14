@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 const slides = [
   {
     image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788105550/IMG-20260814-WA0052.jpg',
-    alt: 'DeLeon Land'
+    alt: 'DeLoen Land'
   },
   {
     image: 'https://res.cloudinary.com/tmcloud1/image/upload/v1786698439/WhatsApp_Image_2026-08-14_at_11.25.32_xvbhl8.jpg',

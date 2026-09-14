@@ -7,7 +7,7 @@ export default function DeeFreshProduce() {
   useSEO({
     title: 'Fresh Produce | DeeFresh Kenya',
     description: 'Browse fresh produce from DeeFresh. Quality vegetables, fruits and produce in Kenya with direct farmer connections.',
-    canonical: 'https://deleon.co.ke/deefresh/produce',
+    canonical: 'https://deloen.co.ke/deefresh/produce',
     ogTitle: 'Fresh Produce | DeeFresh',
     ogDescription: 'Quality fresh produce from Kenya.'
   });

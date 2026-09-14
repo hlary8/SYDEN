@@ -31,7 +31,7 @@ export default function ParentNavbar() {
             </span>
           </button>
           
-          <Link to="/" className="text-sm font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:tracking-[0.28em]">DeLeon</Link>
+          <Link to="/" className="text-sm font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:tracking-[0.28em]">DeLoen</Link>
 
           <div className="flex items-center gap-3">
             {user ? (
@@ -78,7 +78,7 @@ export default function ParentNavbar() {
             <Link to="/history" className="hover:text-white transition-colors duration-300">HISTORY</Link>
           </div>
 
-          <Link to="/" className="text-xs font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:text-sm sm:tracking-[0.3em]">D E L E O N</Link>
+          <Link to="/" className="text-xs font-serif uppercase tracking-[0.18em] text-[var(--holdings-text)] sm:text-sm sm:tracking-[0.3em]">D E L O E N</Link>
 
           <div className="flex items-center gap-8">
             <NotificationBell />

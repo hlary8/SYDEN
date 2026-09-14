@@ -7,7 +7,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   'name': 'DELOEN ENTERPRISES',
-  'url': 'https://deleon.co.ke',
+  'url': 'https://deloen.co.ke',
   'description': 'Land opportunities, veterinary services and fresh produce across Kenya.',
   'contactPoint': {
     '@type': 'ContactPoint',
@@ -22,9 +22,9 @@ export default function HomePage() {
 
   useSEO({
     title: 'DELOEN ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
-    description: 'DELOEN ENTERPRISES LIMITED: Three pillars of agricultural excellence. Land opportunities, veterinary services and fresh produce across Kenya. DELEON land, Syden livestock, DeeFresh farming.',
-    canonical: 'https://deleon.co.ke/',
-    ogTitle: 'DELEON ENTERPRISES | Land, Livestock & Fresh Produce Kenya',
+    description: 'DELOEN ENTERPRISES LIMITED: Three pillars of agricultural excellence. Land opportunities, veterinary services and fresh produce across Kenya. DeLoen land, Syden livestock, DeeFresh farming.',
+    canonical: 'https://deloen.co.ke/',
+    ogTitle: 'DELOEN ENTERPRISES LIMITED | Land, Livestock & Fresh Produce Kenya',
     ogDescription: 'Three pillars. One vision. Land, livestock and harvest.',
     ogType: 'website',
     structuredData: organizationSchema
@@ -46,7 +46,7 @@ export default function HomePage() {
             transition={{ delay: 0.1 }}
             className={`${theme.headingFont} text-6xl font-bold mb-6`}
           >
-            DELEON ENTERPRISES
+            DELOEN ENTERPRISES LIMITED
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -73,7 +73,7 @@ export default function HomePage() {
         <h2 className={`${theme.headingFont} text-4xl font-bold text-center mb-12`}>Our Pillars</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { name: 'DELEON', desc: 'Land opportunities in Laikipia and Meru, Kenya', icon: '🏞️' },
+            { name: 'DELOEN', desc: 'Land opportunities in Laikipia and Meru, Kenya', icon: '🏞️' },
             { name: 'Syden', desc: 'Veterinary services, livestock and agricultural solutions', icon: '🐄' },
             { name: 'DeeFresh', desc: 'Farming, agronomical support and fresh produce', icon: '🍅' }
           ].map((brand, i) => (

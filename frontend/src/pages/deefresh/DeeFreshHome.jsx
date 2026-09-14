@@ -106,7 +106,7 @@ export default function DeeFreshHome() {
   useSEO({
     title: 'DeeFresh | Fresh Produce, Farming & Agronomy Kenya',
     description: 'DeeFresh connects farmers, producers and customers with fresh produce, agronomical consulting and market connections in Kenya. Farm support and seed supplies.',
-    canonical: 'https://deleon.co.ke/deefresh',
+    canonical: 'https://deloen.co.ke/deefresh',
     ogTitle: 'DeeFresh | Fresh Produce & Farming Kenya',
     ogDescription: 'Farm to market: Fresh produce and farming solutions in Kenya.'
   });

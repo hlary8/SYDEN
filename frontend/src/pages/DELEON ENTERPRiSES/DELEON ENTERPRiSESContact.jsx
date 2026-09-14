@@ -2,22 +2,22 @@ import { useSEO } from '../../hooks/useSEO';
 
 export default function DeLeonEnterprisesContact() {
   useSEO({
-    title: 'Contact DELEON | Land Inquiries Kenya',
-    description: 'Contact the DELEON land team with questions about available properties, listings and land opportunities in Laikipia and Meru, Kenya.',
+    title: 'Contact DeLoen | Land Inquiries Kenya',
+    description: 'Contact the DeLoen land team with questions about available properties, listings and land opportunities in Laikipia and Meru, Kenya.',
     canonical: 'https://deleon1.co.ke/deleon/contact',
-    ogTitle: 'Contact DELEON | Land Kenya',
-    ogDescription: 'Reach DELEON for land opportunity inquiries.'
+    ogTitle: 'Contact DeLoen | Land Kenya',
+    ogDescription: 'Reach DeLoen for land opportunity inquiries.'
   });
 
   return (
     <div className="bg-[var(--bg)] min-h-screen px-4 py-12 text-[var(--text)]">
       <div className="max-w-4xl mx-auto rounded-3xl bg-white p-10 shadow-2xl">
-        <h1 className="text-5xl font-bold mb-6">Contact DELEON</h1>
-        <p className="text-lg text-gray-700 mb-8">Reach the DELEON land team with questions about available properties, listings and land opportunities in Laikipia and Meru.</p>
+        <h1 className="text-5xl font-bold mb-6">Contact DeLoen</h1>
+        <p className="text-lg text-gray-700 mb-8">Reach the DeLoen land team with questions about available properties, listings and land opportunities in Laikipia and Meru.</p>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl bg-[var(--surface)] p-6">
             <h2 className="text-xl font-semibold mb-3">Inquiries</h2>
-            <p>DELEON Land Team</p>
+            <p>DeLoen Land Team</p>
             <p>sydencompanylimited@gmail.com</p>
             <p>+254 724 306 613</p>
           </div>

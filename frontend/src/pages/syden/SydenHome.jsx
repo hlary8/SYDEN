@@ -37,7 +37,7 @@ export default function SydenHome() {
   useSEO({
     title: 'Syden | Veterinary Services, Livestock & Agricultural Solutions Kenya',
     description: 'Syden provides veterinary services, livestock management and agricultural solutions for farmers and producers in Kenya. Professional animal health care and farm support.',
-    canonical: 'https://deleon.co.ke/syden',
+    canonical: 'https://deloen.co.ke/syden',
     ogTitle: 'Syden | Veterinary Services & Livestock Kenya',
     ogDescription: 'Professional animal health care, livestock management and farm support services in Kenya.'
   });

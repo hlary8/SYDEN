@@ -19,7 +19,7 @@ const companySlides = [
   {
     id: 'deleon',
     image: 'https://res.cloudinary.com/gcne2xno/image/upload/v1788109786/WhatsApp_Image_2026-08-14_at_15.30.15_1.jpg',
-    title: 'DELEON Land',
+    title: 'DELOEN Land',
     subtitle: 'Premium Land Stewardship'
   },
   {
@@ -52,10 +52,10 @@ export default function DeLeonEnterprisesHome() {
   const [companyIndex, setCompanyIndex] = useState(0);
 
   useSEO({
-    title: 'DELEON | Land Opportunities in Kenya',
-    description: 'DELEON offers agricultural and development land in Laikipia and Meru. Transparent pricing, clear ownership and direct access to land investors and entrepreneurs across Kenya.',
+    title: 'DELOEN | Land Opportunities in Kenya',
+    description: 'DELOEN offers agricultural and development land in Laikipia and Meru. Transparent pricing, clear ownership and direct access to land investors and entrepreneurs across Kenya.',
     canonical: 'https://deleon1.onrender.com/deleon',
-    ogTitle: 'DELEON | Land Opportunities in Kenya',
+    ogTitle: 'DELOEN | Land Opportunities in Kenya',
     ogDescription: 'Land ownership opportunities in Laikipia and Meru counties, Kenya.',
     ogType: 'website'
   });
@@ -98,7 +98,7 @@ export default function DeLeonEnterprisesHome() {
                 Land Opportunities in Kenya
               </h1>
               <p className="text-base lg:text-lg mb-8 text-gray-700">
-                DELEON offers agricultural and development land in Laikipia and Meru. Transparent pricing, clear ownership and direct access to land entrepreneurs and investors across Kenya.
+                DeLoen offers agricultural and development land in Laikipia and Meru. Transparent pricing, clear ownership and direct access to land entrepreneurs and investors across Kenya.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 

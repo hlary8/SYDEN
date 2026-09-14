@@ -8,7 +8,7 @@ export default function Houses() {
   const deefreshImage = import.meta.env.VITE_DEEFRESH_HOUSE_IMAGE || 'https://res.cloudinary.com/gcne2xno/image/upload/v1788102131/IMG-20260814-WA0127.jpg';
 
   const quickLinks = [
-    { name: 'DeLeon', href: '/deleon', image: deleonImage },
+    { name: 'DeLoen', href: '/deleon', image: deleonImage },
     { name: 'Syden', href: '/syden', image: sydenImage },
     { name: 'DeeFresh', href: '/deefresh', image: deefreshImage }
   ];
@@ -39,24 +39,24 @@ export default function Houses() {
         </div>
       </section>
 
-      {/* DELEON Section */}
+      {/* DELOEN Section */}
       <section className="px-4 md:px-6 py-12 md:py-[120px] border-t border-[#E5E5E5]">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12">
           <div className="lg:w-1/2">
             <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4AF37]">THE COMPANY</p>
-            <h2 className="mt-4 font-serif text-2xl md:text-4xl">DELEON</h2>
+            <h2 className="mt-4 font-serif text-2xl md:text-4xl">DELOEN</h2>
             <h3 className="mt-2 text-lg md:text-xl font-semibold">The Land Legacy</h3>
-            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">Founded on the principle that land is the foundation of all prosperity, DELEON has spent over a decade curating premium agricultural and development parcels across East Africa. From the rolling highlands of Laikipia to the fertile plains of Meru, every acre is surveyed, fenced, and title-deed ready. We do not merely sell land — we deliver legacy. Each parcel comes with environmental assessments, infrastructure mapping, and a commitment to sustainable stewardship that spans generations.</p>
-            <Link to="/deleon" className="inline-block mt-6 underline text-[#D4AF37] hover:text-black text-sm md:text-base">Explore DELEON →</Link>
+            <p className="mt-6 text-sm md:text-base leading-[1.8] text-[#222]">Founded on the principle that land is the foundation of all prosperity, DeLoen has spent over a decade curating premium agricultural and development parcels across East Africa. From the rolling highlands of Laikipia to the fertile plains of Meru, every acre is surveyed, fenced, and title-deed ready. We do not merely sell land — we deliver legacy. Each parcel comes with environmental assessments, infrastructure mapping, and a commitment to sustainable stewardship that spans generations.</p>
+            <Link to="/deleon" className="inline-block mt-6 underline text-[#D4AF37] hover:text-black text-sm md:text-base">Explore DeLoen →</Link>
           </div>
           <div className="lg:w-1/2 w-full">
             <CinematicHero
               mediaUrl={import.meta.env.VITE_DELEON_HOUSE_MEDIA || deleonImage}
               posterUrl={import.meta.env.VITE_DELEON_HOUSE_POSTER || (deleonImage + '?w=200&blur=200')}
               label="THE LAND LEGACY"
-              headline="At DeLeon, We Craft<br/>The Earth"
+              headline="At DeLoen, We Craft<br/>The Earth"
               subheadline="Premium fenced land in Laikipia & Meru. Title-ready. Environmentally assessed. Legacy-grade."
-              ctas={[{ label: 'Explore DeLeon →', to: '/deleon', variant: 'primary' }]}
+              ctas={[{ label: 'Explore DeLoen →', to: '/deleon', variant: 'primary' }]}
             />
             <p className="mt-3 text-xs md:text-sm text-gray-500">Laikipia Highlands, Kenya</p>
           </div>

@@ -143,7 +143,7 @@ export default function Sustainability() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="mb-8 grid gap-4 md:grid-cols-3">
           {[
-            ['For the Land', 'DELEON land conservation, Laikipia & Meru stewardship'],
+            ['For the Land', 'DeLoen land conservation, Laikipia & Meru stewardship'],
             ['For the Animals', 'Syden livestock, vet welfare standards'],
             ['For the People', 'DeeFresh fair farmer partnerships, agronomical training']
           ].map(([title, text]) => (
